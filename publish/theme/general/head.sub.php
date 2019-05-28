@@ -66,7 +66,10 @@ var g5_sca       = "<?php echo isset($sca)?$sca:''; ?>";
 var g5_editor    = "<?php echo ($config['cf_editor'] && $board['bo_use_dhtml_editor'])?$config['cf_editor']:''; ?>";
 var g5_cookie_domain = "<?php echo G5_COOKIE_DOMAIN ?>";
 </script>
-<script src="<?php echo G5_JS_URL ?>/jquery-1.8.3.min.js"></script>
+<link rel="stylesheet" href="<?php echo G5_ASSETS_URL ?>/css/bootstrap.min.css">
+<link rel="stylesheet" href="<?php echo G5_ASSETS_URL ?>/css/custom.css">
+<script src="<?php echo G5_ASSETS_URL ?>/js/jquery-1.12.4.min.js"></script>
+<script src="<?php echo G5_ASSETS_URL ?>/js/bootstrap.bundle.min.js"></script>
 <?php
 if (defined('_SHOP_')) {
     if(!G5_IS_MOBILE) {
