@@ -66,7 +66,9 @@ var g5_sca       = "<?php echo isset($sca)?$sca:''; ?>";
 var g5_editor    = "<?php echo ($config['cf_editor'] && $board['bo_use_dhtml_editor'])?$config['cf_editor']:''; ?>";
 var g5_cookie_domain = "<?php echo G5_COOKIE_DOMAIN ?>";
 </script>
+<link rel="stylesheet" href="<?php echo G5_ASSETS_URL ?>/css/swiper.min.css">
 <link rel="stylesheet" href="<?php echo G5_ASSETS_URL ?>/css/bootstrap.min.css">
+<link rel="stylesheet" href="<?php echo G5_ASSETS_URL ?>/css/common.css">
 <link rel="stylesheet" href="<?php echo G5_ASSETS_URL ?>/css/custom.css">
 <script src="<?php echo G5_ASSETS_URL ?>/js/jquery-1.12.4.min.js"></script>
 <script src="<?php echo G5_ASSETS_URL ?>/js/bootstrap.bundle.min.js"></script>
@@ -92,6 +94,9 @@ if(G5_IS_MOBILE) {
 if(!defined('G5_IS_ADMIN'))
     echo $config['cf_add_script'];
 ?>
+
+<link rel=" shortcut icon" href="<?php echo G5_URL; ?>/favicon.ico">
+<link rel="icon" href="<?php echo G5_URL; ?>/favicon.ico">
 </head>
 <body<?php echo isset($g5['body_script']) ? $g5['body_script'] : ''; ?>>
 <?php

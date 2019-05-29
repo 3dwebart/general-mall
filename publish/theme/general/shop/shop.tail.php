@@ -10,11 +10,13 @@ $admin = get_admin("super");
 
 // 사용자 화면 우측과 하단을 담당하는 페이지입니다.
 // 우측, 하단 화면을 꾸미려면 이 파일을 수정합니다.
+if(!defined('_INDEX_')):
 ?>
 			</div>
-			<!-- } 콘텐츠 끝 -->	
+			<!-- } 콘텐츠 끝 -->
 		</div> <!-- / row -->
 	</div> <!-- / container -->
+	<?php endif; ?>
 </div>
 <!-- /Wrapper -->
 <!-- 하단 시작 { -->
@@ -75,7 +77,22 @@ if ($config['cf_analytics']) {
 
 <script src="<?php echo G5_JS_URL; ?>/sns.js"></script>
 <!-- } 하단 끝 -->
-
+<script src="<?php echo G5_ASSETS_URL ?>/js/swiper.min.js"></script>
+<script src="<?php echo G5_ASSETS_URL ?>/js/custom.js"></script>
+<script>
+var swiper = new Swiper('.swiper-container', {
+    speed: 400,
+    spaceBetween: 100,
+    navigation: {
+		nextEl: '.swiper-button-next',
+		prevEl: '.swiper-button-prev',
+	},
+	autoplay: {
+		delay: 4000,
+	},
+	loop: true,
+});
+</script>
 <?php
 include_once(G5_THEME_PATH.'/tail.sub.php');
 ?>

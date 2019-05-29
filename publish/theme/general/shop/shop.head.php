@@ -55,7 +55,6 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
 		</div>
 	</header>
 </section>
-	
 <!-- 상단 시작 { -->
 <div id="hd">
 	<h1 id="hd_h1"><?php echo $g5['title'] ?></h1>
@@ -73,7 +72,7 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
 			<li class="tnb_left tnb_shop"><a href="<?php echo G5_SHOP_URL; ?>/"><i class="fa fa-shopping-bag" aria-hidden="true"></i> 쇼핑몰</a></li>
 			<li class="tnb_left tnb_community"><a href="<?php echo G5_URL; ?>/"><i class="fa fa-home" aria-hidden="true"></i> 커뮤니티</a></li>
 			<?php } ?>
-			<li class="tnb_cart"><a href="<?php echo G5_SHOP_URL; ?>/cart.php"><i class="fa fa-shopping-cart" aria-hidden="true"></i> 장바구니</a></li>            
+			<li class="tnb_cart"><a href="<?php echo G5_SHOP_URL; ?>/cart.php"><i class="fa fa-shopping-cart" aria-hidden="true"></i> 장바구니</a></li>			
 			<li><a href="<?php echo G5_SHOP_URL; ?>/mypage.php">마이페이지</a></li>
 			<?php if ($is_member) { ?>
 
@@ -90,29 +89,56 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
 	</div>
 	-->
 	<div id="hd_wrapper">
-		<div class="container">
-			<div id="logo"><a href="<?php echo G5_SHOP_URL; ?>/"><img src="<?php echo G5_DATA_URL; ?>/common/logo_img" alt="<?php echo $config['cf_title']; ?>"></a></div>
+		<div class="container h-100">
+			<div class="row h-100 align-items-center">
+				<div class="col-lg-3">
+					<div id="logo">
+						<a href="<?php echo G5_SHOP_URL; ?>/">
+							<img src="<?php echo G5_DATA_URL; ?>/common/logo_img" alt="<?php echo $config['cf_title']; ?>">
+						</a>
+					</div>
+				</div>
+				<div class="col-lg-5">
+					<div id="hd_sch">
+						<h3>쇼핑몰 검색</h3>
+						<form name="frmsearch1" action="<?php echo G5_SHOP_URL; ?>/search.php" onsubmit="return search_submit(this);">
 
-			<div id="hd_sch">
-				<h3>쇼핑몰 검색</h3>
-				<form name="frmsearch1" action="<?php echo G5_SHOP_URL; ?>/search.php" onsubmit="return search_submit(this);">
+						<label for="sch_str" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
+						<input type="text" name="q" value="<?php echo stripslashes(get_text(get_search_string($q))); ?>" id="sch_str" required>
+						<button type="submit" id="sch_submit"><i class="fa fa-search" aria-hidden="true"></i><span class="sound_only">검색</span></button>
 
-				<label for="sch_str" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
-				<input type="text" name="q" value="<?php echo stripslashes(get_text(get_search_string($q))); ?>" id="sch_str" required>
-				<button type="submit" id="sch_submit"><i class="fa fa-search" aria-hidden="true"></i><span class="sound_only">검색</span></button>
-
-				</form>
-				<script>
-				function search_submit(f) {
-					if (f.q.value.length < 2) {
-						alert("검색어는 두글자 이상 입력하십시오.");
-						f.q.select();
-						f.q.focus();
-						return false;
-					}
-					return true;
-				}
-				</script>
+						</form>
+						<script>
+						function search_submit(f) {
+							if (f.q.value.length < 2) {
+								alert("검색어는 두글자 이상 입력하십시오.");
+								f.q.select();
+								f.q.focus();
+								return false;
+							}
+							return true;
+						}
+						</script>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="row mx-0">
+						<div class="col-lg-4 px-0 d-flex align-items-center">
+							<span class="font-2-5rem"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
+							<span class="px-2">3 Cart</span>
+							<?php // SELECT Cart ?>
+						</div>
+						<div class="col-lg-4 px-0 d-flex align-items-center">
+							<span class="font-2-5rem"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
+							<span class="px-2">Wish list (0)</span>
+							<?php // SELECT g5_shop_wish_table ?>
+						</div>
+						<div class="col-lg-4 px-0 d-flex align-items-center">
+							<span class="font-2-5rem"><i class="fa fa-user-o" aria-hidden="true"></i></span>
+							<span class="px-2">Sign In Or Join My Site</span>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 
@@ -189,10 +215,10 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
 
 
 <script>
-$(function (){
+$(function () {
 
 	$(".btn_sidemenu_cl").on("click", function() {
-		$(".side_menu_wr").toggle();
+		$(".side_menu_wr").toggleClass('on');
 		$(".fa-outdent").toggleClass("fa-indent")
 	});
 
@@ -218,13 +244,12 @@ $(function (){
 </script>
 <!-- } 상단 끝 -->
 <div id="wrapper">
-	<div class="container">
-
-		<div class="row">
-			<div id="side-nav" class="col-lg-3"><!-- id="aside" -->
+	<div class="container px-lg-0">
+		<div class="row mx-lg-0">
+			<div id="side-nav" class="col-lg-2 px-lg-0"><!-- id="aside" -->
 				<?php include_once(G5_SHOP_SKIN_PATH.'/boxcategory.skin.php'); // 상품분류 ?>
 				<?php include_once(G5_THEME_SHOP_PATH.'/category.php'); // 분류 ?>
-				<?php if($default['de_type4_list_use']) { ?>
+				<?php /* if($default['de_type4_list_use']) { ?>
 				<!-- 인기상품 시작 { -->
 				<section class="sale_prd">
 					<h2><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=4">인기상품</a></h2>
@@ -242,22 +267,54 @@ $(function (){
 					?>
 				</section>
 				<!-- } 인기상품 끝 -->
-				<?php } ?>
+				<?php } */?>
 
 				<!-- 커뮤니티 최신글 시작 { -->
+				<!--
 				<section id="sidx_lat">
 					<h2>커뮤니티 최신글</h2>
 					<?php echo latest('theme/shop_basic', 'notice', 5, 30); ?>
 				</section>
+				-->
 				<!-- } 커뮤니티 최신글 끝 -->
 
-				<?php echo poll('theme/shop_basic'); // 설문조사 ?>
+				<?php // echo poll('theme/shop_basic'); // 설문조사 ?>
 
-				<?php echo visit('theme/shop_basic'); // 접속자 ?>
+				<?php // echo visit('theme/shop_basic'); // 접속자 ?>
 			</div>
-
 			<!-- 콘텐츠 시작 { -->
-			<div class="col-lg-9"><!-- id="container" -->
+			<div id="container" class="col-lg-10 px-lg-0">
+				<!-- Slider main container -->
+				<div class="swiper-container">
+					<!-- Additional required wrapper -->
+					<div class="swiper-wrapper">
+						<!-- Slides -->
+						<div class="swiper-slide">
+							<img src="<?php echo G5_ASSETS_URL; ?>/img/index/slide/slide-1.png" alt="">
+						</div>
+						<div class="swiper-slide">
+							<img src="<?php echo G5_ASSETS_URL; ?>/img/index/slide/slide-2.png" alt="">
+						</div>
+						<div class="swiper-slide">
+							<img src="<?php echo G5_ASSETS_URL; ?>/img/index/slide/slide-3.png" alt="">
+						</div>
+						<div class="swiper-slide">
+							<img src="<?php echo G5_ASSETS_URL; ?>/img/index/slide/slide-4.png" alt="">
+						</div>
+						<div class="swiper-slide">
+							<img src="<?php echo G5_ASSETS_URL; ?>/img/index/slide/slide-5.png" alt="">
+						</div>
+					</div>
+					<!-- If we need pagination -->
+					<div class="swiper-pagination"></div>
+
+					<!-- If we need navigation buttons -->
+					<div class="swiper-button-prev"></div>
+					<div class="swiper-button-next"></div>
+
+					<!-- If we need scrollbar -->
+					<div class="swiper-scrollbar"></div>
+				</div>
 				<?php if ((!$bo_table || $w == 's' ) && !defined('_INDEX_')) { ?><div id="wrapper_title"><?php echo $g5['title'] ?></div><?php } ?>
 				<!-- 글자크기 조정 display:none 되어 있음 시작 { -->
 				<div id="text_size">
@@ -266,3 +323,9 @@ $(function (){
 					<button class="no_text_resize" onclick="font_resize('container', 'increase');">크게</button>
 				</div>
 				<!-- } 글자크기 조정 display:none 되어 있음 끝 -->
+	<?php if(defined('_INDEX_')): ?>
+			</div>
+			<!-- } 콘텐츠 끝 -->
+		</div><!-- / row -->
+	</div><!-- / container -->
+	<?php endif; ?>
