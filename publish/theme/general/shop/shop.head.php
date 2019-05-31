@@ -14,6 +14,7 @@ include_once(G5_LIB_PATH.'/connect.lib.php');
 include_once(G5_LIB_PATH.'/popular.lib.php');
 include_once(G5_LIB_PATH.'/latest.lib.php');
 ?>
+<script src="<?php echo G5_ASSETS_URL ?>/js/swiper.min.js"></script>
 <section class="tab-bar-wrap">
 	<header class="top-bar container">
 		<div class="shop-nav">
@@ -33,20 +34,20 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
 				</div>
 			</div>
 			<div class="dropdown">
-				<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<button class="btn dropdown-toggle" type="button" id="dropdownCountry" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				Country
 				</button>
-				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-					<a class="dropdown-item" href="#">Action</a>
+				<div class="dropdown-menu" aria-labelledby="dropdownCountry">
+					<a class="dropdown-item" href="#">USA</a>
 					<a class="dropdown-item" href="#">Another action</a>
 					<a class="dropdown-item" href="#">Something else here</a>
 				</div>
 			</div>
 			<div class="dropdown">
-				<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				Checkout
 				</button>
-				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
 					<a class="dropdown-item" href="#">Action</a>
 					<a class="dropdown-item" href="#">Another action</a>
 					<a class="dropdown-item" href="#">Something else here</a>
@@ -123,20 +124,129 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
 				</div>
 				<div class="col-lg-4">
 					<div class="row mx-0">
-						<div class="col-lg-4 px-0 d-flex align-items-center">
-							<span class="font-2-5rem"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
-							<span class="px-2">3 Cart</span>
-							<?php // SELECT Cart ?>
+						<!-- BIGIN :: Menu Quick cart view -->
+						<?php
+							$sql = "SELECT * FROM {$g5['g5_shop_cart_table']} 
+									WHERE ct_direct = 0 AND ct_select = 0";
+							$res = sql_query($sql);
+							$count = sql_num_rows($res);
+							$s_cart_id = get_session('ss_cart_id');
+							$cart_action_url = G5_SHOP_URL.'/cartupdate.php';
+						?>
+						<div class="col-lg-6 px-0 shop-cart-list">
+							<div class="dropdown">
+								<button class="btn dropdown-toggle d-flex align-items-center" type="button" id="dropdownCart" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<span class="font-2-5rem"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
+									<span class="px-2"><?php echo $count; ?> Cart</span>
+								</button>
+								<div class="dropdown-menu items-list" aria-labelledby="dropdownCart">
+									<div class="no-items<?php if ($count == 0) {echo " not";} ?>">
+										No shopping cart items
+									</div>
+									<form action="<?php echo $cart_action_url; ?>" method="post" enctype="multipart/form-data" name="cartlist" id="cartlist">
+										<input type="hidden" name="act" value="">
+										<input type="hidden" name="type" value="cart">
+										<input type="hidden" name="records" value="<?php echo $count; ?>">
+										<?php
+											$calc_price = 0;
+
+											while ($row = sql_fetch_array($res)) {
+												$calc_price += $row['ct_price'];
+												$price = ($row['ct_price'] + $row['io_price']) * $row['ct_qty'];
+												$item_sql = "SELECT * 
+													FROM {$g5['g5_shop_item_table']}
+													WHERE it_id = {$row['it_id']}";
+												$item_row = sql_fetch($item_sql);
+										?>
+										<div class="row m-0 align-items-center item-wrap">
+											<input type="hidden" name="it_id[]" value="<?php echo $item_row['it_id']; ?>">
+											<input type="hidden" name="it_name[]" value="<?php echo $item_row['it_name']; ?>">
+											<div class="col-2 px-0 py-2">
+												<?php echo '<img src="'.G5_DATA_URL.'/item/'.$item_row['it_img1'].'" alt="'.$item_row['it_name'].'" class="img-fluid" />'; ?>
+											</div>
+											<div class="col-6 py-2">
+												<?php echo $item_row['it_name']; ?>
+											</div>
+											<div class="col-2 py-2">
+												<?php echo number_format($price); ?>
+											</div>
+											<div class="col-2 py-2 text-right">
+												<button class="del btn" data-id="<?php echo $item_row['it_id']; ?>" data-act="del"><i class="fa fa-close"></i></button>
+											</div>
+										</div>
+										<?php
+											} // END while
+										?>
+										
+										<div class="menu-cartlist-price">
+											<span class="shipping-fee">Shipping fee : <?php echo $send_cost = get_sendcost($s_cart_id, 0); ?></span>
+											<span class="total-price">Total : <?php echo number_format($calc_price + get_sendcost($s_cart_id, 0)); ?></span>
+										</div>
+										<button type="submit" class="btn btn-outline-secondary">Checkout</button>
+									</form>
+									<!-- <a class="dropdown-item" href="#">USA</a>
+									<a class="dropdown-item" href="#">Another action</a>
+									<a class="dropdown-item" href="#">Something else here</a> -->
+								</div>
+							</div>
 						</div>
-						<div class="col-lg-4 px-0 d-flex align-items-center">
-							<span class="font-2-5rem"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
-							<span class="px-2">Wish list (0)</span>
-							<?php // SELECT g5_shop_wish_table ?>
+						<!-- END :: Menu Quick cart view -->
+						<!-- BIGIN :: Menu Quick wish view -->
+						<?php
+							$sql = "SELECT * FROM {$g5['g5_shop_wish_table']}";
+							$res = sql_query($sql);
+							$count = sql_num_rows($res);
+							//$cart_action_url = G5_SHOP_URL.'/cartupdate.php';
+							$cart_action_url = '#';
+						?>
+						<div class="col-lg-6 px-0 shop-wish-list">
+							<div class="dropdown">
+								<button class="btn dropdown-toggle d-flex align-items-center" type="button" id="dropdownWish" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<span class="font-2-5rem"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
+									<span class="px-2">Wish list (<?php echo $count; ?>)</span>
+								</button>
+								<div class="dropdown-menu items-list" aria-labelledby="dropdownWish">
+									<div class="no-items<?php if ($count == 0) {echo " not";} ?>">
+										No shopping wishlist items
+									</div>
+									<form action="<?php echo $cart_action_url; ?>" method="post" enctype="multipart/form-data" name="cartlist" id="cartlist">
+										<input type="hidden" name="act" value="">
+										<input type="hidden" name="type" value="wish">
+										<input type="hidden" name="records" value="<?php echo $count; ?>">
+										
+										<?php
+											$calc_price = 0;
+
+											while ($row = sql_fetch_array($res)) {
+												$item_sql = "SELECT * 
+													FROM {$g5['g5_shop_item_table']}
+													WHERE it_id = {$row['it_id']}";
+												$item_row = sql_fetch($item_sql);
+										?>
+										<div class="row m-0 align-items-center item-wrap">
+											<input type="hidden" name="it_id[]" value="<?php echo $item_row['it_id']; ?>">
+											<input type="hidden" name="it_name[]" value="<?php echo $item_row['it_name']; ?>">
+											<div class="col-2 px-0 py-2">
+												<?php echo '<img src="'.G5_DATA_URL.'/item/'.$item_row['it_img1'].'" alt="'.$item_row['it_name'].'" class="img-fluid" />'; ?>
+											</div>
+											<div class="col-6 py-2">
+												<?php echo $item_row['it_name']; ?>
+											</div>
+											<div class="col-2 py-2">
+												<?php echo number_format($price); ?>
+											</div>
+											<div class="col-2 py-2 text-right">
+												<button class="del btn" data-id="<?php echo $item_row['it_id']; ?>" data-act="del"><i class="fa fa-close"></i></button>
+											</div>
+										</div>
+										<?php
+											} // END while
+										?>
+									</form>
+								</div>
+							</div>
 						</div>
-						<div class="col-lg-4 px-0 d-flex align-items-center">
-							<span class="font-2-5rem"><i class="fa fa-user-o" aria-hidden="true"></i></span>
-							<span class="px-2">Sign In Or Join My Site</span>
-						</div>
+						<!-- END :: Menu Quick wish view -->
 					</div>
 				</div>
 			</div>
@@ -215,8 +325,40 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
 
 
 <script>
+var g5_shop_url = '<?php echo G5_SHOP_URL; ?>';
 $(function () {
-
+	$(document).on('click', '.del', function() {
+		var curThis = $(this);
+		var f = $(this).closest('form');
+		var type = f.find('input[name="type"]').val();
+		
+		var id   = $(this).data('id');
+		var act  = $(this).data('act');
+		$.ajax({
+			url : g5_shop_url + "/ajax.item.check.php",
+			type: "post",
+			data: 
+				{
+					type: type,
+					act: act,
+					id: id
+				},
+			dataType: "json",
+			cache: false,
+			timeout: 30000,
+			success: function(data) {
+				//debugger;
+				if(data.cnt == 0) {
+					curThis.closest('.item-wrap').find('.no-items').addClass('not');
+				}
+				curThis.closest('.item-wrap').remove();
+			},
+			error: function(xhr, textStatus, errorThrown) {
+				$("div").html("<div>" + textStatus + " (HTTP-" + xhr.status + " / " + errorThrown + ")</div>" );
+			}
+		});
+		return false;
+	});
 	$(".btn_sidemenu_cl").on("click", function() {
 		$(".side_menu_wr").toggleClass('on');
 		$(".fa-outdent").toggleClass("fa-indent")
@@ -240,7 +382,7 @@ $(function () {
 	$('body')
 		.on('mouseenter mouseleave','.dropdown',toggleDropdown)
 		.on('click', '.dropdown-menu a', toggleDropdown);
-	});
+});
 </script>
 <!-- } 상단 끝 -->
 <div id="wrapper">
@@ -267,7 +409,7 @@ $(function () {
 					?>
 				</section>
 				<!-- } 인기상품 끝 -->
-				<?php } */?>
+				<?php } ?>
 
 				<!-- 커뮤니티 최신글 시작 { -->
 				<!--
@@ -280,12 +422,13 @@ $(function () {
 
 				<?php // echo poll('theme/shop_basic'); // 설문조사 ?>
 
-				<?php // echo visit('theme/shop_basic'); // 접속자 ?>
+				<?php // echo visit('theme/shop_basic'); // 접속자*/ ?>
 			</div>
 			<!-- 콘텐츠 시작 { -->
 			<div id="container" class="col-lg-10 px-lg-0">
 				<!-- Slider main container -->
-				<div class="swiper-container">
+				<?php if (defined('_INDEX_')): ?>
+				<div class="swiper-container main-slide">
 					<!-- Additional required wrapper -->
 					<div class="swiper-wrapper">
 						<!-- Slides -->
@@ -315,6 +458,7 @@ $(function () {
 					<!-- If we need scrollbar -->
 					<div class="swiper-scrollbar"></div>
 				</div>
+				<?php endif ?>
 				<?php if ((!$bo_table || $w == 's' ) && !defined('_INDEX_')) { ?><div id="wrapper_title"><?php echo $g5['title'] ?></div><?php } ?>
 				<!-- 글자크기 조정 display:none 되어 있음 시작 { -->
 				<div id="text_size">

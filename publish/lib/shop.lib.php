@@ -83,6 +83,7 @@ class item_list
     protected $view_it_cust_price = false;  // 소비자가
     protected $view_it_icon = false;        // 아이콘
     protected $view_sns = false;            // SNS
+    protected $view_sort = "DESC";            // SNS
 
     // 몇번째 class 호출인지를 저장합니다.
     protected $count = 0;
@@ -440,6 +441,64 @@ function get_it_image($it_id, $width, $height=0, $anchor=false, $img_id='', $img
     return $img;
 }
 
+// 상품 이미지를 얻고 Bootstrap의 반응형 이미지로 변환 - 2019-05-29 추가
+function get_it_image_responsive($it_id, $width, $height=0, $anchor=false, $img_id='', $img_alt='', $is_crop=false)
+{
+    global $g5;
+
+    if(!$it_id || !$width)
+        return '';
+
+    $sql = " SELECT it_id, it_img1, it_img2, it_img3, it_img4, it_img5, it_img6, it_img7, it_img8, it_img9, it_img10 FROM {$g5['g5_shop_item_table']} WHERE it_id = '$it_id' ";
+    $row = sql_fetch($sql);
+
+    if(!$row['it_id'])
+        return '';
+
+    for($i=1;$i<=10; $i++) {
+        $file = G5_DATA_PATH.'/item/'.$row['it_img'.$i];
+        if(is_file($file) && $row['it_img'.$i]) {
+            $size = @getimagesize($file);
+            if($size[2] < 1 || $size[2] > 3)
+                continue;
+
+            $filename = basename($file);
+            $filepath = dirname($file);
+            $img_width = $size[0];
+            $img_height = $size[1];
+
+            break;
+        }
+    }
+
+    if($img_width && !$height) {
+        $height = round(($width * $img_height) / $img_width);
+    }
+
+    if($filename) {
+        //thumbnail($filename, $source_path, $target_path, $thumb_width, $thumb_height, $is_create, $is_crop=false, $crop_mode='center', $is_sharpen=true, $um_value='80/0.5/3')
+        $thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, $is_crop, 'center', false, $um_value='80/0.5/3');
+    }
+
+    if($thumb) {
+        $file_url = str_replace(G5_PATH, G5_URL, $filepath.'/'.$thumb);
+        $img = '<img src="'.$file_url.'" alt="'.$img_alt.'" class="img-fluid"';
+    } else {
+        $img = '<img src="'.G5_SHOP_URL.'/img/no_image.gif" class="img-fluid"';
+        if($height)
+            $img .= ' height="'.$height.'"';
+        $img .= ' alt="'.$img_alt.'"';
+    }
+
+    if($img_id)
+        $img .= ' id="'.$img_id.'"';
+    $img .= '>';
+
+    if($anchor)
+        $img = '<a href="'.G5_SHOP_URL.'/item.php?it_id='.$it_id.'">'.$img.'</a>';
+
+    return $img;
+}
 
 // 상품이미지 썸네일 생성
 function get_it_thumbnail($img, $width, $height=0, $id='', $is_crop=false)
@@ -1508,6 +1567,36 @@ function get_sns_share_link($sns, $url, $title, $img)
         case 'kakaotalk':
             if($config['cf_kakao_js_apikey'])
                 $str = '<a href="javascript:kakaolink_send(\''.str_replace('+', ' ', urlencode($title)).'\', \''.urlencode($url).'\');" class="share-kakaotalk"><img src="'.$img.'" alt="카카오톡 링크보내기"></a>';
+            break;
+    }
+
+    return $str;
+}
+
+// sns 공유하기
+function get_sns_share_link_2($sns, $url, $title, $icon)
+{
+    global $config;
+
+    if(!$sns)
+        return '';
+
+    switch($sns) {
+        case 'facebook':
+            $str = '<a href="https://www.facebook.com/sharer/sharer.php?u='.urlencode($url).'&amp;p='.urlencode($title).'" class="share-facebook" target="_blank"><i class="fa fa-'.$icon.'""></i></a>';
+            break;
+        case 'twitter':
+            $str = '<a href="https://twitter.com/share?url='.urlencode($url).'&amp;text='.urlencode($title).'" class="share-twitter" target="_blank"><i class="fa fa-'.$icon.'""></i></a>';
+            break;
+        case 'googleplus':
+            $str = '<a href="https://plus.google.com/share?url='.urlencode($url).'" class="share-googleplus" target="_blank"><i class="fa fa-'.$icon.'""></i></a>';
+            break;
+        case 'instagram':
+            $str = '<a href="https://www.instagram.com/'.$title.'/?hl=en" class="share-googleplus" target="_blank"><i class="fa fa-'.$icon.'""></i></a>';
+            break;
+        case 'kakaotalk':
+            if($config['cf_kakao_js_apikey'])
+                $str = '<a href="javascript:kakaolink_send(\''.str_replace('+', ' ', urlencode($title)).'\', \''.urlencode($url).'\');" class="share-kakaotalk"><i class="fa fa-'.$icon.'""></i></a>';
             break;
     }
 

@@ -12,4 +12,10 @@
 	jQuery(window).scroll(function() {
 		topButton();
 	});
+	/********** BIGIN :: Header control **********/
+	/***** BIGIN :: Header custom menu *****/
+	// Cart menu
+	//
+	/***** END :: Header custom menu *****/
+	/********** END :: Header control **********/
 })(jQuery);

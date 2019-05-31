@@ -46,15 +46,15 @@ include_once('./_head.php');
         <thead>
         <tr>
             <th scope="col">
-                <label for="ct_all" class="sound_only">상품 전체</label>
+                <label for="ct_all" class="sound_only">All products</label>
                 <input type="checkbox" name="ct_all" value="1" id="ct_all" checked="checked">
             </th>
-            <th scope="col">상품명</th>
-            <th scope="col">총수량</th>
-            <th scope="col">판매가</th>
-            <th scope="col">포인트</th>
-            <th scope="col">배송비</th>
-            <th scope="col">소계</th>
+            <th scope="col">Product name</th>
+            <th scope="col">Total volume</th>
+            <th scope="col">Price</th>
+            <th scope="col">Point</th>
+            <th scope="col">Shipping fee</th>
+            <th scope="col">Sub Total</th>
         </tr>
         </thead>
         <tbody>
@@ -113,13 +113,13 @@ include_once('./_head.php');
             switch($row['ct_send_cost'])
             {
                 case 1:
-                    $ct_send_cost = '착불';
+                    $ct_send_cost = 'Cash on delivery';
                     break;
                 case 2:
-                    $ct_send_cost = '무료';
+                    $ct_send_cost = 'free';
                     break;
                 default:
-                    $ct_send_cost = '선불';
+                    $ct_send_cost = 'prepayment';
                     break;
             }
 
@@ -128,7 +128,7 @@ include_once('./_head.php');
                 $sendcost = get_item_sendcost($row['it_id'], $sum['price'], $sum['qty'], $s_cart_id);
 
                 if($sendcost == 0)
-                    $ct_send_cost = '무료';
+                    $ct_send_cost = 'free';
             }
 
             $point      = $sum['point'];
@@ -137,7 +137,7 @@ include_once('./_head.php');
 
         <tr>
             <td class="td_chk">
-                <label for="ct_chk_<?php echo $i; ?>" class="sound_only">상품</label>
+                <label for="ct_chk_<?php echo $i; ?>" class="sound_only">product</label>
                 <input type="checkbox" name="ct_chk[<?php echo $i; ?>]" value="1" id="ct_chk_<?php echo $i; ?>" checked="checked">
             </td> 
             
@@ -163,7 +163,7 @@ include_once('./_head.php');
         } // for 끝
 
         if ($i == 0) {
-            echo '<tr><td colspan="8" class="empty_table">장바구니에 담긴 상품이 없습니다.</td></tr>';
+            echo '<tr><td colspan="8" class="empty_table">There are no products contained in the shopping cart.</td></tr>';
         } else {
             // 배송비 계산
             $send_cost = get_sendcost($s_cart_id, 0);
@@ -172,8 +172,8 @@ include_once('./_head.php');
         </tbody>
         </table>
         <div class="btn_cart_del">
-            <button type="button" onclick="return form_check('seldelete');">선택삭제</button>
-            <button type="button" onclick="return form_check('alldelete');">비우기</button>
+            <button type="button" onclick="return form_check('seldelete');">Delete selected</button>
+            <button type="button" onclick="return form_check('alldelete');">Empty</button>
         </div>
     </div>
 
@@ -204,13 +204,13 @@ include_once('./_head.php');
 
     <div id="sod_bsk_act">
         <?php if ($i == 0) { ?>
-        <a href="<?php echo G5_SHOP_URL; ?>/" class="btn01">쇼핑 계속하기</a>
+        <a href="<?php echo G5_SHOP_URL; ?>/" class="btn01">Continue Shopping</a>
         <?php } else { ?>
         <input type="hidden" name="url" value="./orderform.php">
         <input type="hidden" name="records" value="<?php echo $i; ?>">
         <input type="hidden" name="act" value="">
         <a href="<?php echo G5_SHOP_URL; ?>/list.php?ca_id=<?php echo $continue_ca_id; ?>" class="btn01">쇼핑 계속하기</a>
-        <button type="button" onclick="return form_check('buy');" class="btn_submit"><i class="fa fa-credit-card" aria-hidden="true"></i> 주문하기</button>
+        <button type="button" onclick="return form_check('buy');" class="btn_submit"><i class="fa fa-credit-card" aria-hidden="true"></i> Ordering</button>
 
         <?php if ($naverpay_button_js) { ?>
         <div class="cart-naverpay"><?php echo $naverpay_request_js.$naverpay_button_js; ?></div>
