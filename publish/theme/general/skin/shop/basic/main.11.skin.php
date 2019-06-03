@@ -105,7 +105,7 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
 		echo "<div class=\"item-sns\">";
 		echo get_sns_share_link_2('facebook', $sns_url, $sns_title, 'facebook');
 		echo get_sns_share_link_2('twitter', $sns_url, $sns_title, 'twitter');
-		echo get_sns_share_link_2('googleplus', $sns_url, $sns_title, 'google-plus');
+		echo get_sns_share_link_2('instagram', $sns_url, 'barskorea', 'instagram');
 		echo "</div>\n";
 	}
 

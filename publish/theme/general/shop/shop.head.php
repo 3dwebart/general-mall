@@ -162,7 +162,7 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
 											<input type="hidden" name="it_id[]" value="<?php echo $item_row['it_id']; ?>">
 											<input type="hidden" name="it_name[]" value="<?php echo $item_row['it_name']; ?>">
 											<div class="col-2 px-0 py-2">
-												<?php echo '<img src="'.G5_DATA_URL.'/item/'.$item_row['it_img1'].'" alt="'.$item_row['it_name'].'" class="img-fluid" />'; ?>
+												<?php echo '<a href="'.G5_SHOP_URL.'/item.php?it_id='.$item_row['it_id'].'"><img src="'.G5_DATA_URL.'/item/'.$item_row['it_img1'].'" alt="'.$item_row['it_name'].'" class="img-fluid" /></a>'; ?>
 											</div>
 											<div class="col-6 py-2">
 												<?php echo $item_row['it_name']; ?>
@@ -227,7 +227,7 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
 											<input type="hidden" name="it_id[]" value="<?php echo $item_row['it_id']; ?>">
 											<input type="hidden" name="it_name[]" value="<?php echo $item_row['it_name']; ?>">
 											<div class="col-2 px-0 py-2">
-												<?php echo '<img src="'.G5_DATA_URL.'/item/'.$item_row['it_img1'].'" alt="'.$item_row['it_name'].'" class="img-fluid" />'; ?>
+												<?php echo '<a href="'.G5_SHOP_URL.'/item.php?it_id='.$item_row['it_id'].'"><img src="'.G5_DATA_URL.'/item/'.$item_row['it_img1'].'" alt="'.$item_row['it_name'].'" class="img-fluid" /></a>'; ?>
 											</div>
 											<div class="col-6 py-2">
 												<?php echo $item_row['it_name']; ?>

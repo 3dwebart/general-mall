@@ -262,4 +262,7 @@ button:focus {
 	width: 230px;
 	transition: all .5s ease;
 }
-
+/**/
+#sod_bsk_act .btn01 {
+	width: auto;
+}
