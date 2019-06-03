@@ -23,10 +23,10 @@ if(!defined('_INDEX_')):
 <div id="ft">
 	<div class="ft_wr">
 		<ul class="ft_ul">
-			<li><a href="<?php echo G5_BBS_URL; ?>/content.php?co_id=company">회사소개</a></li>
-			<li><a href="<?php echo G5_BBS_URL; ?>/content.php?co_id=provision">서비스이용약관</a></li>
-			<li><a href="<?php echo G5_BBS_URL; ?>/content.php?co_id=privacy">개인정보처리방침</a></li>
-			<li><a href="<?php echo get_device_change_url(); ?>">모바일버전</a></li>
+			<li><a href="<?php echo G5_BBS_URL; ?>/content.php?co_id=company">About Us</a></li>
+			<li><a href="<?php echo G5_BBS_URL; ?>/content.php?co_id=provision">Terms of Service</a></li>
+			<li><a href="<?php echo G5_BBS_URL; ?>/content.php?co_id=privacy">Privacy Statement</a></li>
+			<li><a href="<?php echo get_device_change_url(); ?>">Mobile version</a></li>
 		</ul>
 		
 		<a href="<?php echo G5_SHOP_URL; ?>/" id="ft_logo"><img src="<?php echo G5_DATA_URL; ?>/common/logo_img2" alt="처음으로"></a>

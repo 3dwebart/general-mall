@@ -32,7 +32,7 @@ if(!$is_admin) {
         alert($msg, G5_SHOP_URL);
 }
 
-$g5['title'] = $ca['ca_name'].' 상품리스트';
+$g5['title'] = $ca['ca_name'].' Item List';
 
 if ($ca['ca_include_head'] && is_include_path_check($ca['ca_include_head']))
     @include_once($ca['ca_include_head']);
@@ -61,7 +61,7 @@ if($ca['ca_skin_dir']) {
 define('G5_SHOP_CSS_URL', str_replace(G5_PATH, G5_URL, $skin_dir));
 
 if ($is_admin)
-    echo '<div class="sct_admin"><a href="'.G5_ADMIN_URL.'/shop_admin/categoryform.php?w=u&amp;ca_id='.$ca_id.'" class="btn_admin">분류 관리</a></div>';
+    echo '<div class="sct_admin"><a href="'.G5_ADMIN_URL.'/shop_admin/categoryform.php?w=u&amp;ca_id='.$ca_id.'" class="btn_admin">Classification management</a></div>';
 ?>
 
 <script>

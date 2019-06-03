@@ -271,19 +271,19 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
 								<a class="nav-link" href="<?php echo G5_URL; ?>"><i class="fa fa-home"></i> <span class="sr-only">(current)</span></a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=1">히트상품</a>
+								<a class="nav-link" href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=1">Hit item</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=2">추천상품</a>
+								<a class="nav-link" href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=2">Recommend item</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=3">최신상품</a>
+								<a class="nav-link" href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=3">Latest item</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=4">인기상품</a>
+								<a class="nav-link" href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=4">Best item</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=5">할인상품</a>
+								<a class="nav-link" href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=5">Discount Item</a>
 							</li>
 							<li class="nav-item dropdown">
 								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -291,11 +291,11 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
 								</a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 									<a class="dropdown-item" href="<?php echo G5_BBS_URL; ?>/faq.php">FAQ</a>
-									<a class="dropdown-item" href="<?php echo G5_BBS_URL; ?>/qalist.php">1:1문의</a>
+									<a class="dropdown-item" href="<?php echo G5_BBS_URL; ?>/qalist.php">1 : 1 contact</a>
 									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" href="<?php echo G5_SHOP_URL; ?>/personalpay.php">개인결제</a>
-									<a class="dropdown-item" href="<?php echo G5_SHOP_URL; ?>/itemuselist.php">사용후기</a>
-									<a class="dropdown-item" href="<?php echo G5_SHOP_URL; ?>/couponzone.php">쿠폰존</a>
+									<a class="dropdown-item" href="<?php echo G5_SHOP_URL; ?>/personalpay.php">Personal payment</a>
+									<a class="dropdown-item" href="<?php echo G5_SHOP_URL; ?>/itemuselist.php">Reviews</a>
+									<a class="dropdown-item" href="<?php echo G5_SHOP_URL; ?>/couponzone.php">Coupon Zone</a>
 								</div>
 							</li>
 						</ul>
@@ -307,15 +307,15 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
 </div>
 
 <div id="side_menu">
-	<button type="button" id="btn_sidemenu" class="btn_sidemenu_cl"><i class="fa fa-outdent" aria-hidden="true"></i><span class="sound_only">사이드메뉴버튼</span></button>
+	<button type="button" id="btn_sidemenu" class="btn_sidemenu_cl"><i class="fa fa-outdent" aria-hidden="true"></i><span class="sound_only">Side menu button</span></button>
 	<div class="side_menu_wr">
 		<?php echo outlogin('theme/shop_basic'); // 아웃로그인 ?>
 		<div class="side_menu_shop">
-			<button type="button" class="btn_side_shop">오늘본상품<span class="count"><?php echo get_view_today_items_count(); ?></span></button>
+			<button type="button" class="btn_side_shop">Today's Products<span class="count"><?php echo get_view_today_items_count(); ?></span></button>
 			<?php include(G5_SHOP_SKIN_PATH.'/boxtodayview.skin.php'); // 오늘 본 상품 ?>
-			<button type="button" class="btn_side_shop">장바구니<span class="count"><?php echo get_boxcart_datas_count(); ?></span></button>
+			<button type="button" class="btn_side_shop">Shopping basket<span class="count"><?php echo get_boxcart_datas_count(); ?></span></button>
 			<?php include_once(G5_SHOP_SKIN_PATH.'/boxcart.skin.php'); // 장바구니 ?>
-			<button type="button" class="btn_side_shop">위시리스트<span class="count"><?php echo get_wishlist_datas_count(); ?></span></button>
+			<button type="button" class="btn_side_shop">Wish list<span class="count"><?php echo get_wishlist_datas_count(); ?></span></button>
 			<?php include_once(G5_SHOP_SKIN_PATH.'/boxwish.skin.php'); // 위시리스트 ?>
 		</div>
 		<?php include_once(G5_SHOP_SKIN_PATH.'/boxcommunity.skin.php'); // 커뮤니티 ?>

@@ -158,7 +158,7 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
 	echo "</div>\n";
 }
 
-if ($i > 1) echo "</ul>\n";
+if ($i > 1) echo "</div>\n";
 
 if($i == 1) echo "<p class=\"sct_noitem\">등록된 상품이 없습니다.</p>\n";
 ?>
