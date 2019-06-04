@@ -34,16 +34,6 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
 				</div>
 			</div>
 			<div class="dropdown">
-				<button class="btn dropdown-toggle" type="button" id="dropdownCountry" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				Country
-				</button>
-				<div class="dropdown-menu" aria-labelledby="dropdownCountry">
-					<a class="dropdown-item" href="#">USA</a>
-					<a class="dropdown-item" href="#">Another action</a>
-					<a class="dropdown-item" href="#">Something else here</a>
-				</div>
-			</div>
-			<div class="dropdown">
 				<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				Checkout
 				</button>
@@ -51,6 +41,29 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
 					<a class="dropdown-item" href="#">Action</a>
 					<a class="dropdown-item" href="#">Another action</a>
 					<a class="dropdown-item" href="#">Something else here</a>
+				</div>
+			</div>
+			<div class="dropdown">
+				<button class="btn dropdown-toggle" type="button" id="dropdownCountry" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				Account
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownCountry">
+					<?php if(G5_COMMUNITY_USE) { ?>
+					<a class="dropdown-item" href="<?php echo G5_SHOP_URL; ?>/"><i class="fa fa-shopping-bag" aria-hidden="true"></i> Shoppingmall</a>
+					<a class="dropdown-item" href="<?php echo G5_URL; ?>/"><i class="fa fa-home" aria-hidden="true"></i> Community</a>
+					<?php } ?>
+					<a class="dropdown-item" href="<?php echo G5_SHOP_URL; ?>/cart.php"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Shopping basket</a>
+					<a class="dropdown-item" href="<?php echo G5_SHOP_URL; ?>/mypage.php">My page</a>
+					<?php if ($is_member) { ?>
+					<a class="dropdown-item" href="<?php echo G5_BBS_URL; ?>/member_confirm.php?url=register_form.php">Edit my information</a>
+					<a class="dropdown-item" href="<?php echo G5_BBS_URL; ?>/logout.php?url=shop">Sign out</a>
+					<?php if ($is_admin) {  ?>
+					<a class="dropdown-item" href="<?php echo G5_ADMIN_URL; ?>/shop_admin/"><b>Administrator</b></a>
+					<?php }  ?>
+					<?php } else { ?>
+					<a class="dropdown-item" href="<?php echo G5_BBS_URL; ?>/register.php">Sign up</a>
+					<a class="dropdown-item" href="<?php echo G5_BBS_URL; ?>/login.php?url=<?php echo $urlencode; ?>"><b>Sign in</b></a>
+					<?php } ?>
 				</div>
 			</div>
 		</div>
@@ -65,30 +78,6 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
 	<?php if(defined('_INDEX_')) { // index에서만 실행
 		include G5_BBS_PATH.'/newwin.inc.php'; // 팝업레이어
 	 } ?>
-	<!--
-	<div id="tnb">
-		<h3>회원메뉴</h3>
-		<ul>
-			<?php if(G5_COMMUNITY_USE) { ?>
-			<li class="tnb_left tnb_shop"><a href="<?php echo G5_SHOP_URL; ?>/"><i class="fa fa-shopping-bag" aria-hidden="true"></i> 쇼핑몰</a></li>
-			<li class="tnb_left tnb_community"><a href="<?php echo G5_URL; ?>/"><i class="fa fa-home" aria-hidden="true"></i> 커뮤니티</a></li>
-			<?php } ?>
-			<li class="tnb_cart"><a href="<?php echo G5_SHOP_URL; ?>/cart.php"><i class="fa fa-shopping-cart" aria-hidden="true"></i> 장바구니</a></li>			
-			<li><a href="<?php echo G5_SHOP_URL; ?>/mypage.php">마이페이지</a></li>
-			<?php if ($is_member) { ?>
-
-			<li><a href="<?php echo G5_BBS_URL; ?>/member_confirm.php?url=register_form.php">정보수정</a></li>
-			<li><a href="<?php echo G5_BBS_URL; ?>/logout.php?url=shop">로그아웃</a></li>
-			<?php if ($is_admin) {  ?>
-			<li class="tnb_admin"><a href="<?php echo G5_ADMIN_URL; ?>/shop_admin/"><b>관리자</b></a></li>
-			<?php }  ?>
-			<?php } else { ?>
-			<li><a href="<?php echo G5_BBS_URL; ?>/register.php">회원가입</a></li>
-			<li><a href="<?php echo G5_BBS_URL; ?>/login.php?url=<?php echo $urlencode; ?>"><b>로그인</b></a></li>
-			<?php } ?>
-		</ul>
-	</div>
-	-->
 	<div id="hd_wrapper">
 		<div class="container h-100">
 			<div class="row h-100 align-items-center">
@@ -130,7 +119,7 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
 									WHERE ct_direct = 0 AND ct_select = 0";
 							$res = sql_query($sql);
 							$count = sql_num_rows($res);
-							$s_cart_id = get_session('ss_cart_id');
+							$s_cart_id_header = get_session('ss_cart_id');
 							$cart_action_url = G5_SHOP_URL.'/cartupdate.php';
 						?>
 						<div class="col-lg-6 px-0 shop-cart-list">
@@ -179,8 +168,8 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
 										?>
 										
 										<div class="menu-cartlist-price">
-											<span class="shipping-fee">Shipping fee : <?php echo $send_cost = get_sendcost($s_cart_id, 0); ?></span>
-											<span class="total-price">Total : <?php echo number_format($calc_price + get_sendcost($s_cart_id, 0)); ?></span>
+											<span class="shipping-fee">Shipping fee : <?php echo $send_cost = number_format(get_sendcost($s_cart_id_header, 0)); ?></span>
+											<span class="total-price">Total : <?php echo number_format($calc_price + get_sendcost($s_cart_id_header, 0)); ?></span>
 										</div>
 										<button type="submit" class="btn btn-outline-secondary">Checkout</button>
 									</form>

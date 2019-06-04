@@ -31,7 +31,7 @@ $s_cart_id = $tmp_cart_id;
 if($default['de_pg_service'] == 'inicis' || $default['de_inicis_lpay_use'])
     set_session('ss_order_inicis_id', $od_id);
 
-$g5['title'] = '주문서 작성';
+$g5['title'] = 'Order Form'; // 주문서 작성
 
 if(G5_IS_MOBILE)
     include_once(G5_MSHOP_PATH.'/_head.php');

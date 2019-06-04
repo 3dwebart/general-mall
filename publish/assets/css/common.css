@@ -1,4 +1,4 @@
-/**/
+*/
 a {
 	color: #333;
 }
@@ -152,7 +152,7 @@ body {
 	justify-content: space-between;
 }
 /********** END :: Header **********/
-/* BIGIN :: Side category nav */
+/********** BIGIN :: Side category nav **********/
 @media(min-width: 992px) {
 	#gnb button {
 		height: 56px;
@@ -234,8 +234,8 @@ button:focus {
 	transition: all ease .5s;
 	background-color: rgba(255,255,255,1);
 }
-/* END :: Side category nav */
-/* BIGIN :: Side category popup menus */
+/********** END :: Side category nav **********/
+/********** BIGIN :: Side category popup menus **********/
 #category .ct_wr {
 	padding: 10px;
 }
@@ -248,8 +248,8 @@ button:focus {
 	float: none;
 	margin-left: 0;
 }
-/* END :: Side category popup menus */
-/* BIGIN :: Side popup menu */
+/********** END :: Side category popup menus **********/
+/********** BIGIN :: Side popup menu **********/
 .side_menu_wr {
 	display: block;
 	opacity: 0;
@@ -262,10 +262,32 @@ button:focus {
 	width: 230px;
 	transition: all .5s ease;
 }
-/**/
+/********** END :: Side popup menu **********/
+/********** BIGIN :: Buttons **********/
+.btn_submit, 
+a.btn_admin, 
+.btn_admin,
+#sit_btn_buy,
+a.btn02 { background-color: rgba(55,55,55,1); border: 1px solid rgba(0,0,0,1); text-decoration: none; }
+.btn_submit:hover, 
+a.btn_admin:hover, 
+.btn_admin:hover,
+#sit_btn_buy:hover,
+a.btn02:hover { background-color: rgba(0,0,0,1); color: rgba(255,255,255,1); }
 #sod_bsk_act .btn01 {
 	width: auto;
 }
+#sit_btn_cart {
+	border: 1px solid #666;
+    background: #fff;
+    color: #666;
+}
+#sit_btn_cart:hover {
+	border: 1px solid #000;
+    background: #fff;
+    color: #000;
+}
+/********** END :: Buttons **********/
 /********** BIGIN :: Footer **********/
 #ft {
 	background-color: rgba(0,0,0,1);
@@ -290,4 +312,7 @@ button:focus {
 #ft .ft_ul li a, #ft .ft_cs p {
 	color: #fff;
 }
-/********** END :: Footer **********/
+#ft .ft_cs p {
+	font-size: 13px;
+}
+/********** END :: Footer *********

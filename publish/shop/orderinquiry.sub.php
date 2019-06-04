@@ -21,13 +21,13 @@ if(defined('G5_THEME_SHOP_PATH')) {
     <table>
     <thead>
     <tr>
-        <th scope="col">주문서번호</th>
-        <th scope="col">주문일시</th>
-        <th scope="col">상품수</th>
-        <th scope="col">주문금액</th>
-        <th scope="col">입금액</th>
-        <th scope="col">미입금액</th>
-        <th scope="col">상태</th>
+        <th scope="col">Order number</th><!-- 주문서번호 -->
+        <th scope="col">Order date</th><!-- 주문일시 -->
+        <th scope="col">Number of items</th><!-- 상품수 -->
+        <th scope="col">Order amount</th><!-- 주문금액 -->
+        <th scope="col">Deposit account</th><!-- 입금액 -->
+        <th scope="col">Amount deposited</th><!-- 미입금액 -->
+        <th scope="col">Status</th><!-- 상태 -->
     </tr>
     </thead>
     <tbody>
@@ -81,7 +81,7 @@ if(defined('G5_THEME_SHOP_PATH')) {
     }
 
     if ($i == 0)
-        echo '<tr><td colspan="7" class="empty_table">주문 내역이 없습니다.</td></tr>';
+        echo '<tr><td colspan="7" class="empty_table">No order history.</td></tr>';
     ?>
     </tbody>
     </table>

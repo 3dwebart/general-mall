@@ -39,7 +39,9 @@ if(!defined('_INDEX_')):
 				</div>
 				<div class="col-lg-6">
 					<div class="ft_info">
-						<span class="d-block"><b>Company name</b> <?php echo $default['de_admin_company_name']; ?></span>
+						<span class="d-block">
+							<b>Company name</b> 
+							<?php echo $default['de_admin_company_name']; ?></span>
 						<span class="d-block"><b>Business address</b> <?php echo $default['de_admin_company_addr']; ?></span>
 						<span class="d-block">
 							<span><b>Business number</b> <?php echo $default['de_admin_company_saupja_no']; ?></span>

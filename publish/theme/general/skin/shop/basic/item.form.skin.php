@@ -70,7 +70,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 				echo '<span class="sound_only">이 분류에 등록된 다른 상품이 없습니다.</span>';
 			}
 			?>
-			<a href="<?php echo G5_SHOP_URL; ?>/largeimage.php?it_id=<?php echo $it['it_id']; ?>&amp;no=1" target="_blank" class="popup_item_image "><i class="fa fa-search-plus" aria-hidden="true"></i><span class="sound_only">확대보기</span></a>
+			<a href="<?php echo G5_SHOP_URL; ?>/largeimage.php?it_id=<?php echo $it['it_id']; ?>&amp;no=1" target="_blank" class="popup_item_image "><i class="fa fa-search-plus" aria-hidden="true"></i><span class="sound_only">View Larger</span></a>
 		</div>
 		<!-- } 다른 상품 보기 끝 -->
 
@@ -81,7 +81,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 			Star<?php echo $star_score?><!-- 개 -->
 			<?php } ?>
 			<span class="st_bg"></span> <i class="fa fa-commenting-o" aria-hidden="true"></i><span class="sound_only">Review</span> <?php echo $it['it_use_cnt']; ?>
-			<span class="st_bg"></span> <i class="fa fa-heart-o" aria-hidden="true"></i><span class="sound_only">Wish</span> <?php echo get_wishlist_count_by_item($it['it_id']); ?>
+			<span class="st_bg"></span> <i class="fa fa-heart-o spin" aria-hidden="true"></i><span class="sound_only">Wish</span> <?php echo get_wishlist_count_by_item($it['it_id']); ?>
 			<button type="button" class="btn_sns_share"><i class="fa fa-share-alt" aria-hidden="true"></i><span class="sound_only">sns sahre</span></button><!-- 공유 -->
 			<div class="sns_area"><?php echo $sns_share_links; ?> <a href="javascript:popup_item_recommend('<?php echo $it['it_id']; ?>');" id="sit_btn_rec"><i class="fa fa-envelope-o" aria-hidden="true"></i><span class="sound_only">Recommended</span></a></div><!-- 추천하기 -->
 		</div>

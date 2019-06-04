@@ -10,7 +10,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 <?php if ($default['de_rel_list_use']) { ?>
 <!-- 관련상품 시작 { -->
 <section id="sit_rel">
-    <h2>관련상품</h2>
+    <h2>Related products</h2>
     <?php
     $rel_skin_file = $skin_dir.'/'.$default['de_rel_list_skin'];
     if(!is_file($rel_skin_file))
@@ -27,18 +27,18 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 
 <!-- 상품 정보 시작 { -->
 <section id="sit_inf">
-    <h2>상품 정보</h2>
+    <h2>Product information</h2>
     <?php echo pg_anchor('inf'); ?>
 
     <?php if ($it['it_basic']) { // 상품 기본설명 ?>
-    <h3>상품 기본설명</h3>
+    <h3>Product basic explanation</h3>
     <div id="sit_inf_basic">
          <?php echo $it['it_basic']; ?>
     </div>
     <?php } ?>
 
     <?php if ($it['it_explan']) { // 상품 상세설명 ?>
-    <h3>상품 상세설명</h3>
+    <h3>Product detailed explanation</h3>
     <div id="sit_inf_explan">
         <?php echo conv_content($it['it_explan'], 1); ?>
     </div>
@@ -52,7 +52,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
             $gubun = $it['it_info_gubun'];
             $info_array = $item_info[$gubun]['article'];
     ?>
-    <h3>상품 정보 고시</h3>
+    <h3>Product Information Notice</h3>
     <table id="sit_inf_open">
     <colgroup>
         <col class="grid_4">

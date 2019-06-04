@@ -2,7 +2,7 @@
 include_once('./_common.php');
 
 if ($is_guest)
-    alert('로그인 한 회원만 접근하실 수 있습니다.', G5_BBS_URL.'/login.php');
+    alert('Only logged in members can access.', G5_BBS_URL.'/login.php');// 로그인 한 회원만 접근하실 수 있습니다.
 
 /*
 if ($url)
@@ -18,7 +18,7 @@ if( function_exists('social_member_comfirm_redirect') && (! $url || $url === 're
     social_member_comfirm_redirect();
 }
 
-$g5['title'] = '회원 비밀번호 확인';
+$g5['title'] = 'Confirm Member Password';
 include_once('./_head.sub.php');
 
 // url 체크

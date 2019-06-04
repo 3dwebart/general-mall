@@ -19,7 +19,7 @@ if(defined('G5_THEME_SHOP_PATH')) {
     }
 }
 
-$g5['title'] = '마이페이지';
+$g5['title'] = 'My page';
 include_once('./_head.php');
 
 // 쿠폰
@@ -38,40 +38,40 @@ for($k=0; $cp=sql_fetch_array($res); $k++) {
 ?>
 
 <!-- 마이페이지 시작 { -->
-<div id="smb_my">
+<div id="smb_my" class="px-3">
 
     <!-- 회원정보 개요 시작 { -->
     <section id="smb_my_ov">
-        <h2>회원정보 개요</h2>
-        <strong class="my_ov_name"><img src="<?php echo G5_THEME_IMG_URL ;?>/no_profile.gif" alt="프로필이미지"> <?php echo $member['mb_name']; ?></strong>
+        <h2>Member Information Overview</h2>
+        <strong class="my_ov_name"><img src="<?php echo G5_THEME_IMG_URL ;?>/no_profile.gif" alt="profile image"> <?php echo $member['mb_name']; ?></strong>
         <dl class="cou_pt">
-            <dt>보유포인트</dt>
-            <dd><a href="<?php echo G5_BBS_URL; ?>/point.php" target="_blank" class="win_point"><?php echo number_format($member['mb_point']); ?></a> 점</dd>
-            <dt>보유쿠폰</dt>
+            <dt>Hold point</dt>
+            <dd><a href="<?php echo G5_BBS_URL; ?>/point.php" target="_blank" class="win_point"><?php echo number_format($member['mb_point']); ?></a> point</dd>
+            <dt>Hold coupon</dt>
             <dd><a href="<?php echo G5_SHOP_URL; ?>/coupon.php" target="_blank" class="win_coupon"><?php echo number_format($cp_count); ?></a></dd>
         </dl>
         <div id="smb_my_act">
             <ul>
-                <?php if ($is_admin == 'super') { ?><li><a href="<?php echo G5_ADMIN_URL; ?>/" class="btn_admin">관리자</a></li><?php } ?>
-                <li><a href="<?php echo G5_BBS_URL; ?>/memo.php" target="_blank" class="win_memo btn01">쪽지함</a></li>
-                <li><a href="<?php echo G5_BBS_URL; ?>/member_confirm.php?url=register_form.php" class="btn01">회원정보수정</a></li>
-                <li><a href="<?php echo G5_BBS_URL; ?>/member_confirm.php?url=member_leave.php" onclick="return member_leave();" class="btn01">회원탈퇴</a></li>
+                <?php if ($is_admin == 'super') { ?><li><a href="<?php echo G5_ADMIN_URL; ?>/" class="btn_admin">Administrator</a></li><?php } ?>
+                <li><a href="<?php echo G5_BBS_URL; ?>/memo.php" target="_blank" class="win_memo btn01">Reply with quote</a></li>
+                <li><a href="<?php echo G5_BBS_URL; ?>/member_confirm.php?url=register_form.php" class="btn01">Edit your membership information</a></li>
+                <li><a href="<?php echo G5_BBS_URL; ?>/member_confirm.php?url=member_leave.php" onclick="return member_leave();" class="btn01">Withdrawal</a></li>
             </ul>
         </div>
 
         <dl class="op_area">
-            <dt>연락처</dt>
-            <dd><?php echo ($member['mb_tel'] ? $member['mb_tel'] : '미등록'); ?></dd>
+            <dt>Contact</dt>
+            <dd><?php echo ($member['mb_tel'] ? $member['mb_tel'] : 'Unregistered'); ?></dd>
             <dt>E-Mail</dt>
-            <dd><?php echo ($member['mb_email'] ? $member['mb_email'] : '미등록'); ?></dd>
-            <dt>최종접속일시</dt>
+            <dd><?php echo ($member['mb_email'] ? $member['mb_email'] : 'Unregistered'); // Unregistered : 미등록 ?></dd>
+            <dt>Last access date</dt>
             <dd><?php echo $member['mb_today_login']; ?></dd>
-            <dt>회원가입일시</dt>
+            <dt>Last access date</dt><!-- 회원가입일시 -->
             <dd><?php echo $member['mb_datetime']; ?></dd>
-            <dt id="smb_my_ovaddt">주소</dt>
+            <dt id="smb_my_ovaddt">Address</dt>
             <dd id="smb_my_ovaddd"><?php echo sprintf("(%s%s)", $member['mb_zip1'], $member['mb_zip2']).' '.print_address($member['mb_addr1'], $member['mb_addr2'], $member['mb_addr3'], $member['mb_addr_jibeon']); ?></dd>
         </dl>
-        <div class="my_ov_btn"><button type="button" class="btn_op_area"><i class="fa fa-caret-up" aria-hidden="true"></i><span class="sound_only">상세정보 보기</span></button></div>
+        <div class="my_ov_btn"><button type="button" class="btn_op_area"><i class="fa fa-caret-up" aria-hidden="true"></i><span class="sound_only">More information</span></button></div>
 
     </section>
     <script>
@@ -86,7 +86,7 @@ for($k=0; $cp=sql_fetch_array($res); $k++) {
 
     <!-- 최근 주문내역 시작 { -->
     <section id="smb_my_od">
-        <h2>최근 주문내역</h2>
+        <h2>Recent order history</h2><!-- 최근 주문 내역 -->
         <?php
         // 최근 주문내역
         define("_ORDERINQUIRY_", true);
@@ -96,14 +96,14 @@ for($k=0; $cp=sql_fetch_array($res); $k++) {
         ?>
 
         <div class="smb_my_more">
-            <a href="./orderinquiry.php">더보기</a>
+            <a href="./orderinquiry.php">View more</a>
         </div>
     </section>
     <!-- } 최근 주문내역 끝 -->
 
     <!-- 최근 위시리스트 시작 { -->
     <section id="smb_my_wish">
-        <h2>최근 위시리스트</h2>
+        <h2>Recent wish lish</h2>
 
         <div class="list_02">
             <ul>
@@ -138,7 +138,7 @@ for($k=0; $cp=sql_fetch_array($res); $k++) {
         </div>
 
         <div class="smb_my_more">
-            <a href="./wishlist.php">더보기</a>
+            <a href="./wishlist.php">View more</a>
         </div>
     </section>
     <!-- } 최근 위시리스트 끝 -->

@@ -30,7 +30,7 @@ if(defined('G5_THEME_SHOP_PATH')) {
 	}
 }
 
-$g5['title'] = '장바구니';
+$g5['title'] = 'Shopping cart';
 include_once('./_head.php');
 ?>
 
@@ -184,17 +184,17 @@ include_once('./_head.php');
 	<div id="sod_bsk_tot">
 		<ul>
 			<li class="sod_bsk_dvr">
-				<span>배송비</span>
+				<span>Shipping fee</span>
 				<strong><?php echo number_format($send_cost); ?></strong> 원
 			</li>
 
 			<li class="sod_bsk_pt">
-				<span>포인트</span>
-				<strong><?php echo number_format($tot_point); ?></strong> 점
+				<span>Point</span>
+				<strong><?php echo number_format($tot_point); ?></strong> point
 			</li>
 
 			<li class="sod_bsk_cnt">
-				<span>총계 가격</span>
+				<span>Total price</span>
 				<strong><?php echo number_format($tot_price); ?></strong> 원 
 			</li>
 		 

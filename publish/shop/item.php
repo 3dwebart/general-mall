@@ -120,7 +120,7 @@ if(defined('G5_THEME_USE_ITEM_CATEGORY') && G5_THEME_USE_ITEM_CATEGORY){
 }
 
 if ($is_admin) {
-    echo '<div class="sit_admin"><a href="'.G5_ADMIN_URL.'/shop_admin/itemform.php?w=u&amp;it_id='.$it_id.'" class="btn_admin">상품 관리</a></div>';
+    echo '<div class="sit_admin"><a href="'.G5_ADMIN_URL.'/shop_admin/itemform.php?w=u&amp;it_id='.$it_id.'" class="btn_admin">Product management</a></div>';
 }
 ?>
 
@@ -139,7 +139,7 @@ else
 $sql = " select it_id, it_name from {$g5['g5_shop_item_table']} where it_id > '$it_id' and SUBSTRING(ca_id,1,4) = '".substr($it['ca_id'],0,4)."' and it_use = '1' order by it_id asc limit 1 ";
 $row = sql_fetch($sql);
 if ($row['it_id']) {
-    $prev_title = '이전상품<span class="sound_only"> '.$row['it_name'].'</span>';
+    $prev_title = 'Prev product<span class="sound_only"> '.$row['it_name'].'</span>';
     $prev_href = '<a href="./item.php?it_id='.$row['it_id'].'" id="siblings_prev">';
     $prev_href2 = '</a>'.PHP_EOL;
 } else {
@@ -152,7 +152,7 @@ if ($row['it_id']) {
 $sql = " select it_id, it_name from {$g5['g5_shop_item_table']} where it_id < '$it_id' and SUBSTRING(ca_id,1,4) = '".substr($it['ca_id'],0,4)."' and it_use = '1' order by it_id desc limit 1 ";
 $row = sql_fetch($sql);
 if ($row['it_id']) {
-    $next_title = '다음 상품<span class="sound_only"> '.$row['it_name'].'</span>';
+    $next_title = 'Next product<span class="sound_only"> '.$row['it_name'].'</span>';
     $next_href = '<a href="./item.php?it_id='.$row['it_id'].'" id="siblings_next">';
     $next_href2 = '</a>'.PHP_EOL;
 } else {
@@ -229,11 +229,11 @@ function pg_anchor($anc_id) {
     global $item_use_count, $item_qa_count, $item_relation_count;
 ?>
     <ul class="sanchor">
-        <li><a href="#sit_inf" <?php if ($anc_id == 'inf') echo 'class="sanchor_on"'; ?>>상품정보</a></li>
-        <li><a href="#sit_use" <?php if ($anc_id == 'use') echo 'class="sanchor_on"'; ?>>사용후기 <span class="item_use_count"><?php echo $item_use_count; ?></span></a></li>
-        <li><a href="#sit_qa" <?php if ($anc_id == 'qa') echo 'class="sanchor_on"'; ?>>상품문의 <span class="item_qa_count"><?php echo $item_qa_count; ?></span></a></li>
-        <?php if ($default['de_baesong_content']) { ?><li><a href="#sit_dvr" <?php if ($anc_id == 'dvr') echo 'class="sanchor_on"'; ?>>배송정보</a></li><?php } ?>
-        <?php if ($default['de_change_content']) { ?><li><a href="#sit_ex" <?php if ($anc_id == 'ex') echo 'class="sanchor_on"'; ?>>교환정보</a></li><?php } ?>
+        <li><a href="#sit_inf" <?php if ($anc_id == 'inf') echo 'class="sanchor_on"'; ?>>Product info</a></li>
+        <li><a href="#sit_use" <?php if ($anc_id == 'use') echo 'class="sanchor_on"'; ?>>Reviews <span class="item_use_count"><?php echo $item_use_count; ?></span></a></li>
+        <li><a href="#sit_qa" <?php if ($anc_id == 'qa') echo 'class="sanchor_on"'; ?>>Contact Us <span class="item_qa_count"><?php echo $item_qa_count; ?></span></a></li>
+        <?php if ($default['de_baesong_content']) { ?><li><a href="#sit_dvr" <?php if ($anc_id == 'dvr') echo 'class="sanchor_on"'; ?>>Shipping info</a></li><?php } ?>
+        <?php if ($default['de_change_content']) { ?><li><a href="#sit_ex" <?php if ($anc_id == 'ex') echo 'class="sanchor_on"'; ?>>Exchange info</a></li><?php } ?>
     </ul>
 <?php
 }
