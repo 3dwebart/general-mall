@@ -312,7 +312,7 @@ if($is_kakaopay_use) {
 						}
 						?>
 						</select> -->
-						<input type="text" name="od_hope_date" value="" id="od_hope_date" required class="frm_input required" size="11" maxlength="10" readonly="readonly"> 이후로 배송 바랍니다.
+						Please ship after <input type="text" name="od_hope_date" value="" id="od_hope_date" required class="frm_input required" size="11" maxlength="10" readonly="readonly"> <!-- 이후로 배송 바랍니다. -->
 					</td>
 				</tr>
 				<?php } ?>
@@ -337,7 +337,7 @@ if($is_kakaopay_use) {
 
 					// 주문자와 동일
 					$addr_list .= '<input type="radio" name="ad_sel_addr" value="same" id="ad_sel_addr_same">'.PHP_EOL;
-					$addr_list .= '<label for="ad_sel_addr_same">주문자와 동일</label>'.PHP_EOL;
+					$addr_list .= '<label for="ad_sel_addr_same">Same as the purchaser</label>'.PHP_EOL;
 
 					// 기본배송지
 					$sql = " select *
@@ -366,13 +366,13 @@ if($is_kakaopay_use) {
 					}
 
 					$addr_list .= '<input type="radio" name="ad_sel_addr" value="new" id="od_sel_addr_new">'.PHP_EOL;
-					$addr_list .= '<label for="od_sel_addr_new">신규배송지</label>'.PHP_EOL;
+					$addr_list .= '<label for="od_sel_addr_new">New shipping</label>'.PHP_EOL;
 
-					$addr_list .='<a href="'.G5_SHOP_URL.'/orderaddress.php" id="order_address" class="btn_frmline">배송지목록</a>';
+					$addr_list .='<a href="'.G5_SHOP_URL.'/orderaddress.php" id="order_address" class="btn_frmline">Shipping list</a>';
 				} else {
 					// 주문자와 동일
 					$addr_list .= '<input type="checkbox" name="ad_sel_addr" value="same" id="ad_sel_addr_same">'.PHP_EOL;
-					$addr_list .= '<label for="ad_sel_addr_same">주문자와 동일</label>'.PHP_EOL;
+					$addr_list .= '<label for="ad_sel_addr_same">Same as the purchaser</label>'.PHP_EOL;
 				}
 				?>
 				<tr>
@@ -392,7 +392,7 @@ if($is_kakaopay_use) {
 				</tr>
 				<?php } ?>
 				<tr>
-					<th scope="row"><label for="od_b_name">Name<strong class="sound_only"> Necessary</strong></label></th>
+					<th scope="row"><label for="od_b_name">Full name<strong class="sound_only"> Necessary</strong></label></th>
 					<td><input type="text" name="od_b_name" id="od_b_name" required class="frm_input required" maxlength="20"></td>
 				</tr>
 				<tr>
@@ -404,7 +404,7 @@ if($is_kakaopay_use) {
 					<td><input type="text" name="od_b_hp" id="od_b_hp" class="frm_input" maxlength="20"></td>
 				</tr>
 				<tr>
-					<th scope="row">주소</th>
+					<th scope="row">Address</th>
 					<td id="sod_frm_addr">
 						<label for="od_b_zip" class="sound_only">ZIP Code<strong class="sound_only"> Necessary</strong></label>
 						<input type="text" name="od_b_zip" id="od_b_zip" required class="frm_input required" size="8" maxlength="6" placeholder="ZIP Code">
