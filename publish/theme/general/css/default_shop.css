@@ -535,7 +535,7 @@ box-shadow: 1px 2px 2px #eee;}
 #sod_frm .od_prd_list{margin-bottom:20px}
 #sod_frm  #sod_bsk_tot:after {display:block;visibility:hidden;clear:both;content:""}
 #sod_frm  #sod_bsk_tot li{position:relative;float:left;background:#fff;width:33.333%;height:70px;text-align:center;border-bottom:1px solid #e7ebf1;padding:15px 0}
-#sod_frm  #sod_bsk_tot li:after {display:block;visibility:hidden;clear:both;content:""}
+/*#sod_frm  #sod_bsk_tot li:after {display:block;visibility:hidden;clear:both;content:""}*/
 #sod_frm  #sod_bsk_tot li span{display:block;color:#777;margin-bottom:5px;font-weight:bold}
 #sod_frm  #sod_bsk_tot .sod_bsk_sell,#sod_frm  #sod_bsk_tot .sod_bsk_coupon{border-right:1px solid #e7ebf1}
 #sod_frm  #sod_bsk_tot .sod_bsk_point,#sod_frm  #sod_bsk_tot .sod_bsk_cnt{width:100%;clear:both;height:40px;padding:0 15px;line-height:40px;text-align:right}

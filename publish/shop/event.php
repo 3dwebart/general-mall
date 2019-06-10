@@ -13,7 +13,7 @@ $sql = " select * from {$g5['g5_shop_event_table']}
             and ev_use = 1 ";
 $ev = sql_fetch($sql);
 if (!$ev['ev_id'])
-    alert('등록된 이벤트가 없습니다.');
+    alert('There are no registered events.');//등록된 이벤트가 없습니다.
 
 $g5['title'] = $ev['ev_subject'];
 include_once('./_head.php');

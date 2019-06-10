@@ -16,9 +16,9 @@ set_session("ss_token", $token);
 $sql = " select it_name from {$g5['g5_shop_item_table']} where it_id='$it_id' ";
 $it = sql_fetch($sql);
 if (!$it['it_name'])
-    alert_close("등록된 상품이 아닙니다.");
+    alert_close("It is not a registered product.");// 등록된 상품이 아닙니다.
 
-$g5['title'] =  $it['it_name'].' - 추천하기';
+$g5['title'] =  $it['it_name'].' - recommendation';// - 추천하기
 include_once(G5_PATH.'/head.sub.php');
 ?>
 
@@ -38,15 +38,15 @@ include_once(G5_PATH.'/head.sub.php');
         </colgroup>
         <tbody>
         <tr>
-            <th scope="row"><label for="to_email">추천받는 분<br>E-mail<strong class="sound_only"> 필수</strong></label></th>
+            <th scope="row"><label for="to_email">Recommended<!-- 추천받는 분 --><br>E-mail<strong class="sound_only"> Necessary</strong></label></th>
             <td><input type="text" name="to_email" id="to_email" required class="frm_input required" size="51"></td>
         </tr>
         <tr>
-            <th scope="row"><label for="subject">제목<strong class="sound_only"> 필수</strong></label></th>
+            <th scope="row"><label for="subject">Subject<!-- 제목 --><strong class="sound_only"> Necessary</strong></label></th>
             <td><input type="text" name="subject" id="subject" required class="frm_input required" size="51"></td>
         </tr>
         <tr>
-            <th scope="row"><label for="content">내용<strong class="sound_only"> 필수</strong></label></th>
+            <th scope="row"><label for="content">Content<!-- 내용 --><strong class="sound_only"> Necessary</strong></label></th>
             <td><textarea name="content" id="content" required class="required"></textarea></td>
         </tr>
         </tbody>
@@ -54,13 +54,11 @@ include_once(G5_PATH.'/head.sub.php');
     </div>
 
     <div class="win_btn">
-        <input type="submit" id="btn_submit" value="보내기" class="btn_submit">
-        <a href="javascript:window.close();">창닫기</a>
+        <input type="submit" id="btn_submit" value="Send" class="btn_submit" /><!-- v : 보내기 -->
+        <a href="javascript:window.close();">Close window<!-- 창닫기 --></a>
     </div>
     </form>
-
 </div>
-
 <script>
 function fitemrecommend_check(f)
 {

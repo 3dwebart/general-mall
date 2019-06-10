@@ -505,8 +505,8 @@ $od_deposit_name  = clean_xss_tags($od_deposit_name);
 $od_tax_flag      = $default['de_tax_flag_use'];
 
 // 주문서에 입력
-$sql = " insert {$g5['g5_shop_order_table']}
-            set od_id             = '$od_id',
+$sql = " INSERT {$g5['g5_shop_order_table']}
+            SET od_id             = '$od_id',
                 mb_id             = '{$member['mb_id']}',
                 od_pwd            = '$od_pwd',
                 od_name           = '$od_name',

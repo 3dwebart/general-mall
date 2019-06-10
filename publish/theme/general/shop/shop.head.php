@@ -23,24 +23,13 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
 			<a href="#">Checkout</a>
 		</div>
 		<div class="mb-nav d-flex">
-			<div class="dropdown">
-				<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				Language
+			<div class="dropdown language-change">
+				<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-lang="eng">
+				English
 				</button>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-					<a class="dropdown-item" href="#">Action</a>
-					<a class="dropdown-item" href="#">Another action</a>
-					<a class="dropdown-item" href="#">Something else here</a>
-				</div>
-			</div>
-			<div class="dropdown">
-				<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				Checkout
-				</button>
-				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-					<a class="dropdown-item" href="#">Action</a>
-					<a class="dropdown-item" href="#">Another action</a>
-					<a class="dropdown-item" href="#">Something else here</a>
+					<a class="dropdown-item" href="#" data-lang="eng">English</a>
+					<a class="dropdown-item" href="#" data-lang="hkg">Hongkong</a>
 				</div>
 			</div>
 			<div class="dropdown">

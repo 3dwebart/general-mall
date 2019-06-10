@@ -263,5 +263,15 @@ $sql = " update {$g5['config_table']}
                 cf_lg_mert_key          = '{$_POST['cf_lg_mert_key']}' ";
 sql_query($sql);
 
+// wetoz : paypal
+$sql = " update {$g5['g5_shop_default_table']}
+            set de_paypal_mid       = '{$_POST['de_paypal_mid']}',
+                de_paypal_use       = '{$_POST['de_paypal_use']}',
+                de_paypal_exrate    = '{$_POST['de_paypal_exrate']}',
+                de_paypal_krw       = '{$_POST['de_paypal_krw']}',
+                de_paypal_test      = '{$_POST['de_paypal_test']}'
+                ";
+sql_query($sql);
+
 goto_url("./configform.php");
 ?>

@@ -18,6 +18,31 @@ if( $default['de_inicis_lpay_use'] ){   //이니시스 L.pay 사용시
 if($is_kakaopay_use) {
 	require_once(G5_SHOP_PATH.'/kakaopay/orderform.1.php');
 }
+// 2019-06-07 실시간 환율적용(원화를 달러화로 변경하여 보여줌)
+$rate = $_GET['rate'];
+if(empty($rate)) {
+	$rate = 'USD';
+}
+
+$url = "http://api.manana.kr/exchange/rate/".$rate."/KRW,USD.json";
+$curl_handle = curl_init();
+curl_setopt($curl_handle, CURLOPT_URL, $url);
+curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 2);
+curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl_handle, CURLOPT_USERAGENT, '`http://scberries.cafe24.com`');
+
+$json = curl_exec($curl_handle);
+curl_close($curl_handle);
+
+$data = json_decode($json,true);
+for($i = 0; $i < count($data); $i++) {
+	if($data[$i]['name'] == 'USDKRW=X') { // $rate = KRW - 1달러당 원화
+		$priceRate = sprintf("%2.2f",$data[$i]['rate']);
+	}
+	if($data[$i]['name'] == 'KRWUSD=X') { // $rate = USD - 1원당 달러화
+		$priceRate = $data[$i]['rate'];
+	}
+}
 ?>
 
 <form name="forderform" id="forderform" method="post" action="<?php echo $order_action_url; ?>" autocomplete="off">
@@ -193,12 +218,11 @@ if($is_kakaopay_use) {
 					<?php } ?>
 					<?php echo $it_name; ?>
 					<?php echo $cp_button; ?>
-
 				 </div>
 			</td>
 			<td class="td_num"><?php echo number_format($sum['qty']); ?></td>
-			<td class="td_numbig  text_right"><?php echo number_format($row['ct_price']); ?></td>
-			<td class="td_numbig  text_right"><span class="total_price"><?php echo number_format($sell_price); ?></span></td>
+			<td class="td_numbig  text_right">$<?php echo number_format(($priceRate*$row['ct_price']),2); ?></td>
+			<td class="td_numbig  text_right"><span class="total_price">$<?php echo number_format(($priceRate*$sell_price),2); ?></span></td>
 			<td class="td_numbig  text_right"><?php echo number_format($point); ?></td>
 			<td class="td_dvr"><?php echo $ct_send_cost; ?></td>
 		</tr>
@@ -434,45 +458,62 @@ if($is_kakaopay_use) {
 		<!-- 주문상품 합계 시작 { -->
 		<div id="sod_bsk_tot">
 			<ul>
-				<li class="sod_bsk_sell">
+				<li class="sod_bsk_sell d-flex flex-direction-column justify-content-space-between">
 					<span>Order</span>
-					<strong>$<?php echo number_format($tot_sell_price); ?></strong>
+					<?php
+					$order_price = $priceRate * $tot_sell_price + 0.005;
+					$order_price = round($order_price,2);
+					?>
+					<span>
+						<strong>$<?php echo number_format(($order_price), 2); ?></strong>
+					</span>
 				</li>
-				<li class="sod_bsk_coupon">
+				<li class="sod_bsk_coupon d-flex flex-direction-column justify-content-space-between">
 					<span>Coupon discount</span>
-					$<strong id="ct_tot_coupon">0</strong>
+					<span>
+						$<strong id="ct_tot_coupon">0</strong>
+					</span>
 				</li>
-				<li class="sod_bsk_dvr">
+				<li class="sod_bsk_dvr d-flex flex-direction-column justify-content-space-between">
+					<?php
+					$shipping_fee = $priceRate * $send_cost + 0.005;
+					$shipping_fee = round($shipping_fee,2);
+					?>
 					<span>Shipping fee</span>
-					<strong>$<?php echo number_format($send_cost); ?></strong>
+					<span>
+						<strong>$<?php echo number_format(($shipping_fee),2); ?></strong>
+					</span>
 				</li>
 				<li class="sod_bsk_point">
 					<span>Point</span>
 					<strong><?php echo number_format($tot_point); ?></strong>point
 				</li>
-			   <li class="sod_bsk_cnt">
+				<li class="sod_bsk_cnt">
 					<span>Total</span>
 					<?php $tot_price = $tot_sell_price + $send_cost; // 총계 = 주문상품금액합계 + 배송비 ?>
-					<strong id="ct_tot_price">$<?php echo number_format($tot_price); ?></strong>
+					<?php
+						$exchangeDollor = $order_price + $shipping_fee;
+						$exchangeDollor = round($exchangeDollor,2);
+					?>
+
+					<strong id="ct_tot_price">$<?php echo number_format($exchangeDollor, 2); ?></strong>
 				</li>
 
 			</ul>
 		</div>
 		<!-- } 주문상품 합계 끝 -->
-
-
 		<!-- 결제정보 입력 시작 { -->
 		<?php
 		$oc_cnt = $sc_cnt = 0;
 		if($is_member) {
 			// 주문쿠폰
-			$sql = " select cp_id
-						from {$g5['g5_shop_coupon_table']}
-						where mb_id IN ( '{$member['mb_id']}', '전체회원' )
-						  and cp_method = '2'
-						  and cp_start <= '".G5_TIME_YMD."'
-						  and cp_end >= '".G5_TIME_YMD."'
-						  and cp_minimum <= '$tot_sell_price' ";
+			$sql = " SELECT cp_id
+					   FROM {$g5['g5_shop_coupon_table']}
+					  WHERE mb_id IN ( '{$member['mb_id']}', '전체회원' )
+					    AND cp_method = '2'
+					    AND cp_start <= '".G5_TIME_YMD."'
+					    AND cp_end >= '".G5_TIME_YMD."'
+					    AND cp_minimum <= '$tot_sell_price' ";
 			$res = sql_query($sql);
 
 			for($k=0; $cp=sql_fetch_array($res); $k++) {
@@ -484,13 +525,13 @@ if($is_kakaopay_use) {
 
 			if($send_cost > 0) {
 				// 배송비쿠폰
-				$sql = " select cp_id
-							from {$g5['g5_shop_coupon_table']}
-							where mb_id IN ( '{$member['mb_id']}', '전체회원' )
-							  and cp_method = '3'
-							  and cp_start <= '".G5_TIME_YMD."'
-							  and cp_end >= '".G5_TIME_YMD."'
-							  and cp_minimum <= '$tot_sell_price' ";
+				$sql = " SELECT cp_id
+						   FROM {$g5['g5_shop_coupon_table']}
+						  WHERE mb_id IN ( '{$member['mb_id']}', '전체회원' )
+						    AND cp_method = '3'
+						    AND cp_start <= '".G5_TIME_YMD."'
+						    AND cp_end >= '".G5_TIME_YMD."'
+						    AND cp_minimum <= '$tot_sell_price' ";
 				$res = sql_query($sql);
 
 				for($k=0; $cp=sql_fetch_array($res); $k++) {
@@ -539,7 +580,7 @@ if($is_kakaopay_use) {
 			</div>
 			<div id="od_tot_price">
 				<span>Total Order Amount</span><!-- 총 주문금액 -->
-				$<strong class="print_price"><?php echo number_format($tot_price); ?></strong>
+				<strong class="print_price">$<?php echo number_format($exchangeDollor, 2); ?></strong><!-- $tot_price -->
 			</div>
 			<style>
 			#od_pay_sl .lb_icon {
@@ -548,7 +589,6 @@ if($is_kakaopay_use) {
 				align-items: center;
 			}
 			</style>
-
 			<div id="od_pay_sl">
 				<h3>Method of payment</h3><!-- 결제수단 -->
 				<?php
@@ -610,6 +650,15 @@ if($is_kakaopay_use) {
 					echo '<input type="radio" id="od_settle_card" name="od_settle_case" value="신용카드" '.$checked.'> <label for="od_settle_card" class="lb_icon card_icon">신용카드</label>'.PHP_EOL;
 					$checked = '';
 				}
+
+				// wetoz : 페이팔결제 사용
+			    include_once(G5_SHOP_PATH.'/settle_paypal.inc.php');
+			    include_once(G5_SHOP_PATH.'/paypal/orderform.php');
+			    if ($default['de_paypal_use']) {
+			        $multi_settle++;
+			        echo '<input type="radio" id="od_settle_paypal" name="od_settle_case" value="paypal" '.$checked.'> <label for="od_settle_paypal" class="lb_icon card_icon">paypal</label>'.PHP_EOL;
+			        $checked = '';
+			    }
 
 				// PG 간편결제
 				if($default['de_easy_pay_use']) {
@@ -977,6 +1026,11 @@ $(function() {
 	$("#od_settle_iche,#od_settle_card,#od_settle_vbank,#od_settle_hp,#od_settle_easy_pay,#od_settle_kakaopay").bind("click", function() {
 		$("#settle_bank").hide();
 	});
+
+	// wetoz : ,#od_settle_paypal 추가
+    $("#od_settle_iche,#od_settle_card,#od_settle_vbank,#od_settle_hp,#od_settle_easy_pay,#od_settle_kakaopay,#od_settle_paypal").bind("click", function() {
+        $("#settle_bank").hide();
+    });
 
 	// 배송지선택
 	$("input[name=ad_sel_addr]").on("click", function() {
@@ -1361,6 +1415,56 @@ function forderform_check(f)
 	if( settle_method == "lpay" ){      //이니시스 L.pay 이면 ( 이니시스의 삼성페이는 모바일에서만 단독실행 가능함 )
 		form_order_method = 'samsungpay';
 	}
+
+	// wetoz : paypal {
+    if (settle_method == "paypal") {
+        
+        f.pl_amount.value = f.good_mny.value;
+        var order_data = $(f).serialize();
+        var save_result = "";
+        $.ajax({
+            type: "POST",
+            data: order_data,
+            url: g5_url+"/shop/ajax.orderdatasave.php",
+            cache: false,
+            async: false,
+            success: function(data) {
+                save_result = data;
+            }
+        });
+
+        if(save_result) {
+            alert(save_result);
+            return false;
+        }
+        
+        $("#display_pay_button").hide();
+        $("#display_pay_process").show();
+
+        var paywin = window.open("","paypal_payment_window","width=970, height=600, status=yes, scrollbars=yes,resizable=yes, menubar=no");
+        f.action = "<?php echo G5_SHOP_URL?>/paypal/pay_call.php";
+        f.target = "paypal_payment_window";
+        f.submit();
+        paywin.focus();
+
+        var maskHeight = $(document).height();
+        var maskWidth = $(window).width() + 17;
+
+        $('.dimm').css({'width':maskWidth,'height':maskHeight});
+        $('.dimm').fadeIn(300);
+        $('.dimm').fadeTo('fast');
+        $('html').css('overflow-y','hidden');
+
+        var crono = window.setInterval(function() {
+            if (paywin.closed !== false) { // !== opera compatibility reasons
+                window.clearInterval(crono);
+                paywinClosed();
+            }
+        }, 250);
+
+        return false;
+    }
+    // } wetoz : paypal
 
 	if( jQuery(f).triggerHandler("form_sumbit_order_"+form_order_method) !== false ) {
 

@@ -109,3 +109,8 @@ div[id^="slide"] .swiper-button-prev {
 	font-weight: bold;
 }
 /* BIGIN :: Index custom */
+/* BIGIN :: Item Order form */
+#sod_frm #sod_bsk_tot li {
+	height: 110px;
+}
+/* END :: Item Order form */

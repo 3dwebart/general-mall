@@ -3,7 +3,7 @@ include_once("./_common.php");
 
 $bn_id = (int) $bn_id;
 
-$sql = " select bn_id, bn_url from {$g5['g5_shop_banner_table']} where bn_id = '$bn_id' ";
+$sql = " SELECT bn_id, bn_url FROM {$g5['g5_shop_banner_table']} WHERE bn_id = '$bn_id' ";
 $row = sql_fetch($sql);
 
 if( ! $row['bn_id'] ){
@@ -12,7 +12,7 @@ if( ! $row['bn_id'] ){
 
 if ($_COOKIE['ck_bn_id'] != $bn_id)
 {
-    $sql = " update {$g5['g5_shop_banner_table']} set bn_hit = bn_hit + 1 where bn_id = '$bn_id' ";
+    $sql = " UPDATE {$g5['g5_shop_banner_table']} SET bn_hit = bn_hit + 1 WHERE bn_id = '$bn_id' ";
     sql_query($sql);
     // 하루 동안
     set_cookie("ck_bn_id", $bn_id, 60*60*24);

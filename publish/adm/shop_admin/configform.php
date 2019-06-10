@@ -929,6 +929,91 @@ if(!isset($default['de_listtype_list_skin'])) {
                 <input type="checkbox" name="de_tax_flag_use" value="1" id="de_tax_flag_use"<?php echo $default['de_tax_flag_use']?' checked':''; ?>> 사용
             </td>
         </tr>
+
+        <!-- wetoz : paypal -->
+        <?php
+        // wetoz : paypal
+        if(!isset($default['de_paypal_mid'])) {
+            sql_query(" ALTER TABLE `{$g5['g5_shop_default_table']}`
+                            ADD `de_paypal_mid` VARCHAR( 255 ) NOT NULL ,
+                            ADD `de_paypal_use` TINYINT( 4 ) NOT NULL DEFAULT 1 ,
+                            ADD `de_paypal_exrate` TINYINT( 4 ) NOT NULL DEFAULT 1 ,
+                            ADD `de_paypal_krw` FLOAT NOT NULL DEFAULT '1104.80' ; ", true);
+        }
+
+        // 주문정보에 결제금액 유효성 검사용 필드 추가
+        $query = "show columns from `{$g5['g5_shop_order_table']}` like 'od_paypal_price' ";
+        $res = sql_fetch($query);
+        if (empty($res)) {
+            sql_query(" ALTER TABLE `{$g5['g5_shop_order_table']}` 
+                            ADD `od_paypal_price` float NOT NULL DEFAULT '0' AFTER `od_cart_price`
+                            ; ", true);
+
+            sql_query(" ALTER TABLE `{$g5['g5_shop_order_data_table']}` 
+                            ADD `dt_paypal_price` float NOT NULL DEFAULT '0'
+                            ; ", true);
+        }
+
+        // 페이팔용 테스트설정
+        $query = "show columns from `{$g5['g5_shop_default_table']}` like 'de_paypal_test' ";
+        $res = sql_fetch($query);
+        if (empty($res)) {
+            sql_query(" ALTER TABLE `{$g5['g5_shop_default_table']}` 
+                            ADD `de_paypal_test` TINYINT( 4 ) NOT NULL DEFAULT 0 
+                            ; ", true);
+        }
+        ?>
+        <tr>
+            <th scope="row">페이팔 결제 사용</th>
+            <td>
+                 <?php echo help("페이팔 결제기능을 사용하려면 체크하십시오."); ?>
+                <label><input type="checkbox" name="de_paypal_use" value="1" id="de_paypal_use"<?php echo $default['de_paypal_use']?' checked':''; ?>> 사용</label>
+            </td>
+        </tr>
+        <th scope="row">페이팔 결제 방식</th>
+            <td>
+                <input type="radio" name="de_paypal_test" value="0" id="de_paypal_test_1" <?php echo ($default['de_paypal_test'] == 0 ? 'checked' : ''); ?>>
+                <label for="de_paypal_test_1">실결제</label>
+                <input type="radio" name="de_paypal_test" value="1" id="de_paypal_test_2" <?php echo ($default['de_paypal_test'] == 1 ? 'checked' : ''); ?>>
+                <label for="de_paypal_test_2">테스트결제</label>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">페이팔 ACCOUNT</th>
+            <td>
+                <?php echo help("테스트결제시에는 테스트용 ACCOUNT 정보를 입력해야합니다."); ?>
+                <input type="text" name="de_paypal_mid" value='<?php echo $default['de_paypal_mid']?>' class="frm_input" size="60">
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">페이팔 자동 환율적용</th>
+            <td>
+                 <?php echo help("쇼핑몰 통화단위가 한화 일경우 체크하시면 자동으로 USD 환율 적용됩니다."); ?>
+                <label><input type="checkbox" name="de_paypal_exrate" value="1" id="de_paypal_exrate"<?php echo $default['de_paypal_exrate']?' checked':''; ?>> 사용</label>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">페이팔 기본환율</th>
+            <td>
+                 <?php echo help("페이팔 자동환율적용시에는 반드시 입력해주셔야 합니다. USD 기본 환율을 적용합니다."); ?>
+                1달러당 원화 환율가 ( 1 USD -> <input type="text" name="de_paypal_krw" id="de_paypal_krw" value='<?php echo $default['de_paypal_krw']?>' class="frm_input" size="10"> 원) 
+            </td>
+        </tr>
+
+        <script type="text/javascript">
+        <!--
+        $(document).on('click', '#de_paypal_exrate', function() {
+            var paypal_exrate = $(this).is(':checked');
+            if (paypal_exrate == true && ($('#de_paypal_krw').val() == '0' || $('#de_paypal_krw').val() == '')) {
+                alert('페이팔 기본환율을 반드시 입력해주세요.');
+                $('#de_paypal_krw').focus();
+            }
+        });
+        //-->
+        </script>
+
+        <!-- wetoz : paypal -->
+        
         </tbody>
         </table>
         <script>
