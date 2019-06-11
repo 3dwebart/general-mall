@@ -18,11 +18,14 @@ if( $default['de_inicis_lpay_use'] ){   //이니시스 L.pay 사용시
 if($is_kakaopay_use) {
 	require_once(G5_SHOP_PATH.'/kakaopay/orderform.1.php');
 }
-// 2019-06-07 실시간 환율적용(원화를 달러화로 변경하여 보여줌)
+/********** 2019-06-07 실시간 환율적용(원화를 달러화로 변경하여 보여줌) **********/
+/***** BIGIN :: 실시간 환율 변동 : 1달러당 원화 *****/
 $rate = $_GET['rate'];
 if(empty($rate)) {
 	$rate = 'USD';
 }
+
+$rate = 'KRW';
 
 $url = "http://api.manana.kr/exchange/rate/".$rate."/KRW,USD.json";
 $curl_handle = curl_init();
@@ -37,14 +40,30 @@ curl_close($curl_handle);
 $data = json_decode($json,true);
 for($i = 0; $i < count($data); $i++) {
 	if($data[$i]['name'] == 'USDKRW=X') { // $rate = KRW - 1달러당 원화
-		$priceRate = sprintf("%2.2f",$data[$i]['rate']);
+		$priceRate = sprintf("%2.4f",$data[$i]['rate']);
 	}
+	/*
 	if($data[$i]['name'] == 'KRWUSD=X') { // $rate = USD - 1원당 달러화
 		$priceRate = $data[$i]['rate'];
 	}
+	*/
 }
-?>
 
+
+$exchange_sql = "UPDATE `{$g5['g5_shop_default_table']}` SET `de_paypal_krw` = '{$priceRate}'";
+sql_query($exchange_sql);
+/***** END :: 실시간 환율 변동 : 1달러당 원화 *****/
+/*
+	위의 실시간 환율 변동 무시하고 쇼핑몰 환경설정에 있는 페이팔 기본환율 적용함
+	사용하지 않을시 삭제
+*/
+$p_sql = "SELECT `de_paypal_krw` FROM `{$g5['g5_shop_default_table']}`";
+$p_row = sql_fetch($p_sql);
+$p_rate = $p_row['de_paypal_krw'];
+$priceRate = (1/$p_rate);
+?>
+<h1><?php echo $rate; ?></h1>
+<h1>TEST :: <?php echo $priceRate; ?></h1>
 <form name="forderform" id="forderform" method="post" action="<?php echo $order_action_url; ?>" autocomplete="off">
 <div id="sod_frm">
 	<!-- 주문상품 확인 시작 { -->
@@ -69,7 +88,7 @@ for($i = 0; $i < count($data); $i++) {
 		$goods_count = -1;
 
 		// $s_cart_id 로 현재 장바구니 자료 쿼리
-		$sql = " select a.ct_id,
+		$sql = " SELECT a.ct_id,
 						a.it_id,
 						a.it_name,
 						a.ct_price,
@@ -82,11 +101,11 @@ for($i = 0; $i < count($data); $i++) {
 						b.ca_id2,
 						b.ca_id3,
 						b.it_notax
-				   from {$g5['g5_shop_cart_table']} a left join {$g5['g5_shop_item_table']} b on ( a.it_id = b.it_id )
-				  where a.od_id = '$s_cart_id'
-					and a.ct_select = '1' ";
-		$sql .= " group by a.it_id ";
-		$sql .= " order by a.ct_id ";
+				   FROM {$g5['g5_shop_cart_table']} a LEFT JOIN {$g5['g5_shop_item_table']} b ON ( a.it_id = b.it_id )
+				  WHERE a.od_id = '$s_cart_id'
+					AND a.ct_select = '1' ";
+		$sql .= " GROUP BY a.it_id ";
+		$sql .= " ORDER BY a.ct_id ";
 		$result = sql_query($sql);
 
 		$good_info = '';
@@ -101,12 +120,12 @@ for($i = 0; $i < count($data); $i++) {
 		for ($i=0; $row=sql_fetch_array($result); $i++)
 		{
 			// 합계금액 계산
-			$sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price + io_price) * ct_qty))) as price,
+			$sql = " SELECT SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price + io_price) * ct_qty))) as price,
 							SUM(ct_point * ct_qty) as point,
 							SUM(ct_qty) as qty
-						from {$g5['g5_shop_cart_table']}
-						where it_id = '{$row['it_id']}'
-						  and od_id = '$s_cart_id' ";
+						FROM {$g5['g5_shop_cart_table']}
+						WHERE it_id = '{$row['it_id']}'
+						  AND od_id = '$s_cart_id' ";
 			$sum = sql_fetch($sql);
 
 			if (!$goods)
@@ -154,16 +173,16 @@ for($i = 0; $i < count($data); $i++) {
 				$cp_button = '';
 				$cp_count = 0;
 
-				$sql = " select cp_id
-							from {$g5['g5_shop_coupon_table']}
-							where mb_id IN ( '{$member['mb_id']}', '전체회원' )
-							  and cp_start <= '".G5_TIME_YMD."'
-							  and cp_end >= '".G5_TIME_YMD."'
-							  and cp_minimum <= '$sell_price'
-							  and (
-									( cp_method = '0' and cp_target = '{$row['it_id']}' )
+				$sql = " SELECT cp_id
+						   FROM {$g5['g5_shop_coupon_table']}
+						  WHERE mb_id IN ( '{$member['mb_id']}', '전체회원' )
+						    AND cp_start <= '".G5_TIME_YMD."'
+						    AND cp_end >= '".G5_TIME_YMD."'
+						    AND cp_minimum <= '$sell_price'
+						    AND (
+									( cp_method = '0' AND cp_target = '{$row['it_id']}' )
 									OR
-									( cp_method = '1' and ( cp_target IN ( '{$row['ca_id']}', '{$row['ca_id2']}', '{$row['ca_id3']}' ) ) )
+									( cp_method = '1' AND ( cp_target IN ( '{$row['ca_id']}', '{$row['ca_id2']}', '{$row['ca_id3']}' ) ) )
 								  ) ";
 				$res = sql_query($sql);
 
@@ -461,11 +480,11 @@ for($i = 0; $i < count($data); $i++) {
 				<li class="sod_bsk_sell d-flex flex-direction-column justify-content-space-between">
 					<span>Order</span>
 					<?php
-					$order_price = $priceRate * $tot_sell_price + 0.005;
-					$order_price = round($order_price,2);
+					$order_price = $priceRate * $tot_sell_price;
+					$order_price = round($order_price,4);
 					?>
 					<span>
-						<strong>$<?php echo number_format(($order_price), 2); ?></strong>
+						<strong>$<?php echo number_format(($order_price),4); ?></strong>
 					</span>
 				</li>
 				<li class="sod_bsk_coupon d-flex flex-direction-column justify-content-space-between">
@@ -476,12 +495,12 @@ for($i = 0; $i < count($data); $i++) {
 				</li>
 				<li class="sod_bsk_dvr d-flex flex-direction-column justify-content-space-between">
 					<?php
-					$shipping_fee = $priceRate * $send_cost + 0.005;
-					$shipping_fee = round($shipping_fee,2);
+					$shipping_fee = $priceRate * $send_cost;
+					$shipping_fee = round($shipping_fee,4);
 					?>
 					<span>Shipping fee</span>
 					<span>
-						<strong>$<?php echo number_format(($shipping_fee),2); ?></strong>
+						<strong>$<?php echo number_format(($shipping_fee),4); ?></strong>
 					</span>
 				</li>
 				<li class="sod_bsk_point">
@@ -493,10 +512,10 @@ for($i = 0; $i < count($data); $i++) {
 					<?php $tot_price = $tot_sell_price + $send_cost; // 총계 = 주문상품금액합계 + 배송비 ?>
 					<?php
 						$exchangeDollor = $order_price + $shipping_fee;
-						$exchangeDollor = round($exchangeDollor,2);
+						$exchangeDollor = round($exchangeDollor,4);
 					?>
 
-					<strong id="ct_tot_price">$<?php echo number_format($exchangeDollor, 2); ?></strong>
+					<strong id="ct_tot_price">$<?php echo number_format($exchangeDollor, 4); ?></strong>
 				</li>
 
 			</ul>
@@ -580,7 +599,7 @@ for($i = 0; $i < count($data); $i++) {
 			</div>
 			<div id="od_tot_price">
 				<span>Total Order Amount</span><!-- 총 주문금액 -->
-				<strong class="print_price">$<?php echo number_format($exchangeDollor, 2); ?></strong><!-- $tot_price -->
+				<strong class="print_price">$<?php echo number_format($exchangeDollor, 4); ?></strong><!-- $tot_price -->
 			</div>
 			<style>
 			#od_pay_sl .lb_icon {

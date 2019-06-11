@@ -3,10 +3,14 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 // add_stylesheet('css 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
 add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0);
+$onWishSql = " SELECT count(it_id) AS wish_cnt FROM {$g5['g5_shop_wish_table']} WHERE it_id = '{$it_id}' ";
+$onWishRow = sql_fetch($onWishSql);
+$wish_cnt = $onWishRow['wish_cnt'];
 ?>
 
 <form name="fitem" method="post" action="<?php echo $action_url; ?>" onsubmit="return fitem_submit(this);">
 <input type="hidden" name="it_id[]" value="<?php echo $it_id; ?>">
+<input type="hidden" name="wish_chk" value="<?php echo $wish_cnt; ?>">
 <input type="hidden" name="sw_direct">
 <input type="hidden" name="url">
 
@@ -314,12 +318,20 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 		<div id="sit_ov_btn">
 			<?php if ($is_orderable) { ?>
 			<button type="submit" onclick="document.pressed=this.value;" value="바로구매" id="sit_btn_buy"><i class="fa fa-credit-card" aria-hidden="true"></i> Buy now</button>
-			<button type="submit" onclick="document.pressed=this.value;" value="장바구니" id="sit_btn_cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Shopping basket</button>
+			<button type="submit" onclick="document.pressed=this.value;" value="장바구니" id="sit_btn_cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i>Add to cart</button>
 			<?php } ?>
 			<?php if(!$is_orderable && $it['it_soldout'] && $it['it_stock_sms']) { ?>
 			<a href="javascript:popup_stocksms('<?php echo $it['it_id']; ?>');" id="sit_btn_alm"><i class="fa fa-bell-o" aria-hidden="true"></i> Stock reminder</a><!-- 재입고알림 -->
 			<?php } ?>
-			<a href="javascript:item_wish(document.fitem, '<?php echo $it['it_id']; ?>');" id="sit_btn_wish"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="sound_only">Wish list</span></a><!-- 위시리스트 -->
+			<!-- BIGIN :: included in wishlist item on add class -->
+			<?php
+			$wish_class = '';
+			if($wish_cnt > 0) {
+				$wish_class = ' class="included-in-wishlist"';
+			}
+			?>
+			<a href="javascript:item_wish(document.fitem, '<?php echo $it['it_id']; ?>', <?php echo $wish_cnt; ?>);" id="sit_btn_wish"<?php echo $wish_class; ?>><i class="fa fa-heart-o" aria-hidden="true"></i><span class="sound_only">Wish list</span></a><!-- 위시리스트 -->
+			<!-- BIGIN :: included in wishlist item on add class -->
 			<?php if ($naverpay_button_js) { ?>
 			<div class="itemform-naverpay"><?php echo $naverpay_request_js.$naverpay_button_js; ?></div>
 			<?php } ?>
@@ -327,9 +339,9 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 
 		<script>
 		// 상품보관
-		function item_wish(f, it_id)
+		function item_wish(f, it_id, wish_chk)
 		{
-			f.url.value = "<?php echo G5_SHOP_URL; ?>/wishupdate.php?it_id="+it_id;
+			f.url.value = "<?php echo G5_SHOP_URL; ?>/wishupdate.php?it_id="+it_id+"&wish_chk="+wish_chk;
 			f.action = "<?php echo G5_SHOP_URL; ?>/wishupdate.php";
 			f.submit();
 		}

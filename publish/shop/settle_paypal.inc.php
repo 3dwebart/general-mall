@@ -3,8 +3,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
 if ($default['de_paypal_test']) { // 테스트
     $pp_conf_action_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
-}
-else {
+} else {
     $pp_conf_action_url = 'https://www.paypal.com/cgi-bin/webscr';
 }
 

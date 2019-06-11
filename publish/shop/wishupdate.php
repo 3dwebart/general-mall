@@ -4,6 +4,9 @@ include_once('./_common.php');
 if (!$is_member)
     alert('회원 전용 서비스 입니다.', G5_BBS_URL.'/login.php?url='.urlencode($url));
 
+//$wish_chk = $_GET['wish_chk'];
+$wish_chk = $_POST['wish_chk'];
+
 if ($w == "d")
 {
     $wi_id = trim($_GET['wi_id']);

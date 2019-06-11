@@ -275,12 +275,14 @@ button:focus {
 a.btn_admin, 
 .btn_admin,
 #sit_btn_buy,
-a.btn02 { background-color: rgba(55,55,55,1); border: 1px solid rgba(0,0,0,1); text-decoration: none; }
+a.btn02,
+button.btn02 { background-color: rgba(55,55,55,1); border: 1px solid rgba(0,0,0,1); text-decoration: none; }
 .btn_submit:hover, 
 a.btn_admin:hover, 
 .btn_admin:hover,
 #sit_btn_buy:hover,
-a.btn02:hover { background-color: rgba(0,0,0,1); color: rgba(255,255,255,1); }
+a.btn02:hover,
+button.btn02:hover { background-color: rgba(0,0,0,1); color: rgba(255,255,255,1); }
 #sod_bsk_act .btn01 {
 	width: auto;
 }

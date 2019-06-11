@@ -25,11 +25,18 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
 		<div class="mb-nav d-flex">
 			<div class="dropdown language-change">
 				<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-lang="eng">
-				English
+				<img src="<?php echo G5_ASSETS_URL; ?>/img/flag/usa.png" alt="">
+				<span>English</span>
 				</button>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-					<a class="dropdown-item" href="#" data-lang="eng">English</a>
-					<a class="dropdown-item" href="#" data-lang="hkg">Hongkong</a>
+					<a class="dropdown-item" href="#" data-lang="eng">
+						<img src="<?php echo G5_ASSETS_URL; ?>/img/flag/usa.png" alt="usa flag" />
+						<span>English</span>
+					</a>
+					<a class="dropdown-item" href="#" data-lang="hkg">
+						<img src="<?php echo G5_ASSETS_URL; ?>/img/flag/hkg.png" alt="usa flag" />
+						<span>Hongkong</span>
+					</a>
 				</div>
 			</div>
 			<div class="dropdown">
