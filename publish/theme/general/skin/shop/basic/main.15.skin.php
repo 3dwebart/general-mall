@@ -3,8 +3,11 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 // add_stylesheet('css 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
 add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_SKIN_URL.'/style.css">', 0);
-?>
+// error_reporting(E_ALL);
 
+// ini_set("display_errors", 1);
+
+?>
 <!-- 상품진열 10 시작 { -->
 <?php
 $type_header = '';
@@ -112,11 +115,16 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
 		echo "<div class=\"item-cost\">\n";
 
 		if ($this->view_it_cust_price && $row['it_cust_price']) {
-			echo "<span class=\"sct_discount\">".display_price($row['it_cust_price'])."</span>\n";
+			// echo "<span class=\"sct_discount\">".display_price($row['it_cust_price'])."</span>\n";
+			// echo "<span class=\"sct_discount\">".number_format(($row['it_cust_price'] * $priceRate), 4)."</span>\n";
+			$cust_rate = ratePrice() * $row['it_cust_price'];
+			echo "<span class=\"sct_discount cust-price\">$".number_format($cust_rate, 4)."</span>\n";
 		}
 
 		if ($this->view_it_price) {
-			echo display_price(get_price($row), $row['it_tel_inq'])."\n";
+			// echo display_price(get_price($row), $row['it_tel_inq'])."\n";
+			$cust_rate = ratePrice() * $row['it_price'];
+			echo "<span class=\"sct_discount\">$".number_format($cust_rate, 4)."</span>\n";
 		}
 
 		echo "</div>\n";

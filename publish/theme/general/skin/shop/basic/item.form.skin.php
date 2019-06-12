@@ -9,6 +9,7 @@ $wish_cnt = $onWishRow['wish_cnt'];
 ?>
 
 <form name="fitem" method="post" action="<?php echo $action_url; ?>" onsubmit="return fitem_submit(this);">
+<input type="hidden" name="krw" value="<?php echo ratePrice(); ?>">
 <input type="hidden" name="it_id[]" value="<?php echo $it_id; ?>">
 <input type="hidden" name="wish_chk" value="<?php echo $wish_cnt; ?>">
 <input type="hidden" name="sw_direct">
@@ -162,14 +163,28 @@ $wish_cnt = $onWishRow['wish_cnt'];
 			<?php if ($it['it_cust_price']) { ?>
 			<tr>
 				<th scope="row">Price</th><!-- 시중가격 -->
-				<td><?php echo display_price($it['it_cust_price']); ?></td>
+				<td>
+					<span class="cust-price">
+						$<?php
+							// echo display_price($it['it_cust_price']);
+							$rate_price = ratePrice() * $it['it_cust_price'];
+							echo number_format($rate_price,4);
+						?>
+					</span>
+				</td>
 			</tr>
 			<?php } // 시중가격 끝 ?>
 
 			<tr>
 				<th scope="row">Sale Price</th><!-- 판매가격 -->
 				<td>
-					<strong><?php echo display_price(get_price($it)); ?></strong>
+					<strong>
+						$<?php
+							//echo display_price(get_price($it));
+							$rate_price = ratePrice() * $it['it_price'];
+							echo number_format($rate_price,4);
+						?>
+					</strong>
 					<input type="hidden" id="it_price" value="<?php echo get_price($it); ?>">
 				</td>
 			</tr>
@@ -291,9 +306,9 @@ $wish_cnt = $onWishRow['wish_cnt'];
 					</div>
 					<div class="opt_count">
 						<label for="ct_qty_<?php echo $i; ?>" class="sound_only">Quantity</label><!-- 수량 -->
-					   <button type="button" class="sit_qty_minus"><i class="fa fa-minus" aria-hidden="true"></i><span class="sound_only">decrease</span></button><!-- 감소 -->
+					   <button type="button" class="sit_qty_minus"><i class="fa fa-minus" aria-hidden="true"></i><span class="sound_only">-</span></button><!-- 감소 -->
 						<input type="text" name="ct_qty[<?php echo $it_id; ?>][]" value="<?php echo $it['it_buy_min_qty']; ?>" id="ct_qty_<?php echo $i; ?>" class="num_input" size="5">
-						<button type="button" class="sit_qty_plus"><i class="fa fa-plus" aria-hidden="true"></i><span class="sound_only">increase</span></button><!-- 증가 -->
+						<button type="button" class="sit_qty_plus"><i class="fa fa-plus" aria-hidden="true"></i><span class="sound_only">+</span></button><!-- 증가 -->
 						<span class="sit_opt_prc">$ +0</span>
 					</div>
 				</li>

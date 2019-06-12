@@ -174,7 +174,7 @@ $(function() {
 		var stock = parseInt($(this).closest("li").find("input.io_stock").val());
 
 		switch(mode) {
-			case "증가":
+			case "+":
 				this_qty = parseInt($el_qty.val().replace(/[^0-9]/, "")) + 1;
 				if(this_qty > stock) {
 					alert("재고수량 보다 많은 수량을 구매할 수 없습니다.");
@@ -190,7 +190,7 @@ $(function() {
 				price_calculate();
 				break;
 
-			case "감소":
+			case "-":
 				this_qty = parseInt($el_qty.val().replace(/[^0-9]/, "")) - 1;
 				if(this_qty < min_qty) {
 					this_qty = min_qty;
@@ -446,6 +446,7 @@ function price_calculate()
 	var $el_qty = $("input[name^=ct_qty]");
 	var $el_type = $("input[name^=io_type]");
 	var price, type, qty, total = 0;
+	var krw = $("input[name=krw]").val();
 
 	$el_prc.each(function(index) {
 		price = parseInt($(this).val());
@@ -458,8 +459,10 @@ function price_calculate()
 			total += price * qty;
 		}
 	});
+	var exchange_moneey = total * Number(krw);
 
-	$("#sit_tot_price").empty().html("<span>Total price :</span> "+number_format(String(total))+"원");
+	// $("#sit_tot_price").empty().html("<span>Total price :</span> "+number_format(String(total))+"원");
+	$("#sit_tot_price").empty().html("<span>Total price :</span> "+exchange_moneey.toFixed(4));
 }
 
 // php chr() 대응

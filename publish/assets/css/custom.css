@@ -49,6 +49,9 @@ div[id^="slide"] .swiper-button-prev {
 	left: auto;
 	right: 65px;
 }
+.cust-price {
+	text-decoration: line-through;
+}
 /* END :: Slide list custom */
 /* BIGIN :: Shop list custom */
 .item {

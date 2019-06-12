@@ -18,52 +18,7 @@ if( $default['de_inicis_lpay_use'] ){   //이니시스 L.pay 사용시
 if($is_kakaopay_use) {
 	require_once(G5_SHOP_PATH.'/kakaopay/orderform.1.php');
 }
-/********** 2019-06-07 실시간 환율적용(원화를 달러화로 변경하여 보여줌) **********/
-/***** BIGIN :: 실시간 환율 변동 : 1달러당 원화 *****/
-$rate = $_GET['rate'];
-if(empty($rate)) {
-	$rate = 'USD';
-}
-
-$rate = 'KRW';
-
-$url = "http://api.manana.kr/exchange/rate/".$rate."/KRW,USD.json";
-$curl_handle = curl_init();
-curl_setopt($curl_handle, CURLOPT_URL, $url);
-curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 2);
-curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($curl_handle, CURLOPT_USERAGENT, '`http://scberries.cafe24.com`');
-
-$json = curl_exec($curl_handle);
-curl_close($curl_handle);
-
-$data = json_decode($json,true);
-for($i = 0; $i < count($data); $i++) {
-	if($data[$i]['name'] == 'USDKRW=X') { // $rate = KRW - 1달러당 원화
-		$priceRate = sprintf("%2.4f",$data[$i]['rate']);
-	}
-	/*
-	if($data[$i]['name'] == 'KRWUSD=X') { // $rate = USD - 1원당 달러화
-		$priceRate = $data[$i]['rate'];
-	}
-	*/
-}
-
-
-$exchange_sql = "UPDATE `{$g5['g5_shop_default_table']}` SET `de_paypal_krw` = '{$priceRate}'";
-sql_query($exchange_sql);
-/***** END :: 실시간 환율 변동 : 1달러당 원화 *****/
-/*
-	위의 실시간 환율 변동 무시하고 쇼핑몰 환경설정에 있는 페이팔 기본환율 적용함
-	사용하지 않을시 삭제
-*/
-$p_sql = "SELECT `de_paypal_krw` FROM `{$g5['g5_shop_default_table']}`";
-$p_row = sql_fetch($p_sql);
-$p_rate = $p_row['de_paypal_krw'];
-$priceRate = (1/$p_rate);
 ?>
-<h1><?php echo $rate; ?></h1>
-<h1>TEST :: <?php echo $priceRate; ?></h1>
 <form name="forderform" id="forderform" method="post" action="<?php echo $order_action_url; ?>" autocomplete="off">
 <div id="sod_frm">
 	<!-- 주문상품 확인 시작 { -->
@@ -240,8 +195,8 @@ $priceRate = (1/$p_rate);
 				 </div>
 			</td>
 			<td class="td_num"><?php echo number_format($sum['qty']); ?></td>
-			<td class="td_numbig  text_right">$<?php echo number_format(($priceRate*$row['ct_price']),2); ?></td>
-			<td class="td_numbig  text_right"><span class="total_price">$<?php echo number_format(($priceRate*$sell_price),2); ?></span></td>
+			<td class="td_numbig  text_right">$<?php echo number_format((ratePrice()*$row['ct_price']),2); ?></td>
+			<td class="td_numbig  text_right"><span class="total_price">$<?php echo number_format((ratePrice()*$sell_price),2); ?></span></td>
 			<td class="td_numbig  text_right"><?php echo number_format($point); ?></td>
 			<td class="td_dvr"><?php echo $ct_send_cost; ?></td>
 		</tr>
@@ -480,7 +435,7 @@ $priceRate = (1/$p_rate);
 				<li class="sod_bsk_sell d-flex flex-direction-column justify-content-space-between">
 					<span>Order</span>
 					<?php
-					$order_price = $priceRate * $tot_sell_price;
+					$order_price = ratePrice() * $tot_sell_price;
 					$order_price = round($order_price,4);
 					?>
 					<span>
@@ -495,7 +450,7 @@ $priceRate = (1/$p_rate);
 				</li>
 				<li class="sod_bsk_dvr d-flex flex-direction-column justify-content-space-between">
 					<?php
-					$shipping_fee = $priceRate * $send_cost;
+					$shipping_fee = ratePrice() * $send_cost;
 					$shipping_fee = round($shipping_fee,4);
 					?>
 					<span>Shipping fee</span>
@@ -1160,10 +1115,14 @@ function calculate_order_price()
 	var send_cost = parseInt($("input[name=od_send_cost]").val());
 	var send_cost2 = parseInt($("input[name=od_send_cost2]").val());
 	var send_coupon = parseInt($("input[name=od_send_coupon]").val());
+	var price_rate = Number('<?php echo ratePrice(); ?>');
 	var tot_price = sell_price + send_cost + send_cost2 - send_coupon;
+	var tot_rate_price = tot_price * price_rate;
+	tot_rate_price = tot_rate_price.toFixed(4);
 
 	$("input[name=good_mny]").val(tot_price);
-	$("#od_tot_price .print_price").text(number_format(String(tot_price)));
+	//$("#od_tot_price .print_price").text(number_format(String(tot_price)));
+	$("#od_tot_price .print_price").text('$' + (String(tot_rate_price)));
 	<?php if($temp_point > 0 && $is_member) { ?>
 	calculate_temp_point();
 	<?php } ?>
