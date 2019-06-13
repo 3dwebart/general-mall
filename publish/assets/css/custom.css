@@ -135,3 +135,19 @@ div[id^="slide"] .swiper-button-prev {
 	height: 110px;
 }
 /* END :: Item Order form */
+/* BIGIN :: Mobile Item list */
+.sct_wrap .m-title-wrap {
+	margin-left: -10px;
+	margin-right: -10px;
+}
+.sct_wrap .m-title-wrap h2 {
+	background-color: rgba(255,255,255,1);
+}
+.sct_wrap .list-item {
+	background-color: #fff;
+}
+.lt {
+	margin-left: 0;
+	margin-right: 0;
+}
+/* END :: Mobile Item list */

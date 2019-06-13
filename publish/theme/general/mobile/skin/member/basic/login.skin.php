@@ -7,20 +7,19 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
 
 <div id="mb_login" class="mbskin">
     <h1><?php echo $g5['title'] ?></h1>
-
     <form name="flogin" action="<?php echo $login_action_url ?>" onsubmit="return flogin_submit(this);" method="post" id="flogin">
     <input type="hidden" name="url" value="<?php echo $login_url ?>">
 
     <div id="login_frm">
-        <label for="login_id" class="sound_only">아이디<strong class="sound_only"> 필수</strong></label>
-        <input type="text" name="mb_id" id="login_id" placeholder="아이디(필수)" required class="frm_input required" maxLength="20">
-        <label for="login_pw" class="sound_only">비밀번호<strong class="sound_only"> 필수</strong></label>
-        <input type="password" name="mb_password" id="login_pw" placeholder="비밀번호(필수)" required class="frm_input required" maxLength="20">
+        <label for="login_id" class="sound_only">ID<strong class="sound_only"> Necessary</strong></label>
+        <input type="text" name="mb_id" id="login_id" placeholder="ID(Necessary)" required class="frm_input required" maxLength="20">
+        <label for="login_pw" class="sound_only">Password<strong class="sound_only"> Necessary</strong></label>
+        <input type="password" name="mb_password" id="login_pw" placeholder="Password(Necessary)" required class="frm_input required" maxLength="20">
         <div>
             <input type="checkbox" name="auto_login" id="login_auto_login">
-            <label for="login_auto_login">자동로그인</label>
+            <label for="login_auto_login">Auto login</label>
         </div>
-       <input type="submit" value="로그인" class="btn_submit">
+       <input type="submit" value="Sign in" class="btn_submit">
     </div>
 
     <?php
@@ -29,11 +28,11 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
     ?>
 
     <section class="mb_login_join">
-        <h2>회원로그인 안내</h2>
+        <h2>Member login info</h2>
         
         <div>
-            <a href="<?php echo G5_BBS_URL ?>/password_lost.php" target="_blank" id="login_password_lost">회원정보찾기</a>
-            <a href="./register.php">회원 가입</a>
+            <a href="<?php echo G5_BBS_URL ?>/password_lost.php" target="_blank" id="login_password_lost">Find Member Information</a>
+            <a href="./register.php">Sign up</a>
         </div>
     </section>
 
@@ -48,7 +47,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
         <?php if (preg_match("/orderform.php/", $url)) { ?>
 
     <section id="mb_login_notmb">
-        <h2>비회원 구매</h2>
+        <h2>Non-Member Purchase</h2>
 
         <p>
             비회원으로 주문하시는 경우 포인트는 지급하지 않습니다.
@@ -62,7 +61,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
         <input type="checkbox" id="agree" value="1">
 
         <div class="btn_confirm">
-            <a href="javascript:guest_submit(document.flogin);" class="btn_submit">비회원으로 구매하기</a>
+            <a href="javascript:guest_submit(document.flogin);" class="btn_submit">Purchase by non-member</a>
         </div>
 
         <script>
@@ -85,13 +84,13 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
     <?php } else if (preg_match("/orderinquiry.php$/", $url)) { ?>
     <div id="mb_login_od_wr">
         <fieldset id="mb_login_od">
-            <legend>비회원 주문조회</legend>
+            <legend>Non-member order inquiry</legend>
 
             <form name="forderinquiry" method="post" action="<?php echo urldecode($url); ?>" autocomplete="off">
 
-            <label for="od_id" class="od_id sound_only">주문번호<strong class="sound_only"> 필수</strong></label>
+            <label for="od_id" class="od_id sound_only">Order Number<strong class="sound_only"> Necessary</strong></label>
             <input type="text" name="od_id" value="<?php echo $od_id ?>" id="od_id" placeholder="주문번호" required class="frm_input required" size="20">
-            <label for="id_pwd" class="od_pwd sound_only">비밀번호<strong class="sound_only"> 필수</strong></label>
+            <label for="id_pwd" class="od_pwd sound_only">Password<strong class="sound_only"> Necessary</strong></label>
             <input type="password" name="od_pwd" size="20" id="od_pwd" placeholder="비밀번호" required class="frm_input required">
             <input type="submit" value="확인" class="btn_submit">
 
@@ -99,8 +98,13 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
         </fieldset>
 
         <section id="mb_login_odinfo">
-            <h2>비회원 주문조회 안내</h2>
-            <p>메일로 발송해드린 주문서의 <strong>주문번호</strong> 및 주문 시 입력하신 <strong>비밀번호</strong>를 정확히 입력해주십시오.</p>
+            <h2>Non-member order inquiry guide</h2><!-- 비회원 주문조회 안내 -->
+            <p>
+                Check your email for the order sheet. Please check your <strong>order number</strong> and <strong>password</strong> that you entered when you purchased an order.
+            </p>
+            <!--
+                메일로 발송해드린 주문서의 주문번호 및 주문 시 입력하신 비밀번호를 정확히 입력해주십시오.
+            -->
         </section>
     </div>
     <?php } ?>

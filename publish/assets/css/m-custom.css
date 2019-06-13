@@ -1,0 +1,18 @@
+/* BIGIN :: Header */
+/* END :: Header */
+/* BIGIN :: main swiper slide */
+/* END :: main swiper slide */
+/* BIGIN :: main product swiper slide */
+/* END :: main product swiper slide */
+/* END :: Side popup menu */
+/* BIGIN :: Slide list custom */
+/* END :: Slide list custom */
+/* BIGIN :: Mobile footer */
+#ft .m-ft-info {
+	color: rgba(200,200,200,1);
+}
+#ft .m-ft-info .info-tit {
+	color: rgba(255,255,255,1);
+	font-weight: bold;
+}
+/* END :: Mobile footer */

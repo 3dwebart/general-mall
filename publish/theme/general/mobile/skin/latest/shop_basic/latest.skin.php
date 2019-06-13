@@ -6,7 +6,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$latest_skin_url.'/style.css">', 
 ?>
 
 <div class="lt">
-    <h2><a href="<?php echo G5_BBS_URL ?>/board.php?bo_table=<?php echo $bo_table ?>"><?php echo $bo_subject ?></a></h2>
+    <h2><a href="<?php echo G5_BBS_URL ?>/board.php?bo_table=<?php echo $bo_table ?>"><?php echo $bo_subject; ?></a></h2>
     <ul>
     <?php for ($i=0; $i<count($list); $i++) { ?>
         <li>
@@ -16,7 +16,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$latest_skin_url.'/style.css">', 
             if ($list[$i]['is_notice'])
                 echo "<strong>".$list[$i]['subject']."</strong>";
             else
-                echo $list[$i]['subject'];
+                echo $list[$i]['bsubject'];
 
             if ($list[$i]['comment_cnt'])
 
@@ -35,7 +35,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$latest_skin_url.'/style.css">', 
         </li>
     <?php } ?>
     <?php if (count($list) == 0) { //게시물이 없을 때 ?>
-    <li>게시물이 없습니다.</li>
+    <li>No posts.</li><!-- 게시물이 없습니다. -->
     <?php } ?>
     </ul>
 </div>
