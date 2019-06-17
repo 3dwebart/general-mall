@@ -46,6 +46,8 @@ $mb_zip2        = isset($_POST['mb_zip'])           ? substr(trim($_POST['mb_zip
 $mb_addr1       = isset($_POST['mb_addr1'])         ? trim($_POST['mb_addr1'])       : "";
 $mb_addr2       = isset($_POST['mb_addr2'])         ? trim($_POST['mb_addr2'])       : "";
 $mb_addr3       = isset($_POST['mb_addr3'])         ? trim($_POST['mb_addr3'])       : "";
+$mb_addr3       = isset($_POST['mb_addr4'])         ? trim($_POST['mb_addr4'])       : "";
+$mb_addr3       = isset($_POST['mb_addr_country'])  ? trim($_POST['mb_addr_country']): "";
 $mb_addr_jibeon = isset($_POST['mb_addr_jibeon'])   ? trim($_POST['mb_addr_jibeon']) : "";
 $mb_signature   = isset($_POST['mb_signature'])     ? trim($_POST['mb_signature'])   : "";
 $mb_profile     = isset($_POST['mb_profile'])       ? trim($_POST['mb_profile'])     : "";
@@ -199,8 +201,8 @@ if ($config['cf_cert_use'] && $cert_type && $md5_cert_no) {
 //===============================================================
 
 if ($w == '') {
-    $sql = " insert into {$g5['member_table']}
-                set mb_id = '{$mb_id}',
+    $sql = " INSERT INTO {$g5['member_table']}
+                SET mb_id = '{$mb_id}',
                      mb_password = '".get_encrypt_string($mb_password)."',
                      mb_name = '{$mb_name}',
                      mb_nick = '{$mb_nick}',
@@ -315,8 +317,8 @@ if ($w == '') {
     if ($old_email != $mb_email && $config['cf_use_email_certify'])
         $sql_email_certify = " , mb_email_certify = '' ";
 
-    $sql = " update {$g5['member_table']}
-                set mb_nick = '{$mb_nick}',
+    $sql = " UPDATE {$g5['member_table']}
+                SET mb_nick = '{$mb_nick}',
                     mb_mailling = '{$mb_mailling}',
                     mb_sms = '{$mb_sms}',
                     mb_open = '{$mb_open}',
@@ -346,7 +348,7 @@ if ($w == '') {
                     {$sql_open_date}
                     {$sql_email_certify}
                     {$sql_certify}
-              where mb_id = '$mb_id' ";
+              WHERE mb_id = '$mb_id' ";
     sql_query($sql);
 }
 

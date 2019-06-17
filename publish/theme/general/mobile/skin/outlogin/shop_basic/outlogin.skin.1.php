@@ -19,7 +19,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$outlogin_skin_url.'/style.css">'
 
         </div>
         <input type="submit" id="ol_submit" value="Sign in" class="btn_submit">
-
+        <a href="<?php echo G5_BBS_URL; ?>/register.php" class="m-sign-up mt-1">Sign up</a>
     </fieldset>
     </form>
 </aside>

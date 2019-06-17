@@ -11,7 +11,7 @@ if(defined('G5_THEME_MSHOP_PATH')) {
     }
 }
 
-$g5['title'] = '장바구니';
+$g5['title'] = 'Shopping cart';
 include_once(G5_MSHOP_PATH.'/_head.php');
 
 // $s_cart_id 로 현재 장바구니 자료 쿼리
@@ -45,7 +45,7 @@ $cart_count = sql_num_rows($result);
     <div id="sod_chk">
         <label for="ct_all" class="sound_only">상품 전체</label>
         <input type="checkbox" name="ct_all" value="1" id="ct_all" checked>
-        전체상품 선택
+        Check all
     </div>
     <?php } ?>
 
@@ -79,7 +79,7 @@ $cart_count = sql_num_rows($result);
             $it_name = $a1 . stripslashes($row['it_name']) . $a2;
             $it_options = print_item_options($row['it_id'], $s_cart_id);
             if($it_options) {
-                $mod_options = '<button type="button" id="mod_opt_'.$row['it_id'].'" class="mod_btn mod_options">선택사항수정</button>';
+                $mod_options = '<button type="button" id="mod_opt_'.$row['it_id'].'" class="mod_btn mod_options">Edit selection</button>';
                // $it_name .= ;
             }
 
@@ -87,13 +87,13 @@ $cart_count = sql_num_rows($result);
             switch($row['ct_send_cost'])
             {
                 case 1:
-                    $ct_send_cost = '착불';
+                    $ct_send_cost = 'Cash on delivery';
                     break;
                 case 2:
-                    $ct_send_cost = '무료';
+                    $ct_send_cost = 'Free';
                     break;
                 default:
-                    $ct_send_cost = '선불';
+                    $ct_send_cost = 'Prepayment';
                     break;
             }
 
@@ -102,7 +102,7 @@ $cart_count = sql_num_rows($result);
                 $sendcost = get_item_sendcost($row['it_id'], $sum['price'], $sum['qty'], $s_cart_id);
 
                 if($sendcost == 0)
-                    $ct_send_cost = '무료';
+                    $ct_send_cost = 'Free';
             }
 
             $point      = $sum['point'];
@@ -115,7 +115,7 @@ $cart_count = sql_num_rows($result);
        
             <div class="li_name">
                 <span class="li_chk">
-                    <label for="ct_chk_<?php echo $i; ?>" class="sound_only">상품선택</label>
+                    <label for="ct_chk_<?php echo $i; ?>" class="sound_only">Select product</label>
                     <input type="checkbox" name="ct_chk[<?php echo $i; ?>]" value="1" id="ct_chk_<?php echo $i; ?>" checked>
                 </span>
                 <?php echo $it_name; ?>
@@ -127,12 +127,12 @@ $cart_count = sql_num_rows($result);
                 <div class="li_mod"><?php echo $mod_options; ?></div>
             </div>
             <div class="li_prqty">
-                <span class="prqty_price li_prqty_sp"><span>판매가 </span><?php echo number_format($row['ct_price']); ?></span>
-                <span class="prqty_qty li_prqty_sp"><span>수량 </span><?php echo number_format($sum['qty']); ?></span>
-                <span class="prqty_sc li_prqty_sp"><span>배송비 </span><?php echo $ct_send_cost; ?></span>
-                <span class="total_point li_prqty_sp"><span>적립포인트 </span><strong><?php echo number_format($sum['point']); ?></strong></span>
+                <span class="prqty_price li_prqty_sp"><span>Price </span><?php echo number_format($row['ct_price']); ?></span>
+                <span class="prqty_qty li_prqty_sp"><span>Quantity </span><?php echo number_format($sum['qty']); ?></span>
+                <span class="prqty_sc li_prqty_sp"><span>Shipping fee </span><?php echo $ct_send_cost; ?></span>
+                <span class="total_point li_prqty_sp"><span>Earning Points </span><strong><?php echo number_format($sum['point']); ?></strong></span>
             </div>
-             <div class="total_price total_span"><span>소계 </span><strong><?php echo number_format($sell_price); ?></strong>원</div>
+             <div class="total_price total_span"><span>Sub total </span><strong>$<?php echo number_format(($sell_price*ratePrice()),4); ?></strong></div>
 
 
         </li>
@@ -152,8 +152,8 @@ $cart_count = sql_num_rows($result);
     </ul>
 
     <div class="btn_del_wr">
-        <button type="button" onclick="return form_check('seldelete');" class="btn01">선택삭제</button>
-        <button type="button" onclick="return form_check('alldelete');" class="btn01">비우기</button>
+        <button type="button" onclick="return form_check('seldelete');" class="btn01">Delete selected</button>
+        <button type="button" onclick="return form_check('alldelete');" class="btn01">Clean</button>
     </div>
 
 
@@ -167,15 +167,15 @@ $cart_count = sql_num_rows($result);
     ?>
     <dl id="m_sod_bsk_tot">
         <?php if ($send_cost > 0) { // 배송비가 0 보다 크다면 (있다면) ?>
-        <dt class="sod_bsk_dvr">배송비</dt>
-        <dd class="sod_bsk_dvr"><strong><?php echo number_format($send_cost); ?> 원</strong></dd>
+        <dt class="sod_bsk_dvr">Shipping fee</dt>
+        <dd class="sod_bsk_dvr"><strong>$<?php echo number_format(($send_cost*ratePrice()),4); ?></strong></dd>
         <?php } ?>
 
         <?php if ($tot_price > 0) { ?>
-        <dt>포인트</dt>
-        <dd><strong><?php echo number_format($tot_point); ?> 점</strong></dd>
-        <dt class="sod_bsk_cnt">총계</dt>
-        <dd class="sod_bsk_cnt"><strong><?php echo number_format($tot_price); ?></strong> 원</dd>
+        <dt>Point</dt>
+        <dd><strong><?php echo number_format($tot_point); ?> point</strong></dd>
+        <dt class="sod_bsk_cnt">Total</dt>
+        <dd class="sod_bsk_cnt"><strong>$<?php echo number_format(($tot_price*ratePrice()),2); ?></strong></dd>
         <?php } ?>
     </dl>
     <?php } ?>
@@ -185,7 +185,7 @@ $cart_count = sql_num_rows($result);
         <input type="hidden" name="url" value="<?php echo G5_SHOP_URL; ?>/orderform.php">
         <input type="hidden" name="act" value="">
         <input type="hidden" name="records" value="<?php echo $i; ?>">
-        <button type="button" onclick="return form_check('buy');" class="btn_submit">주문하기</button>
+        <button type="button" onclick="return form_check('buy');" class="btn_submit">Ordering</button>
 
         <?php if ($naverpay_button_js) { ?>
         <div class="naverpay-cart"><?php echo $naverpay_request_js.$naverpay_button_js; ?></div>

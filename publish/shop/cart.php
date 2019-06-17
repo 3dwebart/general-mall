@@ -105,7 +105,7 @@ include_once('./_head.php');
 			$it_name = $a1 . stripslashes($row['it_name']) . $a2;
 			$it_options = print_item_options($row['it_id'], $s_cart_id);
 			if($it_options) {
-				$mod_options = '<div class="sod_option_btn"><button type="button" class="mod_options">선택사항수정</button></div>';
+				$mod_options = '<div class="sod_option_btn"><button type="button" class="mod_options">Edit selection</button></div>';
 				$it_name .= '<div class="sod_opt">'.$it_options.'</div>';
 			}
 
@@ -153,7 +153,7 @@ include_once('./_head.php');
 			<td class="td_numbig text_right"><?php echo number_format($row['ct_price']); ?></td>
 			<td class="td_numbig text_right"><?php echo number_format($point); ?></td>
 			<td class="td_dvr"><?php echo $ct_send_cost; ?></td>
-			<td class="td_numbig text_right"><span id="sell_price_<?php echo $i; ?>" class="total_prc"><?php echo number_format($sell_price); ?></span></td>
+			<td class="td_numbig text_right"><span id="sell_price_<?php echo $i; ?>" class="total_prc">$<?php echo number_format(($sell_price * ratePrice()),4); ?></span></td>
 
 		</tr>
 
@@ -185,7 +185,7 @@ include_once('./_head.php');
 		<ul>
 			<li class="sod_bsk_dvr">
 				<span>Shipping fee</span>
-				<strong><?php echo number_format($send_cost); ?></strong> 원
+				<strong>$<?php echo number_format(($send_cost*ratePrice()),4); ?></strong>
 			</li>
 
 			<li class="sod_bsk_pt">
@@ -195,7 +195,7 @@ include_once('./_head.php');
 
 			<li class="sod_bsk_cnt">
 				<span>Total price</span>
-				<strong><?php echo number_format($tot_price); ?></strong> 원 
+				<strong><?php echo number_format(($tot_price*ratePrice()),4); ?></strong> 원 
 			</li>
 		 
 		</ul>

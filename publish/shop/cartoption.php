@@ -1,10 +1,10 @@
 <?php
 include_once('./_common.php');
-
+include_once(G5_LIB_PATH.'/custom.lib.php');
 $pattern = '#[/\'\"%=*\#\(\)\|\+\&\!\$~\{\}\[\]`;:\?\^\,]#';
 $it_id  = preg_replace($pattern, '', $_POST['it_id']);
 
-$sql = " select * from {$g5['g5_shop_item_table']} where it_id = '$it_id' and it_use = '1' ";
+$sql = " SELECT * FROM {$g5['g5_shop_item_table']} WHERE it_id = '$it_id' AND it_use = '1' ";
 $it = sql_fetch($sql);
 $it_point = get_item_point($it);
 
@@ -13,11 +13,11 @@ if(!$it['it_id'])
 
 // 장바구니 자료
 $cart_id = get_session('ss_cart_id');
-$sql = " select * from {$g5['g5_shop_cart_table']} where od_id = '$cart_id' and it_id = '$it_id' order by io_type asc, ct_id asc ";
+$sql = " SELECT * FROM {$g5['g5_shop_cart_table']} WHERE od_id = '$cart_id' AND it_id = '$it_id' ORDER BY io_type ASC, ct_id ASC ";
 $result = sql_query($sql);
 
 // 판매가격
-$sql2 = " select ct_price, it_name, ct_send_cost from {$g5['g5_shop_cart_table']} where od_id = '$cart_id' and it_id = '$it_id' order by ct_id asc limit 1 ";
+$sql2 = " SELECT ct_price, it_name, ct_send_cost FROM {$g5['g5_shop_cart_table']} WHERE od_id = '$cart_id' AND it_id = '$it_id' ORDER BY ct_id ASC LIMIT 1 ";
 $row2 = sql_fetch($sql2);
 
 if(!sql_num_rows($result))
@@ -28,6 +28,7 @@ if(!sql_num_rows($result))
 <!-- 장바구니 옵션 시작 { -->
 <form name="foption" method="post" action="<?php echo G5_SHOP_URL; ?>/cartupdate.php" onsubmit="return formcheck(this);">
 <input type="hidden" name="act" value="optionmod">
+<input type="hidden" name="krw" value="<?php echo ratePrice(); ?>">
 <input type="hidden" name="it_id[]" value="<?php echo $it['it_id']; ?>">
 <input type="hidden" id="it_price" value="<?php echo $row2['ct_price']; ?>">
 <input type="hidden" name="ct_send_cost" value="<?php echo $row2['ct_send_cost']; ?>">
@@ -84,9 +85,9 @@ if($option_2) {
 				$it_stock_qty = get_option_stock_qty($row['it_id'], $row['io_id'], $row['io_type']);
 
 			if($row['io_price'] < 0)
-				$io_price = '('.number_format($row['io_price']).'원)';
+				$io_price = '($'.number_format($row['io_price']).')';
 			else
-				$io_price = '(+'.number_format($row['io_price']).'원)';
+				$io_price = '(+$'.number_format($row['io_price']).')';
 
 			$cls = 'opt';
 			if($row['io_type'])
@@ -102,14 +103,13 @@ if($option_2) {
 				<span class="sit_opt_subj"><?php echo $row['ct_option']; ?></span>
 			</div>
 			<div class="opt_count">
-				<button type="button" class="sit_qty_minus btn_frmline"><i class="fa fa-minus" aria-hidden="true"></i><span class="sound_only">Decrease</span></button><!-- 감소 -->
+				<button type="button" class="sit_qty_minus btn_frmline"><i class="fa fa-minus" aria-hidden="true"></i><span class="sound_only">-</span></button><!-- 감소 -->
 				<label for="ct_qty_<?php echo $i; ?>" class="sound_only">Quantity</label><!-- 수량 -->
 				<input type="text" name="ct_qty[<?php echo $it['it_id']; ?>][]" value="<?php echo $row['ct_qty']; ?>" id="ct_qty_<?php echo $i; ?>" class="num_input" size="5">
-				<button type="button" class="sit_qty_plus btn_frmline"><i class="fa fa-plus" aria-hidden="true"></i><span class="sound_only">Increase</span></button><!-- 증가 -->
+				<button type="button" class="sit_qty_plus btn_frmline"><i class="fa fa-plus" aria-hidden="true"></i><span class="sound_only">+</span></button><!-- 증가 -->
 				<span class="sit_opt_prc"><?php echo $io_price; ?></span>
 				<button type="button" class="sit_opt_del"><i class="fa fa-times" aria-hidden="true"></i><span class="sound_only">삭제</span></button>
 			</div>
-
 		</li>
 		<?php
 		} // END for

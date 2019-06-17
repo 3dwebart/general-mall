@@ -1003,15 +1003,17 @@ $(function() {
 			}
 
 			var f = document.forderform;
-			f.od_b_name.value        = addr[0];
-			f.od_b_tel.value         = addr[1];
-			f.od_b_hp.value          = addr[2];
-			f.od_b_zip.value         = addr[3] + addr[4];
-			f.od_b_addr1.value       = addr[5];
-			f.od_b_addr2.value       = addr[6];
-			f.od_b_addr3.value       = addr[7];
-			f.od_b_addr_jibeon.value = addr[8];
-			f.ad_subject.value       = addr[9];
+			f.od_b_name.value         = addr[0];
+			f.od_b_tel.value          = addr[1];
+			f.od_b_hp.value           = addr[2];
+			f.od_b_zip.value          = addr[3] + addr[4];
+			f.od_b_addr1.value        = addr[5];
+			f.od_b_addr2.value        = addr[6];
+			f.od_b_addr3.value        = addr[7];
+			f.od_b_addr4.value        = addr[8];
+			f.od_b_addr_country.value = addr[9];
+			//f.od_b_addr_jibeon.value  = addr[10];
+			f.ad_subject.value        = addr[11];
 
 			var zip1 = addr[3].replace(/[^0-9]/g, "");
 			var zip2 = addr[4].replace(/[^0-9]/g, "");
@@ -1619,7 +1621,9 @@ function gumae2baesong() {
 	f.od_b_addr1.value = f.od_addr1.value;
 	f.od_b_addr2.value = f.od_addr2.value;
 	f.od_b_addr3.value = f.od_addr3.value;
-	f.od_b_addr_jibeon.value = f.od_addr_jibeon.value;
+	f.od_b_addr4.value = f.od_addr4.value;
+	f.od_b_addr_country.value = f.od_addr_country.value;
+	//f.od_b_addr_jibeon.value = f.od_addr_jibeon.value;
 
 	calculate_sendcost(String(f.od_b_zip.value));
 }

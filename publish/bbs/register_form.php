@@ -53,7 +53,7 @@ if ($w == "") {
         $member['mb_name']  = $_POST['mb_name'];
     }
 
-    $g5['title'] = '회원 가입';
+    $g5['title'] = 'Sign up';
 
 } else if ($w == 'u') {
 
@@ -85,7 +85,7 @@ if ($w == "") {
             alert('비밀번호가 틀립니다.');
     }
 
-    $g5['title'] = '회원 정보 수정';
+    $g5['title'] = 'Edit member info';
 
     set_session("ss_reg_mb_name", $member['mb_name']);
     set_session("ss_reg_mb_hp", $member['mb_hp']);

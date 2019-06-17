@@ -256,89 +256,89 @@ if($is_kakaopay_use) {
 
 			<div class="tbl_frm01 tbl_wrap">
 				<table>
-				<tbody>
-				<tr>
-					<th scope="row"><label for="od_name">Name<strong class="sound_only"> Necessary</strong></label></th>
-					<td><input type="text" name="od_name" value="<?php echo get_text($member['mb_name']); ?>" id="od_name" required class="frm_input required" maxlength="20"></td>
-				</tr>
+					<tbody>
+						<tr>
+							<th scope="row"><label for="od_name">Name<strong class="sound_only"> Necessary</strong></label></th>
+							<td><input type="text" name="od_name" value="<?php echo get_text($member['mb_name']); ?>" id="od_name" required class="frm_input required" maxlength="20"></td>
+						</tr>
 
-				<?php if (!$is_member) { // 비회원이면 ?>
-				<tr>
-					<th scope="row"><label for="od_pwd">Password</label></th>
-					<td>
-						<span class="frm_info">English,Number 3~20characters (Required to view order form)</span><!-- 주문서 조회시 필요 -->
-						<input type="password" name="od_pwd" id="od_pwd" required class="frm_input required" maxlength="20">
-					</td>
-				</tr>
-				<?php } ?>
+						<?php if (!$is_member) { // 비회원이면 ?>
+						<tr>
+							<th scope="row"><label for="od_pwd">Password</label></th>
+							<td>
+								<span class="frm_info">English,Number 3~20characters (Required to view order form)</span><!-- 주문서 조회시 필요 -->
+								<input type="password" name="od_pwd" id="od_pwd" required class="frm_input required" maxlength="20">
+							</td>
+						</tr>
+						<?php } ?>
 
-				<tr>
-					<th scope="row"><label for="od_tel">Phone No.<strong class="sound_only"> Necessary</strong></label></th>
-					<td><input type="text" name="od_tel" value="<?php echo get_text($member['mb_tel']); ?>" id="od_tel" required class="frm_input required" maxlength="20"></td>
-				</tr>
-				<tr>
-					<th scope="row"><label for="od_hp">HP No.</label></th>
-					<td><input type="text" name="od_hp" value="<?php echo get_text($member['mb_hp']); ?>" id="od_hp" class="frm_input" maxlength="20"></td>
-				</tr>
-				<tr>
-					<th scope="row"><label for="od_addr1">Address 1</label></th>
-					<td>
-						<input type="text" name="od_addr1" value="<?php echo get_text($member['mb_addr1']) ?>" id="od_addr1" required class="frm_input frm_address required" size="60" placeholder="Base Address">
-					</td>
-				</tr>
-				<tr>
-					<th scope="row"><label for="od_addr2">Address2</label></th>
-					<td>
-						<input type="text" name="od_addr2" value="<?php echo get_text($member['mb_addr2']) ?>" id="od_addr2" class="frm_input frm_address" size="60" placeholder="Detailed Address">
-					</td>
-				</tr>
-				<tr>
-					<th scope="row"><label for="od_addr3">City</label></th>
-					<td>
-						<input type="text" name="od_addr3" value="<?php echo get_text($member['mb_addr3']) ?>" id="od_addr3" class="frm_input frm_address" size="60" readonly="readonly" placeholder="참고항목">
-					</td>
-				</tr>
-				<tr>
-					<th scope="row"><label for="od_addr4">State/Province/Region</label></th>
-					<td>
-						<input type="text" name="od_addr4" value="<?php echo get_text($member['mb_addr4']) ?>" id="od_addr4" class="frm_input frm_address" size="60" readonly="readonly" placeholder="State/Province/Region">
-					</td>
-				</tr>
-				<tr>
-					<th scope="row"><label for="od_addr_country">Country</label></th>
-					<td>
-						<input type="text" name="od_addr_country" value="<?php echo get_text($member['od_addr_country']) ?>" id="od_addr_country" class="frm_input frm_address" size="60" readonly="readonly" placeholder="Country">
-					</td>
-				</tr>
-				<tr>
-					<th scope="row"><label for="od_zip">ZIP</label></th>
-					<td>
-						<input type="text" name="od_zip" value="<?php echo $member['mb_zip1'].$member['mb_zip2']; ?>" id="od_zip" required class="frm_input required" size="8" maxlength="6" placeholder="ZIP Code">
-					</td>
-				</tr>
-				<tr>
-					<th scope="row"><label for="od_email">E-mail<strong class="sound_only"> Necessary</strong></label></th>
-					<td><input type="text" name="od_email" value="<?php echo $member['mb_email']; ?>" id="od_email" required class="frm_input required" size="35" maxlength="100"></td>
-				</tr>
+						<tr>
+							<th scope="row"><label for="od_tel">Phone No.<strong class="sound_only"> Necessary</strong></label></th>
+							<td><input type="text" name="od_tel" value="<?php echo get_text($member['mb_tel']); ?>" id="od_tel" required class="frm_input required" maxlength="20"></td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="od_hp">HP No.</label></th>
+							<td><input type="text" name="od_hp" value="<?php echo get_text($member['mb_hp']); ?>" id="od_hp" class="frm_input" maxlength="20"></td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="od_addr1">Address 1</label></th>
+							<td>
+								<input type="text" name="od_addr1" value="<?php echo get_text($member['mb_addr1']) ?>" id="od_addr1" required class="frm_input frm_address required" size="60" placeholder="Base Address">
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="od_addr2">Address2</label></th>
+							<td>
+								<input type="text" name="od_addr2" value="<?php echo get_text($member['mb_addr2']) ?>" id="od_addr2" class="frm_input frm_address" size="60" placeholder="Detailed Address">
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="od_addr3">City</label></th>
+							<td>
+								<input type="text" name="od_addr3" value="<?php echo get_text($member['mb_addr3']) ?>" id="od_addr3" class="frm_input frm_address" size="60" placeholder="City">
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="od_addr4">State/Province/Region</label></th>
+							<td>
+								<input type="text" name="od_addr4" value="<?php echo get_text($member['mb_addr4']) ?>" id="od_addr4" class="frm_input frm_address" size="60" placeholder="State/Province/Region">
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="od_addr_country">Country</label></th>
+							<td>
+								<input type="text" name="od_addr_country" value="<?php echo get_text($member['od_addr_country']) ?>" id="od_addr_country" class="frm_input frm_address" size="60" placeholder="Country">
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="od_zip">ZIP</label></th>
+							<td>
+								<input type="text" name="od_zip" value="<?php echo $member['mb_zip1'].$member['mb_zip2']; ?>" id="od_zip" required class="frm_input required" size="8" maxlength="6" placeholder="ZIP Code">
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="od_email">E-mail<strong class="sound_only"> Necessary</strong></label></th>
+							<td><input type="text" name="od_email" value="<?php echo $member['mb_email']; ?>" id="od_email" required class="frm_input required" size="35" maxlength="100"></td>
+						</tr>
 
-				<?php if ($default['de_hope_date_use']) { // 배송희망일 사용 ?>
-				<tr>
-					<th scope="row"><label for="od_hope_date">Hope shipping date</label></th>
-					<td>
-						<!-- <select name="od_hope_date" id="od_hope_date">
-						<option value="">선택하십시오.</option>
-						<?php
-						for ($i=0; $i<7; $i++) {
-							$sdate = date("Y-m-d", time()+86400*($default['de_hope_date_after']+$i));
-							echo '<option value="'.$sdate.'">'.$sdate.' ('.get_yoil($sdate).')</option>'.PHP_EOL;
-						}
-						?>
-						</select> -->
-						Please ship after <input type="text" name="od_hope_date" value="" id="od_hope_date" required class="frm_input required" size="11" maxlength="10" readonly="readonly"> <!-- 이후로 배송 바랍니다. -->
-					</td>
-				</tr>
-				<?php } ?>
-				</tbody>
+						<?php if ($default['de_hope_date_use']) { // 배송희망일 사용 ?>
+						<tr>
+							<th scope="row"><label for="od_hope_date">Hope shipping date</label></th>
+							<td>
+								<!-- <select name="od_hope_date" id="od_hope_date">
+								<option value="">선택하십시오.</option>
+								<?php
+								for ($i=0; $i<7; $i++) {
+									$sdate = date("Y-m-d", time()+86400*($default['de_hope_date_after']+$i));
+									echo '<option value="'.$sdate.'">'.$sdate.' ('.get_yoil($sdate).')</option>'.PHP_EOL;
+								}
+								?>
+								</select> -->
+								Please ship after <input type="text" name="od_hope_date" value="" id="od_hope_date" required class="frm_input required" size="11" maxlength="10" readonly="readonly"> <!-- 이후로 배송 바랍니다. -->
+							</td>
+						</tr>
+						<?php } ?>
+					</tbody>
 				</table>
 			</div>
 		</section>
@@ -350,102 +350,122 @@ if($is_kakaopay_use) {
 
 			<div class="tbl_frm01 tbl_wrap">
 				<table>
-				<tbody>
-				<?php
-				if($is_member) {
-					// 배송지 이력
-					$addr_list = '';
-					$sep = chr(30);
+					<tbody>
+						<?php
+						if($is_member) {
+							// 배송지 이력
+							$addr_list = '';
+							$sep = chr(30);
 
-					// 주문자와 동일
-					$addr_list .= '<input type="radio" name="ad_sel_addr" value="same" id="ad_sel_addr_same">'.PHP_EOL;
-					$addr_list .= '<label for="ad_sel_addr_same">Same as the purchaser</label>'.PHP_EOL;
+							// 주문자와 동일
+							$addr_list .= '<input type="radio" name="ad_sel_addr" value="same" id="ad_sel_addr_same">'.PHP_EOL;
+							$addr_list .= '<label for="ad_sel_addr_same">Same as the purchaser</label>'.PHP_EOL;
 
-					// 기본배송지
-					$sql = " select *
-								from {$g5['g5_shop_order_address_table']}
-								where mb_id = '{$member['mb_id']}'
-								  and ad_default = '1' ";
-					$row = sql_fetch($sql);
-					if($row['ad_id']) {
-						$val1 = $row['ad_name'].$sep.$row['ad_tel'].$sep.$row['ad_hp'].$sep.$row['ad_zip1'].$sep.$row['ad_zip2'].$sep.$row['ad_addr1'].$sep.$row['ad_addr2'].$sep.$row['ad_addr3'].$sep.$row['ad_jibeon'].$sep.$row['ad_subject'];
-						$addr_list .= '<input type="radio" name="ad_sel_addr" value="'.get_text($val1).'" id="ad_sel_addr_def">'.PHP_EOL;
-						$addr_list .= '<label for="ad_sel_addr_def">기본배송지</label>'.PHP_EOL;
-					}
+							// 기본배송지
+							$sql = " select *
+										from {$g5['g5_shop_order_address_table']}
+										where mb_id = '{$member['mb_id']}'
+										  and ad_default = '1' ";
+							$row = sql_fetch($sql);
+							if($row['ad_id']) {
+								$val1 = $row['ad_name'].$sep.$row['ad_tel'].$sep.$row['ad_hp'].$sep.$row['ad_zip1'].$sep.$row['ad_zip2'].$sep.$row['ad_addr1'].$sep.$row['ad_addr2'].$sep.$row['ad_addr3'].$sep.$row['ad_jibeon'].$sep.$row['ad_subject'];
+								$addr_list .= '<input type="radio" name="ad_sel_addr" value="'.get_text($val1).'" id="ad_sel_addr_def">'.PHP_EOL;
+								$addr_list .= '<label for="ad_sel_addr_def">기본배송지</label>'.PHP_EOL;
+							}
 
-					// 최근배송지
-					$sql = " select *
-								from {$g5['g5_shop_order_address_table']}
-								where mb_id = '{$member['mb_id']}'
-								  and ad_default = '0'
-								order by ad_id desc
-								limit 1 ";
-					$result = sql_query($sql);
-					for($i=0; $row=sql_fetch_array($result); $i++) {
-						$val1 = $row['ad_name'].$sep.$row['ad_tel'].$sep.$row['ad_hp'].$sep.$row['ad_zip1'].$sep.$row['ad_zip2'].$sep.$row['ad_addr1'].$sep.$row['ad_addr2'].$sep.$row['ad_addr3'].$sep.$row['ad_jibeon'].$sep.$row['ad_subject'];
-						$val2 = '<label for="ad_sel_addr_'.($i+1).'">최근배송지('.($row['ad_subject'] ? get_text($row['ad_subject']) : get_text($row['ad_name'])).')</label>';
-						$addr_list .= '<input type="radio" name="ad_sel_addr" value="'.get_text($val1).'" id="ad_sel_addr_'.($i+1).'"> '.PHP_EOL.$val2.PHP_EOL;
-					}
+							// 최근배송지
+							$sql = " select *
+										from {$g5['g5_shop_order_address_table']}
+										where mb_id = '{$member['mb_id']}'
+										  and ad_default = '0'
+										order by ad_id desc
+										limit 1 ";
+							$result = sql_query($sql);
+							for($i=0; $row=sql_fetch_array($result); $i++) {
+								$val1 = $row['ad_name'].$sep.$row['ad_tel'].$sep.$row['ad_hp'].$sep.$row['ad_zip1'].$sep.$row['ad_zip2'].$sep.$row['ad_addr1'].$sep.$row['ad_addr2'].$sep.$row['ad_addr3'].$sep.$row['ad_jibeon'].$sep.$row['ad_subject'];
+								$val2 = '<label for="ad_sel_addr_'.($i+1).'">최근배송지('.($row['ad_subject'] ? get_text($row['ad_subject']) : get_text($row['ad_name'])).')</label>';
+								$addr_list .= '<input type="radio" name="ad_sel_addr" value="'.get_text($val1).'" id="ad_sel_addr_'.($i+1).'"> '.PHP_EOL.$val2.PHP_EOL;
+							}
 
-					$addr_list .= '<input type="radio" name="ad_sel_addr" value="new" id="od_sel_addr_new">'.PHP_EOL;
-					$addr_list .= '<label for="od_sel_addr_new">New shipping</label>'.PHP_EOL;
+							$addr_list .= '<input type="radio" name="ad_sel_addr" value="new" id="od_sel_addr_new">'.PHP_EOL;
+							$addr_list .= '<label for="od_sel_addr_new">New shipping</label>'.PHP_EOL;
 
-					$addr_list .='<a href="'.G5_SHOP_URL.'/orderaddress.php" id="order_address" class="btn_frmline">Shipping list</a>';
-				} else {
-					// 주문자와 동일
-					$addr_list .= '<input type="checkbox" name="ad_sel_addr" value="same" id="ad_sel_addr_same">'.PHP_EOL;
-					$addr_list .= '<label for="ad_sel_addr_same">Same as the purchaser</label>'.PHP_EOL;
-				}
-				?>
-				<tr>
-					<th scope="row">Select destination</th><!-- 배송지선택 -->
-					<td>
-						<?php echo $addr_list; ?>
-					</td>
-				</tr>
-				<?php if($is_member) { ?>
-				<tr>
-					<th scope="row"><label for="ad_subject">Shipping name</label></th><!-- 배송지명 -->
-					<td>
-						<input type="text" name="ad_subject" id="ad_subject" class="frm_input" maxlength="20">
-						<input type="checkbox" name="ad_default" id="ad_default" value="1">
-						<label for="ad_default">Set as your default shipping address</label>
-					</td>
-				</tr>
-				<?php } ?>
-				<tr>
-					<th scope="row"><label for="od_b_name">Full name<strong class="sound_only"> Necessary</strong></label></th>
-					<td><input type="text" name="od_b_name" id="od_b_name" required class="frm_input required" maxlength="20"></td>
-				</tr>
-				<tr>
-					<th scope="row"><label for="od_b_tel">Phone No.<strong class="sound_only"> Necessary</strong></label></th>
-					<td><input type="text" name="od_b_tel" id="od_b_tel" required class="frm_input required" maxlength="20"></td>
-				</tr>
-				<tr>
-					<th scope="row"><label for="od_b_hp">HP No.</label></th>
-					<td><input type="text" name="od_b_hp" id="od_b_hp" class="frm_input" maxlength="20"></td>
-				</tr>
-				<tr>
-					<th scope="row">Address</th>
-					<td id="sod_frm_addr">
-						<label for="od_b_zip" class="sound_only">ZIP Code<strong class="sound_only"> Necessary</strong></label>
-						<input type="text" name="od_b_zip" id="od_b_zip" required class="frm_input required" size="8" maxlength="6" placeholder="ZIP Code">
-						<button type="button" class="btn_address" onclick="win_zip('forderform', 'od_b_zip', 'od_b_addr1', 'od_b_addr2', 'od_b_addr3', 'od_b_addr_jibeon');">Address search</button><br>
-						<input type="text" name="od_b_addr1" id="od_b_addr1" required class="frm_input frm_address required" size="60" placeholder="Base Address">
-						<label for="od_b_addr1" class="sound_only">Base Address<strong> Necessary</strong></label><br>
-						<input type="text" name="od_b_addr2" id="od_b_addr2" class="frm_input frm_address" size="60" placeholder="Detailed Address">
-						<label for="od_b_addr2" class="sound_only">Detailed Address</label>
-						<br>
-						<input type="text" name="od_b_addr3" id="od_b_addr3" readonly="readonly" class="frm_input frm_address" size="60" placeholder="참고항목">
-						<label for="od_b_addr3" class="sound_only">참고항목</label><br>
-						<input type="hidden" name="od_b_addr_jibeon" value="">
-					</td>
-				</tr>
-				<tr>
-					<th scope="row"><label for="od_memo">Message</label></th>
-					<td><textarea name="od_memo" id="od_memo"></textarea></td>
-				</tr>
-				</tbody>
+							$addr_list .='<a href="'.G5_SHOP_URL.'/orderaddress.php" id="order_address" class="btn_frmline">Shipping list</a>';
+						} else {
+							// 주문자와 동일
+							$addr_list .= '<input type="checkbox" name="ad_sel_addr" value="same" id="ad_sel_addr_same">'.PHP_EOL;
+							$addr_list .= '<label for="ad_sel_addr_same">Same as the purchaser</label>'.PHP_EOL;
+						}
+						?>
+						<tr>
+							<th scope="row">Select destination</th><!-- 배송지선택 -->
+							<td>
+								<?php echo $addr_list; ?>
+							</td>
+						</tr>
+						<?php if($is_member) { ?>
+						<tr>
+							<th scope="row"><label for="ad_subject">Shipping name</label></th><!-- 배송지명 -->
+							<td>
+								<input type="text" name="ad_subject" id="ad_subject" class="frm_input" maxlength="20">
+								<input type="checkbox" name="ad_default" id="ad_default" value="1">
+								<label for="ad_default">Set as your default shipping address</label>
+							</td>
+						</tr>
+						<?php } ?>
+						<tr>
+							<th scope="row"><label for="od_b_name">Full name<strong class="sound_only"> Necessary</strong></label></th>
+							<td><input type="text" name="od_b_name" id="od_b_name" required class="frm_input required" maxlength="20"></td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="od_b_tel">Phone No.<strong class="sound_only"> Necessary</strong></label></th>
+							<td><input type="text" name="od_b_tel" id="od_b_tel" required class="frm_input required" maxlength="20"></td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="od_b_hp">HP No.</label></th>
+							<td><input type="text" name="od_b_hp" id="od_b_hp" class="frm_input" maxlength="20"></td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="od_b_addr1">Address 1</label></th>
+							<td id="sod_frm_addr">
+								<input type="text" name="od_b_addr1" id="od_b_addr1" required class="frm_input frm_address required" size="60" placeholder="Base Address">
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="od_b_addr2">Address 2</label></th>
+							<td id="sod_frm_addr">
+								<input type="text" name="od_b_addr2" id="od_b_addr2" class="frm_input frm_address" size="60" placeholder="Detailed Address">
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="od_b_addr3">City</label></th>
+							<td id="sod_frm_addr">
+								<input type="text" name="od_b_addr3" id="od_b_addr3" readonly="readonly" class="frm_input frm_address" size="60" placeholder="City">
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="od_b_addr4"></label>State/Province/Region</th>
+							<td id="sod_frm_addr">
+								<input type="text" name="od_b_addr4" id="od_b_addr4" readonly="readonly" class="frm_input frm_address" size="60" placeholder="State/Province/Region">
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="od_b_addr_country">Country</label></th>
+							<td id="sod_frm_addr">
+								<input type="text" name="od_b_addr_country" id="od_b_addr_country" required class="frm_input frm_address required" size="60" placeholder="Country">
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="od_b_zip">ZIP</label></th>
+							<td id="sod_frm_addr">
+								<input type="text" name="od_b_zip" id="od_b_zip" required class="frm_input required" size="8" maxlength="6" placeholder="ZIP Code">
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="od_memo">Message</label></th>
+							<td><textarea name="od_memo" id="od_memo"></textarea></td>
+						</tr>
+					</tbody>
 				</table>
 			</div>
 		</section>
@@ -496,7 +516,6 @@ if($is_kakaopay_use) {
 
 					<strong id="ct_tot_price">$<?php echo number_format($exchangeDollor, 4); ?></strong>
 				</li>
-
 			</ul>
 		</div>
 		<!-- } 주문상품 합계 끝 -->
@@ -1044,15 +1063,17 @@ $(function() {
 			}
 
 			var f = document.forderform;
-			f.od_b_name.value        = addr[0];
-			f.od_b_tel.value         = addr[1];
-			f.od_b_hp.value          = addr[2];
-			f.od_b_zip.value         = addr[3] + addr[4];
-			f.od_b_addr1.value       = addr[5];
-			f.od_b_addr2.value       = addr[6];
-			f.od_b_addr3.value       = addr[7];
-			f.od_b_addr_jibeon.value = addr[8];
-			f.ad_subject.value       = addr[9];
+			f.od_b_name.value         = addr[0];
+			f.od_b_tel.value          = addr[1];
+			f.od_b_hp.value           = addr[2];
+			f.od_b_zip.value          = addr[3] + addr[4];
+			f.od_b_addr1.value        = addr[5];
+			f.od_b_addr2.value        = addr[6];
+			f.od_b_addr3.value        = addr[7];
+			f.od_b_addr4.value        = addr[8];
+			f.od_b_addr_country.value = addr[9];
+			//f.od_b_addr_jibeon.value  = addr[10];
+			f.ad_subject.value        = addr[10];
 
 			var zip1 = addr[3].replace(/[^0-9]/g, "");
 			var zip2 = addr[4].replace(/[^0-9]/g, "");
@@ -1666,7 +1687,9 @@ function gumae2baesong() {
 	f.od_b_addr1.value = f.od_addr1.value;
 	f.od_b_addr2.value = f.od_addr2.value;
 	f.od_b_addr3.value = f.od_addr3.value;
-	f.od_b_addr_jibeon.value = f.od_addr_jibeon.value;
+	f.od_b_addr4.value = f.od_addr4.value;
+	f.od_b_addr_country.value = f.od_addr_country.value;
+	//f.od_b_addr_jibeon.value = f.od_addr_jibeon.value;
 
 	calculate_sendcost(String(f.od_b_zip.value));
 }

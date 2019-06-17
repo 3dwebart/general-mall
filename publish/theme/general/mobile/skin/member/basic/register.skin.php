@@ -16,23 +16,23 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
 
     <div class="chk_all">
         <input type="checkbox" name="chk_all" id="chk_all">
-        <label for="chk_all">전체동의</label>
+        <label for="chk_all">Check all</label>
 
     </div>
     <section id="fregister_term">
-        <h2>회원가입약관</h2>
+        <h2>Terms of Membership</h2>
         <textarea readonly><?php echo get_text($config['cf_stipulation']) ?></textarea>
         <fieldset class="fregister_agree">
             <input type="checkbox" name="agree" value="1" id="agree11">
-            <label for="agree11">회원가입약관의 내용에 동의합니다.</label>
+            <label for="agree11">I agree to the terms of the Membership Agreement.</label><!-- 회원가입약관의 내용에 동의합니다. -->
         </fieldset>
     </section>
 
     <section id="fregister_private">
-        <h2>개인정보처리방침안내</h2>
+        <h2>Privacy Policy</h2>
         <div class="tbl_head01 tbl_wrap">
             <table>
-                <caption>개인정보처리방침안내</caption>
+                <caption>Privacy Policy</caption>
                 <thead>
                 <tr>
                     <th colspan="2">목적</th>
@@ -62,12 +62,12 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
         </div>
         <fieldset class="fregister_agree">
             <input type="checkbox" name="agree2" value="1" id="agree21">
-             <label for="agree21">개인정보처리방침안내의 내용에 동의합니다.</label>
+             <label for="agree21">I agree to the contents of the Privacy Policy Guide.</label><!-- 개인정보처리방침안내의 내용에 동의합니다. -->
        </fieldset>
     </section>
 
     <div class=" btn_top">
-        <input type="submit" class="btn_submit" value="회원가입">
+        <input type="submit" class="btn_submit" value="Sign up">
     </div>
 
     </form>

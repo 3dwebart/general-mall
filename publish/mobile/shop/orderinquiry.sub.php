@@ -20,49 +20,49 @@ if(defined('G5_THEME_SHOP_PATH')) {
 <div id="sod_inquiry">
     <ul>
         <?php
-        $sql = " select *,
-                    (od_cart_coupon + od_coupon + od_send_coupon) as couponprice
-                   from {$g5['g5_shop_order_table']}
-                  where mb_id = '{$member['mb_id']}'
-                  order by od_id desc
+        $sql = " SELECT *,
+                    (od_cart_coupon + od_coupon + od_send_coupon) AS couponprice
+                   FROM {$g5['g5_shop_order_table']}
+                  WHERE mb_id = '{$member['mb_id']}'
+                  ORDER BY od_id DESC
                   $limit ";
         $result = sql_query($sql);
         for ($i=0; $row=sql_fetch_array($result); $i++)
         {
             // 주문상품
-            $sql = " select it_name, ct_option
-                        from {$g5['g5_shop_cart_table']}
-                        where od_id = '{$row['od_id']}'
-                        order by io_type, ct_id
-                        limit 1 ";
+            $sql = " SELECT it_name, ct_option
+                       FROM {$g5['g5_shop_cart_table']}
+                      WHERE od_id = '{$row['od_id']}'
+                   ORDER BY io_type, ct_id
+                      LIMIT 1 ";
             $ct = sql_fetch($sql);
             $ct_name = get_text($ct['it_name']).' '.get_text($ct['ct_option']);
 
-            $sql = " select count(*) as cnt
-                        from {$g5['g5_shop_cart_table']}
-                        where od_id = '{$row['od_id']}' ";
+            $sql = " SELECT count(*) AS cnt
+                       FROM {$g5['g5_shop_cart_table']}
+                      WHERE od_id = '{$row['od_id']}' ";
             $ct2 = sql_fetch($sql);
             if($ct2['cnt'] > 1)
                 $ct_name .= ' 외 '.($ct2['cnt'] - 1).'건';
 
             switch($row['od_status']) {
                 case '주문':
-                    $od_status = '<span class="status_01">입금확인중</span>';
+                    $od_status = '<span class="status_01">Checking deposit</span>';//입금확인중
                     break;
                 case '입금':
-                    $od_status = '<span class="status_02">입금완료</span>';
+                    $od_status = '<span class="status_02">Deposit completed</span>';//입금완료
                     break;
                 case '준비':
-                    $od_status = '<span class="status_03">상품준비중</span>';
+                    $od_status = '<span class="status_03">Product is in preparation</span>';//상품준비중
                     break;
                 case '배송':
-                    $od_status = '<span class="status_04">상품배송</span>';
+                    $od_status = '<span class="status_04">Delivering items</span>';//상품배송
                     break;
                 case '완료':
-                    $od_status = '<span class="status_05">배송완료</span>';
+                    $od_status = '<span class="status_05">Delivery completed</span>';//배송완료
                     break;
                 default:
-                    $od_status = '<span class="status_06">주문취소</span>';
+                    $od_status = '<span class="status_06">Order Cancellation</span>';//주문취소
                     break;
             }
 
@@ -94,7 +94,7 @@ if(defined('G5_THEME_SHOP_PATH')) {
         }
 
         if ($i == 0)
-            echo '<li class="empty_list">주문 내역이 없습니다.</li>';
+            echo '<li class="empty_list">No order history.</li>';//주문 내역이 없습니다.
         ?>
     </ul>
 </div>
