@@ -144,6 +144,7 @@ jQuery(function($){
                     var $el_qty = $("input[name^=ct_qty]");
                     var $el_type = $("input[name^=io_type]");
                     var price, type, qty, total = 0;
+                    var krw = $("input[name=krw]").val();
 
                     $el_prc.each(function(index) {
                         price = parseInt($(this).val());
@@ -157,7 +158,10 @@ jQuery(function($){
                         }
                     });
 
-                    $("#sit_tot_price").empty().html("<span>총 금액 </span><strong>"+number_format(String(total))+"</strong> 원");
+                    var exchange_moneey = total * Number(krw);
+
+                    //$("#sit_tot_price").empty().html("<span>Total price </span><strong>"+number_format(String(total))+"</strong> 원");
+                    $("#sit_tot_price").empty().html("<span>Total price </span><strong>$"+exchange_moneey.toFixed(2)+"</strong>");
 
                 } else {
                     cached_function.apply(this, arguments); // use .apply() to call it

@@ -6,7 +6,7 @@ if ($is_guest)
 
 set_session('ss_memo_delete_token', $token = uniqid(time()));
 
-$g5['title'] = '내 쪽지함';
+$g5['title'] = 'My notes';
 include_once(G5_PATH.'/head.sub.php');
 
 $kind = $kind ? clean_xss_tags(strip_tags($kind)) : 'recv';
@@ -28,13 +28,13 @@ $from_record = ((int) $page - 1) * $config['cf_page_rows']; // 시작 열을 구
 
 if ($kind == 'recv')
 {
-    $kind_title = '받은';
+    $kind_title = 'received';
     $recv_img = 'on';
     $send_img = 'off';
 }
 else
 {
-    $kind_title = '보낸';
+    $kind_title = 'sent';
     $recv_img = 'off';
     $send_img = 'on';
 }
@@ -61,7 +61,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     $name = get_sideview($row['mb_id'], $row['mb_nick'], $row['mb_email'], $row['mb_homepage']);
 
     if (substr($row['me_read_datetime'],0,1) == 0)
-        $read_datetime = '아직 읽지 않음';
+        $read_datetime = 'Not yet read';
     else
         $read_datetime = substr($row['me_read_datetime'],2,14);
 

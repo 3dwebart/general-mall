@@ -30,8 +30,10 @@ if($is_kakaopay_use) {
 			<th scope="col">Total volume</th>
 			<th scope="col">Price</th>
 			<th scope="col">Sub total</th>
+			<?php if(!G5_IS_MOBILE) { ?>
 			<th scope="col">Point</th>
 			<th scope="col">Shipping fee</th>
+			<?php } ?>
 		</tr>
 		</thead>
 		<tbody>
@@ -197,8 +199,10 @@ if($is_kakaopay_use) {
 			<td class="td_num"><?php echo number_format($sum['qty']); ?></td>
 			<td class="td_numbig  text_right">$<?php echo number_format((ratePrice()*$row['ct_price']),2); ?></td>
 			<td class="td_numbig  text_right"><span class="total_price">$<?php echo number_format((ratePrice()*$sell_price),2); ?></span></td>
+			<?php if(!G5_IS_MOBILE) { ?>
 			<td class="td_numbig  text_right"><?php echo number_format($point); ?></td>
 			<td class="td_dvr"><?php echo $ct_send_cost; ?></td>
+			<?php } ?>
 		</tr>
 
 		<?php
@@ -228,8 +232,8 @@ if($is_kakaopay_use) {
 	<!-- } 주문상품 확인 끝 -->
 
 	<div class="sod_left">
-		<input type="hidden" name="od_price"    value="<?php echo $tot_sell_price; ?>">
-		<input type="hidden" name="org_od_price"    value="<?php echo $tot_sell_price; ?>">
+		<input type="hidden" name="od_price" value="<?php echo $tot_sell_price; ?>">
+		<input type="hidden" name="org_od_price" value="<?php echo $tot_sell_price; ?>">
 		<input type="hidden" name="od_send_cost" value="<?php echo $send_cost; ?>">
 		<input type="hidden" name="od_send_cost2" value="0">
 		<input type="hidden" name="item_coupon" value="0">
@@ -277,19 +281,39 @@ if($is_kakaopay_use) {
 					<td><input type="text" name="od_hp" value="<?php echo get_text($member['mb_hp']); ?>" id="od_hp" class="frm_input" maxlength="20"></td>
 				</tr>
 				<tr>
-					<th scope="row">Address</th>
+					<th scope="row"><label for="od_addr1">Address 1</label></th>
 					<td>
-						<label for="od_zip" class="sound_only">ZIP Code<strong class="sound_only"> Necessary</strong></label>
-						<input type="text" name="od_zip" value="<?php echo $member['mb_zip1'].$member['mb_zip2']; ?>" id="od_zip" required class="frm_input required" size="8" maxlength="6" placeholder="ZIP Code">
-						<button type="button" class="btn_address" onclick="win_zip('forderform', 'od_zip', 'od_addr1', 'od_addr2', 'od_addr3', 'od_addr_jibeon');">Address Search</button><br>
 						<input type="text" name="od_addr1" value="<?php echo get_text($member['mb_addr1']) ?>" id="od_addr1" required class="frm_input frm_address required" size="60" placeholder="Base Address">
-						<label for="od_addr1" class="sound_only">Base Address<strong class="sound_only"> Necessary</strong></label><br>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="od_addr2">Address2</label></th>
+					<td>
 						<input type="text" name="od_addr2" value="<?php echo get_text($member['mb_addr2']) ?>" id="od_addr2" class="frm_input frm_address" size="60" placeholder="Detailed Address">
-						<label for="od_addr2" class="sound_only">Detailed Address</label>
-						<br>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="od_addr3">City</label></th>
+					<td>
 						<input type="text" name="od_addr3" value="<?php echo get_text($member['mb_addr3']) ?>" id="od_addr3" class="frm_input frm_address" size="60" readonly="readonly" placeholder="참고항목">
-						<label for="od_addr3" class="sound_only">Reference Item</label><br>
-						<input type="hidden" name="od_addr_jibeon" value="<?php echo get_text($member['mb_addr_jibeon']); ?>">
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="od_addr4">State/Province/Region</label></th>
+					<td>
+						<input type="text" name="od_addr4" value="<?php echo get_text($member['mb_addr4']) ?>" id="od_addr4" class="frm_input frm_address" size="60" readonly="readonly" placeholder="State/Province/Region">
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="od_addr_country">Country</label></th>
+					<td>
+						<input type="text" name="od_addr_country" value="<?php echo get_text($member['od_addr_country']) ?>" id="od_addr_country" class="frm_input frm_address" size="60" readonly="readonly" placeholder="Country">
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="od_zip">ZIP</label></th>
+					<td>
+						<input type="text" name="od_zip" value="<?php echo $member['mb_zip1'].$member['mb_zip2']; ?>" id="od_zip" required class="frm_input required" size="8" maxlength="6" placeholder="ZIP Code">
 					</td>
 				</tr>
 				<tr>

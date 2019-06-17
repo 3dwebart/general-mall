@@ -7,8 +7,8 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_MSHOP_SKIN_URL.'/style.css">',
 
 <script src="<?php echo G5_JS_URL; ?>/viewimageresize.js"></script>
 <div id="sit_qa_wbtn">
-    <a href="<?php echo $itemqa_form; ?>" class="itemqa_form qa_wr">상품문의 쓰기<span class="sound_only"> 새 창</span></a>
-    <a href="<?php echo $itemqa_list; ?>" id="itemqa_list" class="btn01">더보기</a>
+    <a href="<?php echo $itemqa_form; ?>" class="itemqa_form qa_wr">Write product inquiry<span class="sound_only"> 새 창</span></a>
+    <a href="<?php echo $itemqa_list; ?>" id="itemqa_list" class="btn01">View more</a>
 </div>
 
 <!-- 상품문의 목록 시작 { -->
@@ -102,7 +102,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_MSHOP_SKIN_URL.'/style.css">',
 
     if ($i > 0) echo '</ol>';
 
-    if (!$i) echo '<p class="sit_empty">상품문의가 없습니다.</p>';
+    if (!$i) echo '<p class="sit_empty">No product inquiries.</p>';
     ?>
 </div>
 

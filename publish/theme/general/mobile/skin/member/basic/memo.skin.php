@@ -9,13 +9,13 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
     <h1 id="win_title"><?php echo $g5['title'] ?></h1>
 
     <ul class="win_ul">
-        <li><a href="./memo.php?kind=recv" class="<?php if ($kind == 'recv') {  ?>selected<?php }  ?>">받은쪽지</a></li>
-        <li><a href="./memo.php?kind=send" class="<?php if ($kind == 'send') {  ?>selected<?php }  ?>">보낸쪽지</a></li>
-        <li><a href="./memo_form.php">쪽지쓰기</a></li>
+        <li><a href="./memo.php?kind=recv" class="<?php if ($kind == 'recv') {  ?>selected<?php }  ?>">Received note</a></li>
+        <li><a href="./memo.php?kind=send" class="<?php if ($kind == 'send') {  ?>selected<?php }  ?>">Sent note</a></li>
+        <li><a href="./memo_form.php">Write note</a></li>
     </ul>
     <div class="new_win_con">
         <div class="win_desc">
-            전체 <?php echo $kind_title ?>쪽지 <?php echo $total_count ?>통<br>
+            <?php echo $total_count ?> full message <?php echo $kind_title ?><br>
         </div>
 
         <ul id="memo_list_ul">
@@ -26,20 +26,20 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
                     <?php echo $list[$i]['send_datetime'] ?><span class="sound_only"> 에 <?php echo  ($kind == "recv") ? "받은" : "보낸";  ?> 쪽지</span> - 
                     <?php echo $list[$i]['read_datetime'] ?>
                 </span>
-                <a href="<?php echo $list[$i]['del_href'] ?>" onclick="del(this.href); return false;" class="memo_del">삭제</a>
+                <a href="<?php echo $list[$i]['del_href'] ?>" onclick="del(this.href); return false;" class="memo_del">Delete</a>
             </li>
             <?php } ?>
-            <?php if ($i==0) { echo "<li class=\"empty_list\">자료가 없습니다.</li>"; } ?>
+            <?php if ($i==0) { echo "<li class=\"empty_list\">No data available.</li>"; } ?>
         </ul>
 
         <!-- 페이지 -->
         <?php echo $write_pages; ?>
 
         <p class="win_desc">
-            쪽지 보관일수는 최장 <strong><?php echo $config['cf_memo_del'] ?></strong>일 입니다.
+            The maximum number of days to keep a note is <strong><?php echo $config['cf_memo_del'] ?></strong> days.
         </p>
         <div class="win_btn">
-            <button type="button" onclick="window.close();" class="btn_close">창닫기</button>
+            <button type="button" onclick="window.close();" class="btn_close m-btn">Close</button>
         </div>
     </div>
 </div>

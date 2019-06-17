@@ -107,8 +107,10 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 	}
 
 	if ($this->view_it_price) {
+		$rate_price = ratePrice() * $row['it_price'];
 		echo "<div class=\"sct_cost\">\n";
-		echo display_price(get_price($row), $row['it_tel_inq'])."\n";
+		//echo display_price(get_price($row), $row['it_tel_inq'])."\n";
+		echo '$'.number_format($rate_price,2);
 		echo "</div>\n";
 	}
 	/*

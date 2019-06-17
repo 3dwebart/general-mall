@@ -70,6 +70,11 @@ var g5_cookie_domain = "<?php echo G5_COOKIE_DOMAIN ?>";
 <link rel="stylesheet" href="<?php echo G5_ASSETS_URL ?>/css/bootstrap.min.css">
 <link rel="stylesheet" href="<?php echo G5_ASSETS_URL ?>/css/common.css">
 <link rel="stylesheet" href="<?php echo G5_ASSETS_URL ?>/css/custom.css">
+<?php
+if(G5_IS_MOBILE) {
+    echo '<link rel="stylesheet" href="'.G5_ASSETS_URL.'/css/m-custom.css">';
+}
+?>
 <script src="<?php echo G5_ASSETS_URL ?>/js/jquery-1.12.4.min.js"></script>
 <script src="<?php echo G5_ASSETS_URL ?>/js/bootstrap.bundle.min.js"></script>
 <?php

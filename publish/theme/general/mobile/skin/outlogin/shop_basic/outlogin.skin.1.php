@@ -6,19 +6,19 @@ add_stylesheet('<link rel="stylesheet" href="'.$outlogin_skin_url.'/style.css">'
 ?>
 
 <aside id="ol_before" class="ol">
-    <h2>회원로그인</h2>
+    <h2>Member Sign in</h2>
     <!-- 로그인 전 외부로그인 시작 -->
     <form name="foutlogin" action="<?php echo $outlogin_action_url ?>" onsubmit="return fhead_submit(this);" method="post" autocomplete="off">
     <fieldset>
         <input type="hidden" name="url" value="<?php echo $outlogin_url ?>">
-        <input type="text" name="mb_id" id="ol_id" placeholder="아이디" required maxlength="20">
-        <input type="password" id="ol_pw" name="mb_password" placeholder="비밀번호" required  maxlength="20">
+        <input type="text" name="mb_id" id="ol_id" placeholder="ID" required maxlength="20">
+        <input type="password" id="ol_pw" name="mb_password" placeholder="Password" required  maxlength="20">
         <div id="ol_svc">
             <input type="checkbox" id="auto_login" name="auto_login" value="1">
-            <label for="auto_login" id="auto_login_label">자동로그인</label>
+            <label for="auto_login" id="auto_login_label">Auto login</label>
 
         </div>
-        <input type="submit" id="ol_submit" value="로그인" class="btn_submit">
+        <input type="submit" id="ol_submit" value="Sign in" class="btn_submit">
 
     </fieldset>
     </form>

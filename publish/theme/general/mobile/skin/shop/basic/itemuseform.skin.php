@@ -7,7 +7,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_MSHOP_SKIN_URL.'/style.css">',
 
 <!-- 사용후기 쓰기 시작 { -->
 <div id="sit_use_write" class="new_win">
-    <h1 id="win_title">사용후기 쓰기</h1>
+    <h1 id="win_title">Write reviews</h1>
 
     <form name="fitemuse" method="post" action="./itemuseformupdate.php" onsubmit="return fitemuse_submit(this);" autocomplete="off">
     <input type="hidden" name="w" value="<?php echo $w; ?>">
@@ -19,11 +19,11 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_MSHOP_SKIN_URL.'/style.css">',
 
         <ul>
             <li>
-                <label for="is_subject" class="sound_only">제목</label>
-                <input type="text" name="is_subject" value="<?php echo get_text($use['is_subject']); ?>" id="is_subject" required class="required frm_input" minlength="2" maxlength="250" placeholder="제목">
+                <label for="is_subject" class="sound_only">Subject</label>
+                <input type="text" name="is_subject" value="<?php echo get_text($use['is_subject']); ?>" id="is_subject" required class="required frm_input" minlength="2" maxlength="250" placeholder="Subject">
             </li>
             <li>
-                <span class="sound_only">내용</span>
+                <span class="sound_only">Contents</span>
                 <?php echo $editor_html; ?>
             </li>
             <li>

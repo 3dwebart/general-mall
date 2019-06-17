@@ -100,9 +100,12 @@ body {
 	position: static;
 	top: 35px;
 	left: 50%;
-	min-width: 430px;
 	width: auto;
 	margin-left: 0;
+}
+
+#hd_sch.pc {
+	min-width: 430px;
 }
 #hd_sch #sch_str {
 	width: calc(100% - 50px);

@@ -462,7 +462,7 @@ function price_calculate()
 	var exchange_moneey = total * Number(krw);
 
 	// $("#sit_tot_price").empty().html("<span>Total price :</span> "+number_format(String(total))+"원");
-	$("#sit_tot_price").empty().html("<span>Total price :</span> "+exchange_moneey.toFixed(4));
+	$("#sit_tot_price").empty().html("<span>Total price :</span> <strong>$"+exchange_moneey.toFixed(2) + "</strong>");
 }
 
 // php chr() 대응

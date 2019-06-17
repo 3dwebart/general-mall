@@ -1,12 +1,48 @@
-/* BIGIN :: Header */
-/* END :: Header */
-/* BIGIN :: main swiper slide */
-/* END :: main swiper slide */
-/* BIGIN :: main product swiper slide */
-/* END :: main product swiper slide */
-/* END :: Side popup menu */
-/* BIGIN :: Slide list custom */
-/* END :: Slide list custom */
+/* BIGIN :: Side Mobile menu */
+.menu_wr .cate_tab {
+	display: flex;
+}
+.cate_tab a {
+	display: flex;
+	align-items: center;
+	height: 100%;
+	justify-content: center;
+}
+#category {
+	display: none;
+	overflow: hidden;
+}
+
+#category.active {
+	display: block;
+	overflow: hidden;
+}
+.menu .menu_wr {
+	position: absolute;
+	left: -260px;
+	transition: all .5s ease;
+}
+.menu.on .menu_wr {
+	left: 0;
+	transition: all .5s ease;
+}
+.menu .menu_close {
+	left: -40px;
+	transition: all .5s ease;
+}
+.menu.on .menu_close {
+	left: 260px;
+	transition: all .5s ease;
+}
+.menu .cate_bg {
+	opacity: 0;
+	transition: all .5s ease;
+}
+.menu.on .cate_bg {
+	opacity: 1;
+	transition: all .5s ease;
+}
+/* END :: Side Mobile menu */
 /* BIGIN :: Mobile footer */
 #ft .m-ft-info {
 	color: rgba(200,200,200,1);
@@ -16,3 +52,49 @@
 	font-weight: bold;
 }
 /* END :: Mobile footer */
+/* BIGIN :: Notes custom */
+.memo_view_subj {
+	width: 120px;
+}
+/* END :: Notes custom */
+/* BIGIN :: Buttons */
+.new_win .win_btn .btn_submit {
+	color: rgb(255,255,255);
+	text-decoration: none;
+}
+.new_win .win_btn .m-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 auto;
+	width: 100%;
+}
+#sit_btn_buy {
+	color: rgb(255,255,255);
+}
+/* END :: Buttons */
+/* BIGIN :: Detail Page Custom */
+#sit_tab .tab_tit li {
+	width: auto;
+}
+#sit_tab .tab_tit li button {
+	padding-left: .6rem;
+	padding-right: .6rem;
+}
+/* END :: Detail Page Custom */
+/* BIGIN :: Order page */
+legend {
+	width: auto;
+}
+@media(max-width: 991px) {
+	.tbl_frm01 th {
+		width: 30%;
+	}
+	.tbl_frm01 td {
+		width: 70%;
+	}
+	.frm_input {
+		width: 100%;
+	}
+}
+/* END :: Oeder page */

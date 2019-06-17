@@ -13,7 +13,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_SKIN_URL.'/style.css">', 
 
     <div id="sit_qa_wbtn">
         <a href="<?php echo $itemqa_form; ?>" class="btn02 itemqa_form">Write product inquiry<span class="sound_only"> New window</span></a>
-        <a href="<?php echo $itemqa_list; ?>" id="itemqa_list" class="btn01">Biew more</a>
+        <a href="<?php echo $itemqa_list; ?>" id="itemqa_list" class="btn01">View more</a>
     </div>
 
     <?php

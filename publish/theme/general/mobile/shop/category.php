@@ -17,7 +17,6 @@ function get_mshop_category($ca_id, $len)
 
 <div id="category" class="menu">
     <button type="button" class="menu_close"><i class="fa fa-times" aria-hidden="true"></i><span class="sound_only">카테고리닫기</span></button>
-    <div class="cate_bg"></div>
     <div class="menu_wr">
         <?php echo outlogin('theme/shop_basic'); // 외부 로그인 ?>
                
@@ -26,7 +25,7 @@ function get_mshop_category($ca_id, $len)
             <div class="sch_inner">
                 <h2>상품 검색</h2>
                 <label for="sch_str" class="sound_only">상품명<strong class="sound_only"> 필수</strong></label>
-                <input type="text" name="q" value="<?php echo stripslashes(get_text(get_search_string($q))); ?>" id="sch_str" required class="frm_input" placeholder="검색어를 입력해주세요">
+                <input type="text" name="q" value="<?php echo stripslashes(get_text(get_search_string($q))); ?>" id="sch_str" required class="form-control" placeholder="search term">
                 <button type="submit" value="검색" class="sch_submit"><i class="fa fa-search" aria-hidden="true"></i></button>
             </div>
         </aside>
@@ -34,7 +33,7 @@ function get_mshop_category($ca_id, $len)
         <script>
         function search_submit(f) {
             if (f.q.value.length < 2) {
-                alert("검색어는 두글자 이상 입력하십시오.");
+                alert("Please enter at least two characters in the search term.");//검색어는 두글자 이상 입력하십시오.
                 f.q.select();
                 f.q.focus();
                 return false;
@@ -46,9 +45,9 @@ function get_mshop_category($ca_id, $len)
         </script>
 
         <ul class="cate_tab">
-            <li><a href="#cate_01" class="selected">카테고리</a></li>
-            <li><a href="#cate_02">마이페이지</a></li>
-            <li><a href="#cate_03">오늘본상품</a></li>
+            <li><a href="#cate_01" class="selected">Category</a></li>
+            <li><a href="#cate_02">Mypage</a></li>
+            <li><a href="#cate_03">Today's products</a></li>
         </ul>
         <ul class="content">
             <li id="cate_01"  class="con">
@@ -145,18 +144,19 @@ function get_mshop_category($ca_id, $len)
             </li>
             <li id="cate_02" class="con">
                 <ul id="hd_tnb" class="cate">
-                    <li class="bd"><a href="<?php echo G5_SHOP_URL; ?>/mypage.php">마이페이지</a></li>
-                    <li class="bd"><a href="<?php echo G5_SHOP_URL; ?>/orderinquiry.php">주문내역</a></li>
-                    <li class="bd"><a href="<?php echo G5_SHOP_URL; ?>/couponzone.php">쿠폰존</a></li>
+                    <li class="bd"><a href="<?php echo G5_SHOP_URL; ?>/mypage.php">Mypage</a></li>
+                    <li class="bd"><a href="<?php echo G5_SHOP_URL; ?>/orderinquiry.php">Order History</a></li>
+                    <li class="bd"><a href="<?php echo G5_SHOP_URL; ?>/couponzone.php">Coupon zone</a></li>
                     <li class="bd"><a href="<?php echo G5_BBS_URL; ?>/faq.php">FAQ</a></li>
-                    <li><a href="<?php echo G5_BBS_URL; ?>/qalist.php">1:1문의</a></li>
-                    <li><a href="<?php echo G5_SHOP_URL; ?>/personalpay.php">개인결제</a></li>
-                    <li><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=5">세일상품</a></li>
+                    <li><a href="<?php echo G5_BBS_URL; ?>/qalist.php">1:1 contact</a></li>
+                    <li><a href="<?php echo G5_SHOP_URL; ?>/personalpay.php">Personal payment</a></li>
+                    <li><a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=5">Discount products</a></li>
                 </ul> 
             </li>
             <li id="cate_03" class="con"><?php include(G5_MSHOP_SKIN_PATH.'/boxtodayview.skin.php'); // 오늘 본 상품 ?></li>
         </ul>
     </div>
+    <div class="cate_bg"></div>
 </div>
 <script>
 $(function (){
