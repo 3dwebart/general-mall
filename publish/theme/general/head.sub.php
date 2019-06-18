@@ -67,6 +67,7 @@ var g5_editor    = "<?php echo ($config['cf_editor'] && $board['bo_use_dhtml_edi
 var g5_cookie_domain = "<?php echo G5_COOKIE_DOMAIN ?>";
 </script>
 <link rel="stylesheet" href="<?php echo G5_ASSETS_URL ?>/css/swiper.min.css">
+<link rel="stylesheet" href="<?php echo G5_ASSETS_URL ?>/css/lnr.css">
 <link rel="stylesheet" href="<?php echo G5_ASSETS_URL ?>/css/bootstrap.min.css">
 <link rel="stylesheet" href="<?php echo G5_ASSETS_URL ?>/css/common.css">
 <link rel="stylesheet" href="<?php echo G5_ASSETS_URL ?>/css/custom.css">

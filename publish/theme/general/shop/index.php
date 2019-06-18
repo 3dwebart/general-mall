@@ -106,8 +106,57 @@ include_once(G5_THEME_SHOP_PATH.'/shop.head.php');
 <!-- } 할인상품 끝 -->
 <?php } ?>
 
-
-
+<div class="container px-lg-0 py-lg-5">
+	<div class="row-5">
+		<div class="col-6">
+			<img src="<?php echo G5_ASSETS_URL; ?>/img/index/banner/banner1.jpg" alt="" class="img-fluid" />
+		</div>
+		<div class="col-6">
+			<img src="<?php echo G5_ASSETS_URL; ?>/img/index/banner/banner2.jpg" alt="" class="img-fluid" />
+		</div>
+	</div>
+</div>
+<div class="container icon-box px-lg-0 text-center">
+	<div class="row">
+		<div class="col-lg-20 icon-wrap">
+			<div class="icon">
+				<i class="lnr lnr-gift"></i>
+			</div>
+			<h3>Great Value</h3>
+			<p>Nunc Id Ante Quis Tellus Faucibus Dictum In Eget.</p>
+		</div>
+		<div class="col-lg-20 icon-wrap">
+			<div class="icon">
+				<i class="lnr lnr-rocket"></i>
+			</div>
+			<h3>Worlwide Delivery</h3>
+			<p>Quisque Posuere Enim Augue, In Rhoncus Diam Dictum Non</p>
+		</div>
+		<div class="col-lg-20 icon-wrap">
+			<div class="icon">
+				<i class="lnr lnr-lock"></i>
+			</div>
+			<h3>Safe Payment</h3>
+			<p>Duis Suscipit Elit Sem, Sed Mattis Tellus Accumsan.</p>
+		</div>
+		<div class="col-lg-20 icon-wrap">
+			<div class="icon">
+				<i class="lnr lnr-enter-down"></i>
+			</div>
+			<h3>Shop Confidence</h3>
+			<p>Faucibus Dictum Suscipit Eget Metus. Duis Elit Sem, Sed.</p>
+		</div>
+		<div class="col-lg-20 icon-wrap">
+			<div class="icon">
+				<i class="lnr lnr-users"></i>
+			</div>
+			<h3>24/7 Help Center</h3>
+			<p>Quisque Posuere Enim Augue, In Rhoncus Diam Dictum Non.</p>
+		</div>
+	</div>
+</div>
+<div>Awsome : <i class="fa fa-home"></i></div>
+<div>LNR : <i class="lnr lnr-home"></i></div>
 <?php
 include_once(G5_THEME_SHOP_PATH.'/shop.tail.php');
 ?>

@@ -8,8 +8,8 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_SKIN_URL.'/style.css">', 
 <!-- 상품진열 10 시작 { -->
 <?php
 $type_header = '';
-$type_header .= '<header class="slide-product-header p-4 mb-0">';
-$type_header .= '<h2 class="list-type-title">';
+$type_header .= '<header class="slide-product-header py-2 px-4 mb-0">';
+$type_header .= '<h2 class="list-type-title mb-0">';
 $type_header .= '<a href="'.G5_SHOP_URL.'/listtype.php?type='.$this->type.'">';
 switch ($this->type) {
 	case 1:

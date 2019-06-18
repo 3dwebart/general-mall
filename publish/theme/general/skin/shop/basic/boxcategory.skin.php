@@ -40,11 +40,33 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_SKIN_URL.'/style.css">', 
 				if ($j==0) {
 					echo '<ul class="gnb_2dul" style="z-index:'.$gnb_zindex.'">';
 				}
+				$sql3 = " SELECT ca_id, ca_name FROM {$g5['g5_shop_category_table']} WHERE LENGTH(ca_id) = '6' AND SUBSTRING(ca_id,1,4) = '{$row2['ca_id']}' AND ca_use = '1' ORDER BY ca_order, ca_id ";
+				$result3 = sql_query($sql3);
+				$cnt3 = sql_num_rows($result3);
+				$side2 = '';
+				if ($cnt3 > 0) {
+					$side2 = ' sub-menus';
+				}
 			?>
-				<li class="gnb_2dli">
+				<li class="gnb_2dli<?php echo $side2; ?>">
 					<a href="<?php echo G5_SHOP_URL; ?>/list.php?ca_id=<?php echo $row2['ca_id']; ?>" class="gnb_2da">
 						<?php echo $row2['ca_name']; ?>
 					</a>
+					<?php
+					for ($k=0; $row3=sql_fetch_array($result3); $k++) { // BIGIN :: Sub step 1 for
+						if($k == 0) {
+							echo "<ul class=\"gnb_3dul\">";
+						}
+					?>
+						<li class="gnb_3dli">
+							<a href="<?php echo G5_SHOP_URL; ?>/list.php?ca_id=<?php echo $row3['ca_id']; ?>"><?php echo $row3['ca_name']; ?></a>
+						</li>
+					<?php
+					} // END :: Sub step 2 for
+					if ($k>0) {
+						echo '</ul>';
+					}
+					?>
 				</li>
 			<?php
 			} // END :: Sub step 1 for

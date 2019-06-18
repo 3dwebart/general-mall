@@ -376,7 +376,7 @@ $(function () {
 <div id="wrapper">
 	<div class="container px-lg-0">
 		<div class="row mx-lg-0">
-			<div id="side-nav" class="col-lg-2 px-lg-0"><!-- id="aside" -->
+			<div id="side-nav" class="col-lg-3 px-lg-0"><!-- id="aside" -->
 				<?php include_once(G5_SHOP_SKIN_PATH.'/boxcategory.skin.php'); // 상품분류 ?>
 				<?php include_once(G5_THEME_SHOP_PATH.'/category.php'); // 분류 ?>
 				<?php /* if($default['de_type4_list_use']) { ?>
@@ -413,7 +413,7 @@ $(function () {
 				<?php // echo visit('theme/shop_basic'); // 접속자*/ ?>
 			</div>
 			<!-- 콘텐츠 시작 { -->
-			<div id="container" class="col-lg-10 px-lg-0">
+			<div id="container" class="col-lg-9 px-lg-0">
 				<!-- Slider main container -->
 				<?php if (defined('_INDEX_')): ?>
 				<div class="swiper-container main-slide">
