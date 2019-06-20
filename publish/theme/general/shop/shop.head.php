@@ -421,19 +421,10 @@ $(function () {
 					<div class="swiper-wrapper">
 						<!-- Slides -->
 						<div class="swiper-slide">
-							<img src="<?php echo G5_ASSETS_URL; ?>/img/index/slide/slide-1.png" alt="">
+							<img src="<?php echo G5_ASSETS_URL; ?>/img/index/slide/1.jpg" alt="">
 						</div>
 						<div class="swiper-slide">
-							<img src="<?php echo G5_ASSETS_URL; ?>/img/index/slide/slide-2.png" alt="">
-						</div>
-						<div class="swiper-slide">
-							<img src="<?php echo G5_ASSETS_URL; ?>/img/index/slide/slide-3.png" alt="">
-						</div>
-						<div class="swiper-slide">
-							<img src="<?php echo G5_ASSETS_URL; ?>/img/index/slide/slide-4.png" alt="">
-						</div>
-						<div class="swiper-slide">
-							<img src="<?php echo G5_ASSETS_URL; ?>/img/index/slide/slide-5.png" alt="">
+							<img src="<?php echo G5_ASSETS_URL; ?>/img/index/slide/2.jpg" alt="">
 						</div>
 					</div>
 					<!-- If we need pagination -->

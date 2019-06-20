@@ -14,6 +14,15 @@ legend {
 .justify-content-space-between {
 	justify-content: space-between;
 }
+#top_btn {
+	transition: all .5s ease;
+}
+#top_btn:hover {
+    border-color: rgba(230,46,4,1);
+    background: rgba(230,46,4,1);
+    color: #fff;
+    transition: all .5s ease;
+}
 /********** END :: Default setting **********/
 /********** BIGIN :: Font custom **********/
 .font-2-5rem {
@@ -286,7 +295,7 @@ button:focus {
 	top: -1px;
 	z-index: 999999;
 	width: 100%;
-	height: 100%;
+	height: calc(100% + 2px);
 	background-color: #fff;
 	left: 100%;
 	padding: 10px;

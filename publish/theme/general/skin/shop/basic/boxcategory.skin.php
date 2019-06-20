@@ -27,11 +27,20 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_SKIN_URL.'/style.css">', 
 		<li class="gnb_1dli" style="z-index:<?php echo $gnb_zindex; ?>">
 			<a href="<?php echo G5_SHOP_URL.'/list.php?ca_id='.$row['ca_id']; ?>" class="gnb_1da<?php if ($count) echo ' gnb_1dam'; ?>">
 				<?php
-					if ($row['ca_1_subj'] != '' && $row['ca_1_subj'] == 'awsome-icon') {
-						echo '<i class="fa '.$row['ca_1'].'"></i>';
-						echo '<span class="pl-2">'.$row['ca_name'].'</span>';
-					} else {
-						echo $row['ca_name'];
+					switch ($row['ca_1_subj']) {
+						case 'awsome-icon':
+							echo '<span class="nav-icon"><i class="fa '.$row['ca_1'].'"></i></span>';
+							echo '<span class="pl-2">'.$row['ca_name'].'</span>';
+						break;
+						
+						case 'img-icon':
+							echo '<span class="nav-icon"><i class="fa '.$row['ca_1'].'"></i></span>';
+							echo '<span class="pl-2">'.$row['ca_name'].'</span>';
+						break;
+
+						default:
+							echo '<span class="px-2">'.$row['ca_name'].'</span>';
+						break;
 					}
 				?>
 			</a>
