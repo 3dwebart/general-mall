@@ -53,7 +53,7 @@ if ($_POST['ca_1_subj'] == 'img-icon') {
 		}
 	}
 
-	img_icon_upload($_FILES['ca_1']['tmp_name'], $_FILES['ca_1']['name'],  $img_icon_path, $ca_id); 
+	img_icon_upload($_FILES['ca_1']['tmp_name'], $_FILES['ca_1']['name'],  $img_icon_path, $ca_id);
 }
 
 if(!is_include_path_check($_POST['ca_include_head'], 1)) {
@@ -125,18 +125,20 @@ $sql_common = " ca_order                = '$ca_order',
 				ca_7_subj               = '$ca_7_subj',
 				ca_8_subj               = '$ca_8_subj',
 				ca_9_subj               = '$ca_9_subj',
-				ca_10_subj              = '$ca_10_subj',
-				ca_1                    = '$ca_1',
-				ca_2                    = '$ca_2',
-				ca_3                    = '$ca_3',
-				ca_4                    = '$ca_4',
-				ca_5                    = '$ca_5',
-				ca_6                    = '$ca_6',
-				ca_7                    = '$ca_7',
-				ca_8                    = '$ca_8',
-				ca_9                    = '$ca_9',
-				ca_10                   = '$ca_10' ";
+				ca_10_subj              = '$ca_10_subj', ";
 
+if ($w == '') {
+	$sql_common .= " ca_1                    = '$ca_1', ";
+}
+$sql_common .= " ca_2                    = '$ca_2',
+				 ca_3                    = '$ca_3',
+				 ca_4                    = '$ca_4',
+				 ca_5                    = '$ca_5',
+				 ca_6                    = '$ca_6',
+				 ca_7                    = '$ca_7',
+				 ca_8                    = '$ca_8',
+				 ca_9                    = '$ca_9',
+				 ca_10                   = '$ca_10' ";
 if ($w == "") {
 	if (!trim($ca_id))
 		alert("분류 코드가 없으므로 분류를 추가하실 수 없습니다.");
@@ -211,14 +213,25 @@ function img_icon_upload($srcfile, $filename, $dir, $ca_id) {
 		@chmod($dir, G5_DIR_PERMISSION);
 	}
 
+	upload_file($srcfile, $filename, $dir);
+
 	$file_update_sql = "UPDATE g5_shop_category SET ca_1 = '$filename' WHERE ca_id = '$ca_id'";
 	sql_query($file_update_sql);
 
-	upload_file($srcfile, $filename, $dir);
+	/*
+	echo "<h1>tmp : ".$srcfile."</h1>";
+	echo "<h1>filename : ".$filename."</h1>";
+	echo "<h1>dir : ".$dir."</h1>";
+	echo "<h1>ca_id : ".$ca_id."</h1>";
+	echo "<h1>sql : ".$file_update_sql."</h1>";
+	die();
+	*/
+	/*
 
 	$file = $filename;
 
 	return $file;
+	*/
 }
 
 if ($w == "" || $w == "u") {

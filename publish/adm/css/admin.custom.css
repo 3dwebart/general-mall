@@ -1,0 +1,16 @@
+#gnb .gnb_oparea li {
+    line-height: 35px;
+}
+#gnb .gnb_oparea li.active {
+	position: relative;
+}
+#gnb .gnb_oparea li.active:after {
+    content: "";
+    position: absolute;
+    border-left: 10px solid rgba(100,100,100,1);
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    top: 50%;
+    transform: translateY(-50%);
+    right: -10px;
+}

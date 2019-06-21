@@ -118,13 +118,13 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
 			// echo "<span class=\"sct_discount\">".display_price($row['it_cust_price'])."</span>\n";
 			// echo "<span class=\"sct_discount\">".number_format(($row['it_cust_price'] * $priceRate), 4)."</span>\n";
 			$cust_rate = ratePrice() * $row['it_cust_price'];
-			echo "<span class=\"sct_discount cust-price\">$".number_format($cust_rate, 4)."</span>\n";
+			echo "<span class=\"sct_discount cust-price\">$".number_format($cust_rate, 2)."</span>\n";
 		}
 
 		if ($this->view_it_price) {
 			// echo display_price(get_price($row), $row['it_tel_inq'])."\n";
 			$cust_rate = ratePrice() * $row['it_price'];
-			echo "<span class=\"sct_discount\">$".number_format($cust_rate, 4)."</span>\n";
+			echo "<span class=\"sct_discount\">$".number_format($cust_rate, 2)."</span>\n";
 		}
 
 		echo "</div>\n";

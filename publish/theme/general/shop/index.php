@@ -16,7 +16,27 @@ include_once(G5_THEME_SHOP_PATH.'/shop.head.php');
 <?php echo display_banner('메인', 'mainbanner.11.skin.php'); ?>
 <!-- } 메인이미지 끝 -->
 </div>
-
+<div class="container px-lg-0">
+	<section class="sct_wrap pb-4">
+	    <?php
+	    $list = new item_list();
+	    $list->set_category('c0', 1);
+	    $list->set_list_mod(5);
+	    $list->set_list_row(2);
+	    $list->set_img_size(400, 500);
+	    $list->set_list_skin(G5_SHOP_SKIN_PATH.'/main.16.skin.php');
+	    $list->set_view('it_img', true);
+	    $list->set_view('it_id', false);
+	    $list->set_view('it_name', true);
+	    $list->set_view('it_basic', true);
+	    $list->set_view('it_cust_price', true);
+	    $list->set_view('it_price', true);
+	    $list->set_view('it_icon', true);
+	    $list->set_view('sns', false);
+	    echo $list->run();
+	    ?>
+	</section>
+</div>
 
 <?php if($default['de_type1_list_use']) { ?>
 <!-- 히트상품 시작 { -->

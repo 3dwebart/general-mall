@@ -54,8 +54,10 @@ if($config['cf_add_meta'])
 <title><?php echo $g5_head_title; ?></title>
 <?php
 if (defined('G5_IS_ADMIN')) {
-    if(!defined('_THEME_PREVIEW_'))
+    if(!defined('_THEME_PREVIEW_')) {
         echo '<link rel="stylesheet" href="'.G5_ADMIN_URL.'/css/admin.css">'.PHP_EOL;
+        echo '<link rel="stylesheet" href="'.G5_ADMIN_URL.'/css/admin.custom.css">'.PHP_EOL;
+    }
 } else {
     $shop_css = '';
     if (defined('_SHOP_')) $shop_css = '_shop';
@@ -80,7 +82,7 @@ var g5_cookie_domain = "<?php echo G5_COOKIE_DOMAIN ?>";
 var g5_admin_url = "<?php echo G5_ADMIN_URL; ?>";
 <?php } ?>
 </script>
-<script src="<?php echo G5_JS_URL ?>/jquery-1.8.3.min.js"></script>
+<script src="<?php echo G5_ASSETS_URL ?>/js/jquery-1.12.4.min.js"></script>
 <?php
 if (defined('_SHOP_')) {
     if(!G5_IS_MOBILE) {
@@ -96,6 +98,13 @@ if (defined('_SHOP_')) {
 <script src="<?php echo G5_JS_URL ?>/wrest.js?ver=<?php echo G5_JS_VER; ?>"></script>
 <script src="<?php echo G5_JS_URL ?>/placeholders.min.js"></script>
 <link rel="stylesheet" href="<?php echo G5_JS_URL ?>/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="<?php echo G5_ASSETS_URL ?>/css/bootstrap.min.css">
+<link rel="stylesheet" href="<?php echo G5_ASSETS_URL ?>/css/bootstrap-datetimepicker.min.css">
+
+<script src="<?php echo G5_ASSETS_URL ?>/js/popper.min.js"></script>
+<script src="<?php echo G5_ASSETS_URL ?>/js/bootstrap.bundle.min.js"></script>
+<script src="<?php echo G5_ASSETS_URL ?>/js/moment.js"></script>
+<script src="<?php echo G5_ASSETS_URL ?>/js/bootstrap-datetimepicker.min.js"></script>
 <?php
 if(G5_IS_MOBILE) {
     echo '<script src="'.G5_JS_URL.'/modernizr.custom.70111.js"></script>'.PHP_EOL; // overflow scroll 감지
