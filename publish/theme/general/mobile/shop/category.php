@@ -105,26 +105,38 @@ function get_mshop_category($ca_id, $len)
 					<a href="<?php echo G5_SHOP_URL; ?>">HOME</a>
 				</li>
 				<li>
-					<a href="<?php echo G5_SHOP_URL; ?>">Recommend item</a>
+					<a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=1">HIT item</a>
 				</li>
 				<li>
-					<a href="<?php echo G5_SHOP_URL; ?>">Latest item</a>
+					<a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=2">Recommend item</a>
 				</li>
 				<li>
-					<a href="<?php echo G5_SHOP_URL; ?>">Bese item</a>
+					<a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=3">New item</a>
 				</li>
 				<li>
-					<a href="<?php echo G5_SHOP_URL; ?>">Discount Item</a>
+					<a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=4">Bese item</a>
 				</li>
 				<li>
-					<a href="<?php echo G5_SHOP_URL; ?>">My shop</a>
+					<a href="<?php echo G5_SHOP_URL; ?>/listtype.php?type=5">Discount Item</a>
+				</li>
+				<li>
+					<a href="<?php echo G5_SHOP_URL; ?>/mypage.php">My shop</a>
 					<button class="sub_ct_toggle ct_op"></button>
 					<ul class="sub_cate sub_cate1">
 						<li>
-							<a href="<?php echo G5_SHOP_URL; ?>">HOME</a>
+							<a href="<?php echo G5_BBS_URL; ?>/faq.php">FAQ</a>
 						</li>
 						<li>
-							<a href="<?php echo G5_SHOP_URL; ?>">HOME</a>
+							<a href="<?php echo G5_BBS_URL; ?>/qalist.php">1:1 contact</a>
+						</li>
+						<li>
+							<a href="<?php echo G5_SHOP_URL; ?>/personalpay.php">Personal payment</a>
+						</li>
+						<li>
+							<a href="<?php echo G5_SHOP_URL; ?>/itemuselist.php">Reviews</a>
+						</li>
+						<li>
+							<a href="<?php echo G5_SHOP_URL; ?>/couponzone.php">Coupon zone</a>
 						</li>
 					</ul>
 				</li>
@@ -275,11 +287,12 @@ $(function (){
 	$(".content li.con").hide();
 	$(".content li.con:first").show();   
 	$(".cate_tab li a").click(function(){
+		var tab_link = $(this).attr("href");
 		$(".cate_tab li a").removeClass("selected");
 		$(this).addClass("selected");
 		$(".content li.con").hide();
 		//$($(this).attr("href")).show();
-		$($(this).attr("href")).fadeIn();
+		$(tab_link).fadeIn();
 		return false;
 	});
 
