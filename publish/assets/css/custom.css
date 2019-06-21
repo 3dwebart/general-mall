@@ -47,7 +47,7 @@ div[id^="slide"] .swiper-button-next, div[id^="slide"] .swiper-button-prev {
 }
 div[id^="slide"] .swiper-button-prev {
 	left: auto;
-	right: 65px;
+	right: 50px;
 }
 .cust-price {
 	text-decoration: line-through;
