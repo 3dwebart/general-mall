@@ -8,6 +8,12 @@ body {
 legend {
 	height: 0;
 }
+.red-text {
+	color: rgba(230,46,4,1);
+}
+.bold {
+	font-weight: bold;
+}
 .flex-direction-column {
 	flex-direction: column;
 }

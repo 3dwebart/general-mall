@@ -92,6 +92,82 @@ if (defined('_SHOP_')) {
 <script src="<?php echo G5_JS_URL ?>/common.js?ver=<?php echo G5_JS_VER; ?>"></script>
 <script src="<?php echo G5_JS_URL ?>/wrest.js?ver=<?php echo G5_JS_VER; ?>"></script>
 <script src="<?php echo G5_JS_URL ?>/placeholders.min.js"></script>
+<script>
+function hotdeal_timer(time, id) {
+    //디데이 종료 일자 설정
+    var countDownDate = new Date(time).getTime();
+    //1초마다 갱신되도록 함수 생성,실행
+    var x = setInterval(function() {
+        // 오늘 날짜 등록 
+        var now = new Date().getTime();
+        // 종료일자에서 현재일자를 뺀 시간
+        var distance = countDownDate - now;
+        // 각 변수에 일, 시, 분, 초를 등록
+        var d = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var s = Math.floor((distance % (1000 * 60)) / 1000);
+        function zeroTime(v) {
+            if(v > 9) {
+                return v;
+            } else if(v < 10) {
+                var zeroTimer = '0' + v;
+                return zeroTimer;
+            }
+        }
+        //id가 d-day인 HTML코드에 내용 삽입
+        //var message = '디데이까지 ';
+        var message = '';
+        if(d < 1) {
+            message += '';
+        } else {
+            message += d + " days ";
+        }
+        if(h < 1) {
+            if(d < 1) {
+                message += '';
+            } else {
+                message += zeroTime(h) + " hours <br />";
+            }
+        } else {
+            message += zeroTime(h) + " hours <br />";
+        }
+        if(m < 1) {
+            if(h < 1) {
+                if(d < 1) {
+                    message += "";
+                } else {
+                    message += zeroTime(m) + " minutes ";
+                }
+            } else {
+                message += zeroTime(m) + " minutes ";
+            }
+        } else {
+            message += zeroTime(m) + " minutes ";
+        }
+        if(s < 1) {
+            if (m < 1) {
+                if (h < 1) {
+                    if (d < 1) {
+                        $('#d-day' + id).attr('disabled');
+                        message = "<span class='bold'>The event has ended.</span>";
+                    } else {
+                        message += zeroTime(s) + " seconds left."
+                    }
+                } else {
+                    message += zeroTime(s) + " seconds left."
+                }
+            } else {
+                message += zeroTime(s) + " seconds left."
+            }
+        } else {
+            message += zeroTime(s) + " seconds left."
+        }
+
+        document.getElementById("d-day" + id).innerHTML = message; 
+    });
+}
+</script>
 <link rel="stylesheet" href="<?php echo G5_JS_URL ?>/font-awesome/css/font-awesome.min.css">
 <?php
 if(G5_IS_MOBILE) {

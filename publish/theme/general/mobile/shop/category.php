@@ -43,54 +43,6 @@ function get_mshop_category($ca_id, $len)
 		}
 
 		</script>
-		<style>
-			.main-nav-btn {
-				width: 40px;
-				height: 40px;
-				border: 1px solid #666666;
-				padding: 5px;
-				position: relative;
-			}
-			.main-nav-btn span {
-				position: absolute;
-				width: calc(100% - 20px);
-				height: 1px;
-				background-color: rgba(100,100,100,1);
-				left: 10px;
-				transition: all .5s ease;
-			}
-			.main-nav-btn span:nth-child(1) {
-				top: 10px;
-			}
-			.main-nav-btn span:nth-child(2) {
-				top: 50%;
-			}
-			.main-nav-btn span:nth-child(3) {
-				bottom: 10px;
-			}
-			.main-nav-btn.on {
-				transition: all .5s ease;
-			}
-			.main-nav-btn.on span:nth-child(1),
-			.main-nav-btn.on span:nth-child(3) {
-				left: 7px;
-				width: calc(100% - 13px);
-			}
-			.main-nav-btn.on span:nth-child(1) {
-				top: 18px;
-				transform: rotateZ(45deg);
-			}
-			.main-nav-btn.on span:nth-child(2) {
-				opacity: 0;
-			}
-			.main-nav-btn.on span:nth-child(3) {
-				bottom: 18px;
-				transform: rotateZ(-45deg);
-			}
-			.main-nav .cate {
-				display: none;
-			}
-		</style>
 		<div class="main-nav">
 			<label for="main-nav-btn">
 				<button class="main-nav-btn" id="main-nav-btn">
