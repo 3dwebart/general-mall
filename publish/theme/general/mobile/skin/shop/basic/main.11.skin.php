@@ -57,7 +57,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 	
 
 	if ($i == 0) {
-		echo "<div class=\"row-10\">";
+		echo "<div class=\"row-5 item-wrap\">";
 		/*
 		if ($this->css) {
 			echo "<ul class=\"{$this->css}\">\n";

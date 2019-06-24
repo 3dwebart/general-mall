@@ -12,6 +12,9 @@
 }
 /* END :: Header */
 /* BIGIN :: main swiper slide */
+.swiper-wrapper {
+	margin-top: 47px;
+}
 .swiper-button-next, .swiper-button-prev {
 	width: 19px;
 	height: 35px;
@@ -38,10 +41,6 @@
 	width: 100%;
 }
 /* BIGIN :: Slide list custom */
-div[id^="slide"] {
-	margin-top: -49px;
-	padding-top: 49px;
-}
 div[id^="slide"] .swiper-button-next, div[id^="slide"] .swiper-button-prev {
 	top: 32px;
 }
@@ -121,11 +120,63 @@ div[id^="slide"] .swiper-button-prev {
 #sit_btn_wish.included-in-wishlist i {
 	/**/
 }
+#sit_pvi,
+#sit_ov {
+	float: none;
+	width: 100%;
+	padding: 15px;
+}
+#sit_ov_btn button {
+    width: auto;
+    float: none;
+    margin-right: 0;
+    height: auto;
+    margin-bottom: 0;
+    padding: 10px 15px;
+    font-weight: bold;
+    font-size: 1.25em;
+    flex: 0 0 40%;
+    max-width: 40%;
+}
+#sit_btn_wish {
+	display: flex;
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-bottom: 0;
+	float: none;
+	width: auto;
+	height: auto;
+	align-items: center;
+	justify-content: center;
+	line-height: 1;
+	margin-left: -1px;
+	flex: 0 0 20%;
+	max-width: 20%;
+}
+#sit_btn_wish:hover {
+	text-decoration: none;
+}
+.border-box {
+	border: 1px solid rgba(100,100,100,1);
+	background-color: rgba(100,100,100,.2)
+}
 /* END :: Shop product detail page custom */
 /* BIGIN :: Index custom */
+.sct_wrap h2 {
+	border: 0;
+}
+.sct_wrap h2 a {
+	border-bottom: 2px solid rgba(255,255,255,1);
+}
+.sct_wrap .item-wrap {
+	padding-top: 47px;
+}
 header.slide-product-header {
 	color: rgba(255,255,255,1);
 	background-color: rgba(230,46,4,1);
+	position: absolute;
+	width: 100%;
+	z-index: 3;
 }
 header.slide-product-header h2.list-type-title {
 	color: rgba(255,255,255,1);
@@ -133,9 +184,14 @@ header.slide-product-header h2.list-type-title {
 }
 header.slide-product-header h2.list-type-title a {
 	color: rgba(255,255,255,1);
+	border-color: rgba(255,255,255,1);
+}
+.swiper-container .swiper-button-next, .swiper-container .swiper-button-prev {
+	z-index: 5;
 }
 .sct_wrap {
 	background-color: rgba(255,255,255,1);
+	position: relative;
 }
 .sct_wrap .item {
 	padding-bottom: 1rem;
@@ -182,8 +238,10 @@ header.slide-product-header h2.list-type-title a {
 /* END :: Item Order form */
 /* BIGIN :: Mobile Item list */
 .sct_wrap .m-title-wrap {
+	/*
 	margin-left: -10px;
 	margin-right: -10px;
+	*/
 }
 .sct_wrap .m-title-wrap h2 {
 	background-color: rgba(255,255,255,1);

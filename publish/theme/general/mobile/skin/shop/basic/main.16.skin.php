@@ -1,15 +1,36 @@
 <?php
-if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
+if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
 // add_stylesheet('css 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
-add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_SKIN_URL.'/style.css">', 0);
+add_stylesheet('<link rel="stylesheet" href="'.G5_MSHOP_SKIN_URL.'/style.css">', 0);
 ?>
-<!-- 상품진열 10 시작 { -->
+
+<?php if($config['cf_kakao_js_apikey']) { ?>
+<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script src="<?php echo G5_JS_URL; ?>/kakaolink.js"></script>
+<script>
+	// 사용할 앱의 Javascript 키를 설정해 주세요.
+	Kakao.init("<?php echo $config['cf_kakao_js_apikey']; ?>");
+</script>
+<?php } ?>
+<style>
+.swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
+	display: none;
+}
+</style>
+<!-- 메인상품진열 10 시작 { -->
 <?php
+$ca_name = '';
+if(empty($this->type)) {
+	$ca_sql = "SELECT ca_name, ca_1_subj, ca_1 FROM {$g5['g5_shop_category_table']} WHERE ca_id = '{$this->ca_id}'";
+	$ca_row        = sql_fetch($ca_sql);
+	$ca_name       = $ca_row['ca_name'];
+}
+
 $type_header = '';
 $type_header .= '<header class="slide-product-header py-2 px-4 mb-0 text-left">';
-$type_header .= '<h2 class="list-type-title mb-0">';
-$type_header .= '<a href="'.G5_SHOP_URL.'/listtype.php?type='.$this->type.'">';
+$type_header .= '<h2 class="list-type-title my-0 text-left">';
+$type_header .= '<a href="'.G5_SHOP_URL.'/listtype.php?type='.$this->type.'" class="type-name">';
 switch ($this->type) {
 	case 1:
 		$type_header .= 'HIT PRODUCT';
@@ -28,7 +49,7 @@ switch ($this->type) {
 		break;
 	
 	default:
-		$type_header .= '';
+		$type_header .= $ca_name;
 		break;
 }
 $type_header .= '</a>';
@@ -50,6 +71,9 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
 		$sct_last = 'sct_clear';
 	}
 
+	$hotdeal_on    = $row['it_1_subj'];
+	$hotdeal_time  = $row['it_1'];
+
 	if ($i == 1) {
 		//echo "<div class=\"row-5\">\n";
 	}
@@ -57,6 +81,18 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
 	echo "<div class=\"swiper-slide item\">\n";
 
 	echo "<div class=\"item-img\">\n";
+
+	echo $this->it_1;
+	if ($hotdeal_on == 'on') {
+		echo '<div id="d-day'.$i.'" class="d-day"></div>';
+?>
+	<script>
+	var hotdealTime = '<?php echo $row["it_1"]; ?>';
+	var hotdealID = '<?php echo $i; ?>';
+	hotdeal_timer(hotdealTime, hotdealID);
+	</script>
+<?php
+	}
 
 	if ($this->href) {
 		echo "<a href=\"{$this->href}{$row['it_id']}\">\n";
@@ -89,7 +125,7 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
 	}
 
 	if ($this->href) {
-		echo "<div class=\"item-txt\"><a href=\"{$this->href}{$row['it_id']}\">\n";
+		echo "<div class=\"item-txt text-center\"><a href=\"{$this->href}{$row['it_id']}\">\n";
 	}
 
 	if ($this->view_it_name) {
@@ -108,7 +144,7 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
 
 	if ($this->view_it_cust_price || $this->view_it_price) {
 
-		echo "<div class=\"item-cost\">\n";
+		echo "<div class=\"item-cost text-center\">\n";
 
 		if ($this->view_it_cust_price && $row['it_cust_price']) {
 			// echo "<span class=\"sct_discount\">".display_price($row['it_cust_price'])."</span>\n";
@@ -138,8 +174,8 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
 
 if ($i > 1) {
 echo "</div>\n";
-echo "<!-- If we need pagination -->\n";
-echo "<div class=\"swiper-pagination\"></div>\n";
+//echo "<!-- If we need pagination -->\n";
+//echo "<div class=\"swiper-pagination\"></div>\n";
 
 echo "<!-- If we need navigation buttons -->\n";
 echo "<div class=\"swiper-button-prev\"></div>\n";
@@ -158,11 +194,11 @@ var id = '<?php echo $this->type; ?>';
 var no = '<?php echo $this->list_mod; ?>';
 var count = Number(no);
 var latestApp = new Swiper('.swiper-container.slide-' + id, {
-    pagination:'.slide-' + id + ' .swiper-pagination',
-    spaceBetween: 10, // margin-right value
-    slidesPerView: count, // Number of items(1row)
-    speed: 400,
-    navigation: {
+	//pagination:'.slide-' + id + ' .swiper-pagination',
+	spaceBetween: 10, // margin-right value
+	slidesPerView: count, // Number of items(1row)
+	speed: 400,
+	navigation: {
 		nextEl: '.swiper-button-next',
 		prevEl: '.swiper-button-prev',
 	},

@@ -8,6 +8,10 @@
 #hd_wr.fixed #logo {
 	margin-top: 0;
 }
+header.slide-product-header h2.list-type-title {
+	background-color: transparent;
+	margin-top: 0;
+}
 /********** END :: HEADER **********/
 /********** BIGIN :: Side Mobile menu **********/
 /***** BIGIN :: Mobile main menus *****/
@@ -153,6 +157,27 @@
 }
 .m-sign-up:hover, .m-sign-up:active {
 	background-color: rgb(0,0,0);
+}
+#sit_pvi {
+	margin: 0;
+	background-color: transparent;
+}
+#sit_ov_btn {
+	padding: 0;
+}
+#sit_btn_cart,
+#sit_btn_buy {
+	float: none;
+	width: 40%;
+	margin-right: 0;
+}
+#sit_btn_wish {
+	width: 20%;
+	text-align: center;
+	justify-content: center;
+}
+#sit_pvi_slide li {
+	position: static;
 }
 /********** END :: Detail Page Custom **********/
 /********** BIGIN :: Order page **********/

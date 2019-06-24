@@ -31,6 +31,9 @@ legend {
 }
 /********** END :: Default setting **********/
 /********** BIGIN :: Font custom **********/
+.font-1-4rem {
+	font-size: 1.4rem;
+}
 .font-2-5rem {
 	font-size: 2.5rem;
 }

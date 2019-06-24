@@ -534,6 +534,38 @@ function get_it_thumbnail($img, $width, $height=0, $id='', $is_crop=false)
 	return $str;
 }
 
+function get_it_thumbnail_responsive($img, $width, $height=0, $id='', $is_crop=false)
+{
+	$str = '';
+
+	$file = G5_DATA_PATH.'/item/'.$img;
+	if(is_file($file))
+		$size = @getimagesize($file);
+
+	if($size[2] < 1 || $size[2] > 3)
+		return '';
+
+	$img_width = $size[0];
+	$img_height = $size[1];
+	$filename = basename($file);
+	$filepath = dirname($file);
+
+	if($img_width && !$height) {
+		$height = round(($width * $img_height) / $img_width);
+	}
+
+	$thumb = thumbnail($filename, $filepath, $filepath, $width, $height, false, $is_crop, 'center', false, $um_value='80/0.5/3');
+
+	if($thumb) {
+		$file_url = str_replace(G5_PATH, G5_URL, $filepath.'/'.$thumb);
+		$str = '<img src="'.$file_url.'" class="img-fluid"';
+		if($id)
+			$str .= ' id="'.$id.'"';
+		$str .= ' alt="">';
+	}
+
+	return $str;
+}
 
 // 이미지 URL 을 얻는다.
 function get_it_imageurl($it_id)

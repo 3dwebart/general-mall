@@ -123,14 +123,17 @@ function hotdeal_timer(time, id) {
         } else {
             message += d + " days ";
         }
+
+        var returnLine = (id == '') ? '' : '<br />';
+
         if(h < 1) {
             if(d < 1) {
                 message += '';
             } else {
-                message += zeroTime(h) + " hours <br />";
+                message += zeroTime(h) + " hours " + returnLine;
             }
         } else {
-            message += zeroTime(h) + " hours <br />";
+            message += zeroTime(h) + " hours " + returnLine;
         }
         if(m < 1) {
             if(h < 1) {

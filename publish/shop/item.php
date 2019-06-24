@@ -95,7 +95,7 @@ if($ca_dir_check) {
 
 define('G5_SHOP_CSS_URL', str_replace(G5_PATH, G5_URL, $skin_dir));
 
-$g5['title'] = $it['it_name'].' &gt; '.$it['ca_name'];
+$g5['title'] = '<span class="pr-3">'.$it['ca_name'].'</span><i class="fa fa-caret-right"></i><span class="pl-3 font-1-4rem">'.$it['it_name'].'</span>';
 
 // 분류 상단 코드가 있으면 출력하고 없으면 기본 상단 코드 출력
 if ($ca['ca_include_head'] && is_include_path_check($ca['ca_include_head']))

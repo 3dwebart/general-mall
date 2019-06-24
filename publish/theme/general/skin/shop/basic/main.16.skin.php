@@ -3,24 +3,26 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 // add_stylesheet('css 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
 add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_SKIN_URL.'/style.css">', 0);
-// error_reporting(E_ALL);
-
-// ini_set("display_errors", 1);
-
 ?>
 <!-- 상품진열 10 시작 { -->
 <?php
 $ca_name = '';
 if(empty($this->type)) {
-	$ca_sql = "SELECT ca_name, ca_1_subj, ca_1 FROM {$g5['g5_shop_category_table']} WHERE ca_id = '{$this->ca_id}'";
+	$ca_sql = "SELECT ca_id, ca_name, ca_1_subj, ca_1 FROM {$g5['g5_shop_category_table']} WHERE ca_id = '{$this->ca_id}'";
 	$ca_row        = sql_fetch($ca_sql);
+	$ca_id         = $ca_row['ca_id'];
 	$ca_name       = $ca_row['ca_name'];
 }
 
 $type_header = '';
 $type_header .= '<header class="slide-product-header py-2 px-4 mb-0 text-left">';
 $type_header .= '<h2 class="list-type-title mb-0">';
-$type_header .= '<a href="'.G5_SHOP_URL.'/listtype.php?type='.$this->type.'">';
+if (empty($this->type)) {
+	$type_header .= '<a href="'.G5_SHOP_URL.'/list.php?ca_id='.$ca_id.'">';
+} else {
+	$type_header .= '<a href="'.G5_SHOP_URL.'/listtype.php?type='.$this->type.'">';
+}
+$type_header .= '<span>';
 switch ($this->type) {
 	case 1:
 		$type_header .= 'HIT PRODUCT';
@@ -42,6 +44,7 @@ switch ($this->type) {
 		$type_header .= $ca_name;
 		break;
 }
+$type_header .= '</span>';
 $type_header .= '</a>';
 $type_header .= '</h2>';
 $type_header .= '</header>';
