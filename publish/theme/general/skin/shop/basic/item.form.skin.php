@@ -112,141 +112,141 @@ $wish_cnt = $onWishRow['wish_cnt'];
 			<?php } ?>
 			<div class="sit_info">
 				<table class="sit_ov_tbl">
-				<colgroup>
-					<col class="grid_3">
-					<col>
-				</colgroup>
-				<tbody>
-				<?php if ($it['it_maker']) { ?>
-				<tr>
-					<th scope="row">Manufacturer</th><!-- 제조사 -->
-					<td><?php echo $it['it_maker']; ?></td>
-				</tr>
-				<?php } ?>
+					<colgroup>
+						<col class="grid_3">
+						<col>
+					</colgroup>
+					<tbody>
+						<?php if ($it['it_maker']) { ?>
+						<tr>
+							<th scope="row">Manufacturer</th><!-- 제조사 -->
+							<td><?php echo $it['it_maker']; ?></td>
+						</tr>
+						<?php } ?>
 
-				<?php if ($it['it_origin']) { ?>
-				<tr>
-					<th scope="row">Origin</th><!-- 원산지 -->
-					<td><?php echo $it['it_origin']; ?></td>
-				</tr>
-				<?php } ?>
+						<?php if ($it['it_origin']) { ?>
+						<tr>
+							<th scope="row">Origin</th><!-- 원산지 -->
+							<td><?php echo $it['it_origin']; ?></td>
+						</tr>
+						<?php } ?>
 
-				<?php if ($it['it_brand']) { ?>
-				<tr>
-					<th scope="row">Brand</th><!-- 브랜드 -->
-					<td><?php echo $it['it_brand']; ?></td>
-				</tr>
-				<?php } ?>
+						<?php if ($it['it_brand']) { ?>
+						<tr>
+							<th scope="row">Brand</th><!-- 브랜드 -->
+							<td><?php echo $it['it_brand']; ?></td>
+						</tr>
+						<?php } ?>
 
-				<?php if ($it['it_model']) { ?>
-				<tr>
-					<th scope="row">Model</th><!-- 모델 -->
-					<td><?php echo $it['it_model']; ?></td>
-				</tr>
-				<?php } ?>
+						<?php if ($it['it_model']) { ?>
+						<tr>
+							<th scope="row">Model</th><!-- 모델 -->
+							<td><?php echo $it['it_model']; ?></td>
+						</tr>
+						<?php } ?>
 
-				<?php if (!$it['it_use']) { // 판매가능이 아닐 경우 ?>
-				<tr>
-					<th scope="row">Price</th><!-- 판매가격 -->
-					<td>Stop selling</td><!-- 판매중지 -->
-				</tr>
-				<?php } else if ($it['it_tel_inq']) { // 전화문의일 경우 ?>
-				<tr>
-					<th scope="row">Price</th><!-- 판매가격 -->
-					<td>Phone inquiry</td><!-- 전화문의 -->
-				</tr>
-				<?php } else { // 전화문의가 아닐 경우?>
-				<?php if ($it['it_cust_price']) { ?>
-				<tr>
-					<th scope="row">Price</th><!-- 시중가격 -->
-					<td>
-						<span class="cust-price">
-							$<?php
-								// echo display_price($it['it_cust_price']);
-								$rate_price = ratePrice() * $it['it_cust_price'];
-								echo number_format($rate_price,2);
-							?>
-						</span>
-					</td>
-				</tr>
-				<?php } // 시중가격 끝 ?>
+						<?php if (!$it['it_use']) { // 판매가능이 아닐 경우 ?>
+						<tr>
+							<th scope="row">Price</th><!-- 판매가격 -->
+							<td>Stop selling</td><!-- 판매중지 -->
+						</tr>
+						<?php } else if ($it['it_tel_inq']) { // 전화문의일 경우 ?>
+						<tr>
+							<th scope="row">Price</th><!-- 판매가격 -->
+							<td>Phone inquiry</td><!-- 전화문의 -->
+						</tr>
+						<?php } else { // 전화문의가 아닐 경우?>
+						<?php if ($it['it_cust_price']) { ?>
+						<tr>
+							<th scope="row">Price</th><!-- 시중가격 -->
+							<td>
+								<span class="cust-price">
+									$<?php
+										// echo display_price($it['it_cust_price']);
+										$rate_price = ratePrice() * $it['it_cust_price'];
+										echo number_format($rate_price,2);
+									?>
+								</span>
+							</td>
+						</tr>
+						<?php } // 시중가격 끝 ?>
 
-				<tr>
-					<th scope="row">Sale Price</th><!-- 판매가격 -->
-					<td>
-						<strong>
-							$<?php
-								//echo display_price(get_price($it));
-								$rate_price = ratePrice() * $it['it_price'];
-								echo number_format($rate_price,2);
-							?>
-						</strong>
-						<input type="hidden" id="it_price" value="<?php echo get_price($it); ?>">
-					</td>
-				</tr>
-				<?php } ?>
+						<tr>
+							<th scope="row">Sale Price</th><!-- 판매가격 -->
+							<td>
+								<strong>
+									$<?php
+										//echo display_price(get_price($it));
+										$rate_price = ratePrice() * $it['it_price'];
+										echo number_format($rate_price,2);
+									?>
+								</strong>
+								<input type="hidden" id="it_price" value="<?php echo get_price($it); ?>">
+							</td>
+						</tr>
+						<?php } ?>
 
-				<?php
-				/* 재고 표시하는 경우 주석 해제
-				<tr>
-					<th scope="row">재고수량</th>
-					<td><?php echo number_format(get_it_stock_qty($it_id)); ?> 개</td>
-				</tr>
-				*/
-				?>
-
-				<?php if ($config['cf_use_point']) { // 포인트 사용한다면 ?>
-				<tr>
-					<th scope="row">Point</th>
-					<td>
 						<?php
-						if($it['it_point_type'] == 2) {
-							//echo '구매금액(추가옵션 제외)의 '.$it['it_point'].'%';
-							echo $it['it_point'].'% of purchase amount (without additional option)';
-						} else {
-							$it_point = get_item_point($it);
-							echo number_format($it_point).'points';
+						/* 재고 표시하는 경우 주석 해제
+						<tr>
+							<th scope="row">재고수량</th>
+							<td><?php echo number_format(get_it_stock_qty($it_id)); ?> 개</td>
+						</tr>
+						*/
+						?>
+
+						<?php if ($config['cf_use_point']) { // 포인트 사용한다면 ?>
+						<tr>
+							<th scope="row">Point</th>
+							<td>
+								<?php
+								if($it['it_point_type'] == 2) {
+									//echo '구매금액(추가옵션 제외)의 '.$it['it_point'].'%';
+									echo $it['it_point'].'% of purchase amount (without additional option)';
+								} else {
+									$it_point = get_item_point($it);
+									echo number_format($it_point).'points';
+								}
+								?>
+							</td>
+						</tr>
+						<?php } ?>
+						<?php
+						$ct_send_cost_label = 'Payment for shipping';//배송비결제
+
+						if($it['it_sc_type'] == 1)
+							$sc_method = 'Free Shipping';
+						else {
+							if($it['it_sc_method'] == 1)
+								$sc_method = 'Payment after receipt';//수령후 지불
+							else if($it['it_sc_method'] == 2) {
+								$ct_send_cost_label = '<label for="ct_send_cost">Payment for shipping</label>';//배송비결제
+								$sc_method = '<select name="ct_send_cost" id="ct_send_cost">
+												  <option value="0">Payment upon order</option>
+												  <option value="1">Payment after receipt</option>
+											  </select>';//opt 1 : 주문시 결제, opt 2 : 수령후 지불
+							} else {
+								$sc_method = 'Payment upon order';
+							}
 						}
 						?>
-					</td>
-				</tr>
-				<?php } ?>
-				<?php
-				$ct_send_cost_label = 'Payment for shipping';//배송비결제
-
-				if($it['it_sc_type'] == 1)
-					$sc_method = 'Free Shipping';
-				else {
-					if($it['it_sc_method'] == 1)
-						$sc_method = 'Payment after receipt';//수령후 지불
-					else if($it['it_sc_method'] == 2) {
-						$ct_send_cost_label = '<label for="ct_send_cost">Payment for shipping</label>';//배송비결제
-						$sc_method = '<select name="ct_send_cost" id="ct_send_cost">
-										  <option value="0">Payment upon order</option>
-										  <option value="1">Payment after receipt</option>
-									  </select>';//opt 1 : 주문시 결제, opt 2 : 수령후 지불
-					}
-					else
-						$sc_method = 'Payment upon order';
-				}
-				?>
-				<tr>
-					<th><?php echo $ct_send_cost_label; ?></th>
-					<td><?php echo $sc_method; ?></td>
-				</tr>
-				<?php if($it['it_buy_min_qty']) { ?>
-				<tr>
-					<th>Minimum purchase quantity</th><!-- 최소구매수량 -->
-					<td><?php echo number_format($it['it_buy_min_qty']); ?></td><!-- 개 -->
-				</tr>
-				<?php } ?>
-				<?php if($it['it_buy_max_qty']) { ?>
-				<tr>
-					<th>Maximum purchase quantity</th><!-- 최대구매수량 -->
-					<td><?php echo number_format($it['it_buy_max_qty']); ?></td><!-- 개 -->
-				</tr>
-				<?php } ?>
-				</tbody>
+						<tr>
+							<th><?php echo $ct_send_cost_label; ?></th>
+							<td><?php echo $sc_method; ?></td>
+						</tr>
+						<?php if($it['it_buy_min_qty']) { ?>
+						<tr>
+							<th>Minimum purchase quantity</th><!-- 최소구매수량 -->
+							<td><?php echo number_format($it['it_buy_min_qty']); ?></td><!-- 개 -->
+						</tr>
+						<?php } ?>
+						<?php if($it['it_buy_max_qty']) { ?>
+						<tr>
+							<th>Maximum purchase quantity</th><!-- 최대구매수량 -->
+							<td><?php echo number_format($it['it_buy_max_qty']); ?></td><!-- 개 -->
+						</tr>
+						<?php } ?>
+					</tbody>
 				</table>
 			</div>
 			<?php
@@ -286,12 +286,12 @@ $wish_cnt = $onWishRow['wish_cnt'];
 				<h3>Selected options</h3><!-- 선택된 옵션 -->
 				<?php
 				if(!$option_item) {
-					if(!$it['it_buy_min_qty'])
+					if(!$it['it_buy_min_qty']) {
 						$it['it_buy_min_qty'] = 1;
+					}
 				?>
 				<ul id="sit_opt_added">
 					<li class="sit_opt_list">
-						
 						<input type="hidden" name="io_type[<?php echo $it_id; ?>][]" value="0">
 						<input type="hidden" name="io_id[<?php echo $it_id; ?>][]" value="">
 						<input type="hidden" name="io_value[<?php echo $it_id; ?>][]" value="<?php echo $it['it_name']; ?>">
@@ -490,9 +490,7 @@ function fsubmit_check(f)
 
 	return true;
 }
-
 // 바로구매, 장바구니 폼 전송
-
 function fitem_submit(f)
 {
 	f.action = "<?php echo $action_url; ?>";
@@ -563,7 +561,6 @@ function fitem_submit(f)
 
 	return true;
 }
-
 </script>
 <?php /* 2017 리뉴얼한 테마 적용 스크립트입니다. 기존 스크립트를 오버라이드 합니다. */ ?>
 <script src="<?php echo G5_JS_URL; ?>/shop.override.js"></script>
