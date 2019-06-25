@@ -138,7 +138,7 @@ header.slide-product-header h2.list-type-title {
 /********** END :: Buttons **********/
 /********** BIGIN :: Detail Page Custom **********/
 #sit_tab .tab_tit li {
-	width: auto;
+	width: 50%;
 }
 #sit_tab .tab_tit li button {
 	padding-left: .6rem;

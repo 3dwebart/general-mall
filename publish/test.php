@@ -13,6 +13,7 @@ if($getCnt == 0) {
 } else {
 	$addGet .= 'a='.$a.'&b='.$b.'&c='.$c.'&d=d';
 }
-
 ?>
-<a href="./test.php?<?php echo $addGet; ?>">TEST</a>
+<a href="./test.php?<?php echo $addGet; ?>">
+	TEST
+</a>

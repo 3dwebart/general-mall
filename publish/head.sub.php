@@ -117,11 +117,11 @@ if(!defined('G5_IS_ADMIN'))
 <?php
 if ($is_member) { // 회원이라면 로그인 중이라는 메세지를 출력해준다.
     $sr_admin_msg = '';
-    if ($is_admin == 'super') $sr_admin_msg = "최고관리자 ";
-    else if ($is_admin == 'group') $sr_admin_msg = "그룹관리자 ";
-    else if ($is_admin == 'board') $sr_admin_msg = "게시판관리자 ";
+    if ($is_admin == 'super') $sr_admin_msg = "Super Administrator ";
+    else if ($is_admin == 'group') $sr_admin_msg = "Group Administrator ";
+    else if ($is_admin == 'board') $sr_admin_msg = "Board Administrator ";
 
     echo '<div id="hd_login_msg">'.$sr_admin_msg.get_text($member['mb_nick']).'님 로그인 중 ';
-    echo '<a href="'.G5_BBS_URL.'/logout.php">로그아웃</a></div>';
+    echo '<a href="'.G5_BBS_URL.'/logout.php">Sign out</a></div>';
 }
 ?>
