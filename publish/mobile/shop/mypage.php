@@ -43,7 +43,7 @@ for($k=0; $cp=sql_fetch_array($res); $k++) {
         <ul class="my_pocou">
             <li  class="my_cou">Owned coupon<a href="<?php echo G5_SHOP_URL; ?>/coupon.php" target="_blank" class="win_coupon"><?php echo number_format($cp_count); ?></a></li>
             <li class="my_point">Owned point
-            <a href="<?php echo G5_BBS_URL; ?>/point.php" target="_blank" class="win_point"><?php echo number_format($member['mb_point']); ?>점</a></li>
+            <a href="<?php echo G5_BBS_URL; ?>/point.php" target="_blank" class="win_point"><?php echo number_format($member['mb_point']); ?> point</a></li>
 
         </ul>
         <div class="my_info">

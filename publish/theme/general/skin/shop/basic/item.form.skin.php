@@ -9,11 +9,11 @@ $wish_cnt = $onWishRow['wish_cnt'];
 ?>
 
 <form name="fitem" method="post" action="<?php echo $action_url; ?>" onsubmit="return fitem_submit(this);">
-	<input type="hidden" name="krw" value="<?php echo ratePrice(); ?>">
-	<input type="hidden" name="it_id[]" value="<?php echo $it_id; ?>">
-	<input type="hidden" name="wish_chk" value="<?php echo $wish_cnt; ?>">
-	<input type="hidden" name="sw_direct">
-	<input type="hidden" name="url">
+	<input type="hidden" name="krw" value="<?php echo ratePrice(); ?>" />
+	<input type="hidden" name="it_id[]" value="<?php echo $it_id; ?>" />
+	<input type="hidden" name="wish_chk" value="<?php echo $wish_cnt; ?>" />
+	<input type="hidden" name="sw_direct" />
+	<input type="hidden" name="url" />
 	<div id="sit_ov_wrap" class="row mx-lg-0">
 		<!-- 상품이미지 미리보기 시작 { -->
 		<div id="sit_pvi" class="col-lg-5">
@@ -86,7 +86,7 @@ $wish_cnt = $onWishRow['wish_cnt'];
 				<?php } ?>
 				<span class="st_bg"></span> <i class="fa fa-commenting-o" aria-hidden="true"></i><span class="sound_only">Review</span> <?php echo $it['it_use_cnt']; ?>
 				<span class="st_bg"></span> <i class="fa fa-heart-o spin" aria-hidden="true"></i><span class="sound_only">Wish</span> <?php echo get_wishlist_count_by_item($it['it_id']); ?>
-				<button type="button" class="btn_sns_share"><i class="fa fa-share-alt" aria-hidden="true"></i><span class="sound_only">sns sahre</span></button><!-- 공유 -->
+				<button type="button" class="btn_sns_share"><i class="fa fa-share-alt" aria-hidden="true"></i><span class="sound_only">SNS Share</span></button><!-- 공유 -->
 				<div class="sns_area"><?php echo $sns_share_links; ?> <a href="javascript:popup_item_recommend('<?php echo $it['it_id']; ?>');" id="sit_btn_rec"><i class="fa fa-envelope-o" aria-hidden="true"></i><span class="sound_only">Recommended</span></a></div><!-- 추천하기 -->
 			</div>
 			<script>
@@ -95,8 +95,9 @@ $wish_cnt = $onWishRow['wish_cnt'];
 			});
 			$(document).mouseup(function (e){
 				var container = $(".sns_area");
-				if( container.has(e.target).length === 0)
-				container.hide();
+				if( container.has(e.target).length === 0) {
+					container.hide();
+				}
 			});
 			</script>
 		</div>
@@ -317,6 +318,7 @@ $wish_cnt = $onWishRow['wish_cnt'];
 				<?php } ?>
 			</section>
 			<!-- } 선택된 옵션 끝 -->
+			<!-- <h1>TEST :: <?php echo G5_THEME_MSHOP_PATH.'/mypage.php'; ?></h1> -->
 
 			<!-- 총 구매액 -->
 			<div id="sit_tot_price"></div>
@@ -433,12 +435,14 @@ function fsubmit_check(f)
 {
 	// 판매가격이 0 보다 작다면
 	if (document.getElementById("it_price").value < 0) {
-		alert("Please contact us by phone.");//전화로 문의해 주시면 감사하겠습니다.
+		//전화로 문의해 주시면 감사하겠습니다.
+		alert("Please contact us by phone.");
 		return false;
 	}
 
 	if($(".sit_opt_list").size() < 1) {
-		alert("Please select a product selection option.");//상품의 선택옵션을 선택해 주십시오.
+		//상품의 선택옵션을 선택해 주십시오.
+		alert("Please select a product selection option.");
 		return false;
 	}
 
@@ -452,19 +456,22 @@ function fsubmit_check(f)
 		val = $(this).val();
 
 		if(val.length < 1) {
-			alert("Please enter the quantity.");//수량을 입력해 주십시오.
+			//수량을 입력해 주십시오.
+			alert("Please enter the quantity.");
 			result = false;
 			return false;
 		}
 
 		if(val.replace(/[0-9]/g, "").length > 0) {
-			alert("Please enter the quantity as a number.");//수량은 숫자로 입력해 주십시오.
+			//수량은 숫자로 입력해 주십시오.
+			alert("Please enter the quantity as a number.");
 			result = false;
 			return false;
 		}
 
 		if(parseInt(val.replace(/[^0-9]/g, "")) < 1) {
-			alert("Please input 1 or more quantity.");//수량은 1이상 입력해 주십시오.
+			//수량은 1이상 입력해 주십시오.
+			alert("Please input 1 or more quantity.");
 			result = false;
 			return false;
 		}
@@ -479,12 +486,14 @@ function fsubmit_check(f)
 	}
 
 	if(min_qty > 0 && sum_qty < min_qty) {
-		alert("Please select at least "+number_format(String(min_qty))+"items.");//선택옵션 개수 총합 xx 개 이상 주문해 주십시오.
+		//선택옵션 개수 총합 xx 개 이상 주문해 주십시오.
+		alert("Please select at least "+number_format(String(min_qty))+"items.");
 		return false;
 	}
 
 	if(max_qty > 0 && sum_qty > max_qty) {
-		alert("Number of options Please order a total of "+number_format(String(max_qty))+" or fewer."); // 선택옵션 개수 총합 xx 개 이하로 주문해 주십시오.
+		// 선택옵션 개수 총합 xx 개 이하로 주문해 주십시오.
+		alert("Number of options Please order a total of "+number_format(String(max_qty))+" or fewer.");
 		return false;
 	}
 
@@ -504,12 +513,14 @@ function fitem_submit(f)
 
 	// 판매가격이 0 보다 작다면
 	if (document.getElementById("it_price").value < 0) {
-		alert("Please contact us by phone."); //전화로 문의해 주시면 감사하겠습니다.
+		//전화로 문의해 주시면 감사하겠습니다.
+		alert("Please contact us by phone.");
 		return false;
 	}
 
 	if($(".sit_opt_list").size() < 1) {
-		alert("Please select a product selection option."); //상품의 선택옵션을 선택해 주십시오.
+		//상품의 선택옵션을 선택해 주십시오.
+		alert("Please select a product selection option.");
 		return false;
 	}
 
@@ -523,19 +534,22 @@ function fitem_submit(f)
 		val = $(this).val();
 
 		if(val.length < 1) {
-			alert("Please enter the quantity.");// 수량을 입력해 주십시오.
+			// 수량을 입력해 주십시오.
+			alert("Please enter the quantity.");
 			result = false;
 			return false;
 		}
 
 		if(val.replace(/[0-9]/g, "").length > 0) {
-			alert("Please enter the quantity as a number.");// 수량은 숫자로 입력해 주십시오.
+			// 수량은 숫자로 입력해 주십시오.
+			alert("Please enter the quantity as a number.");
 			result = false;
 			return false;
 		}
 
 		if(parseInt(val.replace(/[^0-9]/g, "")) < 1) {
-			alert("Please input 1 or more quantity.");// 수량은 1이상 입력해 주십시오.
+			// 수량은 1이상 입력해 주십시오.
+			alert("Please input 1 or more quantity.");
 			result = false;
 			return false;
 		}
@@ -550,12 +564,14 @@ function fitem_submit(f)
 	}
 
 	if(min_qty > 0 && sum_qty < min_qty) {
-		alert("Please select at least "+number_format(String(min_qty))+"items."); // 선택옵션 개수 총합 xx 개 이상 주문해 주십시오.
+		// 선택옵션 개수 총합 xx 개 이상 주문해 주십시오.
+		alert("Please select at least "+number_format(String(min_qty))+"items.");
 		return false;
 	}
 
 	if(max_qty > 0 && sum_qty > max_qty) {
-		alert("Number of options Please order a total of "+number_format(String(max_qty))+"or fewer."); // 선택옵션 개수 총합 xx 개 이하로 주문해 주십시오.
+		// 선택옵션 개수 총합 xx 개 이하로 주문해 주십시오.
+		alert("Number of options Please order a total of "+number_format(String(max_qty))+"or fewer.");
 		return false;
 	}
 
