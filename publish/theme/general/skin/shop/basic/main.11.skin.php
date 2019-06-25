@@ -8,7 +8,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_SKIN_URL.'/style.css">', 
 <!-- 상품진열 10 시작 { -->
 <?php
 $type_header = '';
-$type_header .= '<header class="slide-product-header py-2 px-4 mb-0">';
+$type_header .= '<header class="slide-product-header py-2 px-4 mb-0 text-left">';
 $type_header .= '<h2 class="list-type-title mb-0">';
 $type_header .= '<a href="'.G5_SHOP_URL.'/listtype.php?type='.$this->type.'">';
 switch ($this->type) {
@@ -34,6 +34,12 @@ switch ($this->type) {
 }
 $type_header .= '</a>';
 $type_header .= '</h2>';
+$type_header .= '<div class="more-div">';
+$type_header .= '<a href="'.G5_SHOP_URL.'/listtype.php?type='.$this->type.'">';
+$type_header .= 'More ';
+$type_header .= '<i class="fa fa-arrow-right" aria-hidden="true"></i>';
+$type_header .= '</div>';
+$type_header .= '</a>';
 $type_header .= '</header>';
 
 echo $type_header;
@@ -97,7 +103,6 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
 		echo "</a>\n";
 	}
 
-
 	if ($this->view_sns) {
 		$sns_top = $this->img_height + 10;
 		$sns_url  = G5_SHOP_URL.'/item.php?it_id='.$row['it_id'];
@@ -157,8 +162,6 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
 		echo "<div class=\"item-icon\">".item_icon($row)."</div>\n";
 	}
 
-
-	
 	echo "</div>\n";
 }
 

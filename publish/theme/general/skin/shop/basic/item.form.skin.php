@@ -164,7 +164,7 @@ $wish_cnt = $onWishRow['wish_cnt'];
 							$<?php
 								// echo display_price($it['it_cust_price']);
 								$rate_price = ratePrice() * $it['it_cust_price'];
-								echo number_format($rate_price,4);
+								echo number_format($rate_price,2);
 							?>
 						</span>
 					</td>
@@ -178,7 +178,7 @@ $wish_cnt = $onWishRow['wish_cnt'];
 							$<?php
 								//echo display_price(get_price($it));
 								$rate_price = ratePrice() * $it['it_price'];
-								echo number_format($rate_price,4);
+								echo number_format($rate_price,2);
 							?>
 						</strong>
 						<input type="hidden" id="it_price" value="<?php echo get_price($it); ?>">

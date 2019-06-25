@@ -50,7 +50,7 @@ echo $type_header;
 echo "<!-- Slider main container -->";
 echo "<div id=\"slide-{$this->type}\" class=\"swiper-container slide-{$this->type}\">";
 echo "<!-- Additional required wrapper -->";
-echo "<div class=\"swiper-wrapper\">";
+echo "<div class=\"swiper-wrapper item-wrap\">";
 for ($i=1; $row=sql_fetch_array($result); $i++) {
 	if ($this->list_mod >= 2) { // 1줄 이미지 : 2개 이상
 		if ($i%$this->list_mod == 0) $sct_last = 'sct_last'; // 줄 마지막

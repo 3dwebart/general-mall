@@ -12,7 +12,7 @@
 }
 /* END :: Header */
 /* BIGIN :: main swiper slide */
-.swiper-wrapper {
+.swiper-wrapper .item-wrap {
 	margin-top: 47px;
 }
 .swiper-button-next, .swiper-button-prev {
@@ -172,6 +172,8 @@ div[id^="slide"] .swiper-button-prev {
 	padding-top: 47px;
 }
 header.slide-product-header {
+    display: flex;
+    justify-content: space-between;
 	color: rgba(255,255,255,1);
 	background-color: rgba(230,46,4,1);
 	position: absolute;
@@ -185,6 +187,16 @@ header.slide-product-header h2.list-type-title {
 header.slide-product-header h2.list-type-title a {
 	color: rgba(255,255,255,1);
 	border-color: rgba(255,255,255,1);
+}
+header.slide-product-header .more-div {
+	display: flex;
+	flex: 1;
+	justify-content: flex-end;
+}
+header.slide-product-header .more-div a {
+	color: rgb(255,255,255);
+	font-weight: bold;
+	text-decoration: none;
 }
 .swiper-container .swiper-button-next, .swiper-container .swiper-button-prev {
 	z-index: 5;
