@@ -11,24 +11,6 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
 <?php if($config['cf_cert_use'] && ($config['cf_cert_ipin'] || $config['cf_cert_hp'])) { ?>
 <script src="<?php echo G5_JS_URL ?>/certify.js?v=<?php echo G5_JS_VER; ?>"></script>
 <?php } ?>
-
-<form id="fregisterform" name="fregisterform" action="<?php echo $register_action_url ?>" onsubmit="return fregisterform_submit(this);" method="post" enctype="multipart/form-data" autocomplete="off">
-<input type="hidden" name="w" value="<?php echo $w ?>">
-<input type="hidden" name="url" value="<?php echo $urlencode ?>">
-<input type="hidden" name="agree" value="<?php echo $agree ?>">
-<input type="hidden" name="agree2" value="<?php echo $agree2 ?>">
-<input type="hidden" name="cert_type" value="<?php echo $member['mb_certify']; ?>">
-<input type="hidden" name="cert_no" value="">
-<?php
-if (isset($member['mb_sex'])) {
-	echo '<input type="hidden" name="mb_sex" value="'.$member['mb_sex'].'">';
-}
-// 닉네임수정일이 지나지 않았다면
-if (isset($member['mb_nick_date']) && $member['mb_nick_date'] > date("Y-m-d", G5_SERVER_TIME - ($config['cf_nick_modify'] * 86400))) {
-	echo '<input type="hidden" name="mb_nick_default" value="'.get_text($member['mb_nick']).'">';
-	echo '<input type="hidden" name="mb_nick" value="'.get_text($member['mb_nick']).'">';
-}
-?>
 <style>
 	.container-fluid {
 			padding:0px;
@@ -94,6 +76,23 @@ function chr(code)
 	return String.fromCharCode(code);
 }
 </script>
+<form id="fregisterform" name="fregisterform" action="<?php echo $register_action_url ?>" onsubmit="return fregisterform_submit(this);" method="post" enctype="multipart/form-data" autocomplete="off">
+<input type="hidden" name="w" value="<?php echo $w ?>">
+<input type="hidden" name="url" value="<?php echo $urlencode ?>">
+<input type="hidden" name="agree" value="<?php echo $agree ?>">
+<input type="hidden" name="agree2" value="<?php echo $agree2 ?>">
+<input type="hidden" name="cert_type" value="<?php echo $member['mb_certify']; ?>">
+<input type="hidden" name="cert_no" value="">
+<?php
+if (isset($member['mb_sex'])) {
+	echo '<input type="hidden" name="mb_sex" value="'.$member['mb_sex'].'">';
+}
+// 닉네임수정일이 지나지 않았다면
+if (isset($member['mb_nick_date']) && $member['mb_nick_date'] > date("Y-m-d", G5_SERVER_TIME - ($config['cf_nick_modify'] * 86400))) {
+	echo '<input type="hidden" name="mb_nick_default" value="'.get_text($member['mb_nick']).'">';
+	echo '<input type="hidden" name="mb_nick" value="'.get_text($member['mb_nick']).'">';
+}
+?>
  <div id="register_form"  class="form_01">   
 	<div>
 		<h2>Enter site usage information</h2>
