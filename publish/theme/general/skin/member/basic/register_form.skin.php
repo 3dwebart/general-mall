@@ -4,9 +4,8 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 // add_stylesheet('css 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
 add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 0);
 ?>
-<link rel="stylesheet" href="<?php echo G5_ASSETS_URL; ?>/plugins/select-country/css/bootstrap-select.min.css">
-<link rel="stylesheet" href="<?php echo G5_ASSETS_URL; ?>/plugins/select-country/css/xcode.min.css" />
-
+<link href="<?php echo G5_ASSETS_URL; ?>/plugins/select-country/css/flags.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js"></script>
 <!-- 회원정보 입력/수정 시작 { -->
 <script src="<?php echo G5_JS_URL ?>/jquery.register_form.js"></script>
 <?php if($config['cf_cert_use'] && ($config['cf_cert_ipin'] || $config['cf_cert_hp'])) { ?>
@@ -30,6 +29,71 @@ if (isset($member['mb_nick_date']) && $member['mb_nick_date'] > date("Y-m-d", G5
 	echo '<input type="hidden" name="mb_nick" value="'.get_text($member['mb_nick']).'">';
 }
 ?>
+<style>
+	.container-fluid {
+			padding:0px;
+	}
+
+	.example {
+		border: 1px solid #e5e5e5;
+		background-color: #fcfcfc;
+		padding: 1em;
+	}
+
+	.example .html {
+		margin: 2em 0em 0em 0em;
+	}
+
+	.html {
+		display: block;
+		padding: none;
+		word-break: break-all;
+		word-wrap: break-word;
+	}
+
+	.html .xml {
+		min-height: 6em;
+	}
+
+	.bs-docs-header {
+			margin-bottom: 0;
+			background: #337ab7;
+			color: #fff;
+			padding-top:80px;
+			padding-bottom:80px;
+			border-radius:0px !important;
+			margin-bottom:80px;
+	}
+
+	.bs-docs-header .aff,
+	.bs-docs-header .aff:hover,
+	.bs-docs-header .aff:active {
+			color: white!important;
+			text-decoration: underline;
+	}
+
+	.bs-docs-header .btn {
+			padding: 15px 30px;
+			font-size: 20px;
+			margin-top:30px;
+	}
+
+	.btn-outline-inverse, .btn-outline-inverse:active {
+			color: #fff!important;
+			background-color: transparent;
+			border-color: #fff;
+	}
+	.btn-outline-inverse:hover {
+			background-color:white!important;
+			color:#337ab7!important;
+	}
+</style>
+<script>
+function chr(code)
+{
+	return String.fromCharCode(code);
+}
+</script>
  <div id="register_form"  class="form_01">   
 	<div>
 		<h2>Enter site usage information</h2>
@@ -154,8 +218,9 @@ if (isset($member['mb_nick_date']) && $member['mb_nick_date'] > date("Y-m-d", G5
 				<label for="reg_mb_addr4" class="sound_only">State/Province/Region</label>
 				<input type="text" name="mb_addr4" value="<?php echo get_text($member['mb_addr4']) ?>" id="reg_mb_addr4" class="frm_input frm_address full_input" size="50" placeholder="State/Province/Region">
 				<br>
-				<label for="mb_addr_country" class="sound_only">Country</label>
-				<select name="mb_addr4" class="selectpicker countrypicker" data-flag="true"></select>
+				<label for="addr_country" class="sound_only">Country</label>
+				<div id="addr_country" data-input-name="country"></div>
+				<input type="hidden" name="mb_addr_country" value="<?php echo get_text($member['mb_addr_country']) ?>" id="mb_addr_country">
 				<!-- <input type="text"  value="<?php echo get_text($member['mb_addr_country']) ?>" id="mb_addr_country" class="frm_input frm_address full_input" size="50" placeholder="Country"> -->
 				<br>
 				<label for="reg_mb_zip" class="sound_only">ZIP Code<?php echo $config['cf_req_addr']?'<strong class="sound_only"> Necessary</strong>':''; ?></label>
@@ -271,7 +336,7 @@ if (isset($member['mb_nick_date']) && $member['mb_nick_date'] > date("Y-m-d", G5
 				<label for="reg_mb_recommend" class="sound_only">추천인아이디</label>
 				<input type="text" name="mb_recommend" id="reg_mb_recommend" class="frm_input" placeholder="추천인아이디">
 			</li>
-			<?php }  ?>
+			<?php } ?>
 
 			<li class="is_captcha_use">
 				자동등록방지
@@ -279,20 +344,29 @@ if (isset($member['mb_nick_date']) && $member['mb_nick_date'] > date("Y-m-d", G5
 			</li>
 		</ul>
 	</div>
-	
 </div>
 <div class="btn_confirm">
 	<a href="<?php echo G5_URL ?>" class="btn_cancel">cancel</a>
 	<input type="submit" value="<?php echo $w==''?'Sign up':'Edit info'; ?>" id="btn_submit" class="btn_submit" accesskey="s">
 </div>
 </form>
-<script src="<?php echo G5_ASSETS_URL; ?>/plugins/select-country/js/bootstrap-select.min.js"></script>
-
-<script src="<?php echo G5_ASSETS_URL; ?>/plugins/select-country/js/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-
-<script src="<?php echo G5_ASSETS_URL; ?>/plugins/select-country/js/bootstrap-select-country.min.js"></script>
-
+<script src="<?php echo G5_ASSETS_URL; ?>/plugins/select-country/js/jquery.flagstrap.js"></script>
+<script>
+(function($) {
+	$('#addr_country').flagStrap();
+	jQuery('#addr_country select option').each(function() {
+		if(jQuery(this).val() == 'US') {
+			jQuery(this).attr('selected', 'selected');
+		}
+	});
+	jQuery('#addr_country select').on('change', function() {
+		var CountrySelectVal = jQuery(this).val();
+		var CountrySelectTxt = jQuery('#addr_country select option:selected').text();
+		var concatVal = CountrySelectVal + chr(30) + CountrySelectTxt;
+		jQuery('#mb_addr_country').val(concatVal);
+	});
+})(jQuery);
+</script>
 <script>
 	$(function() {
 		$("#reg_zip_find").css("display", "inline-block");

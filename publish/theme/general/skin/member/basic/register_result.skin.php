@@ -7,7 +7,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
 
 <!-- 회원가입결과 시작 { -->
 <div id="reg_result">
-    <h2><strong>회원가입</strong>이 완료되었습니다.</h2>
+    <h2><strong>Sign up</strong> is complete.</h2>
     <p class="reg_result_p">
         <strong><?php echo get_text($mb['mb_name']); ?></strong>님의 회원가입을 진심으로 축하합니다.<br>
     </p>
@@ -18,9 +18,9 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
         발송된 인증메일을 확인하신 후 인증처리를 하시면 사이트를 원활하게 이용하실 수 있습니다.
     </p>
     <div id="result_email">
-        <span>아이디</span>
+        <span>ID</span>
         <strong><?php echo $mb['mb_id'] ?></strong><br>
-        <span>이메일 주소</span>
+        <span>E-mail address</span>
         <strong><?php echo $mb['mb_email'] ?></strong>
     </div>
     <p>

@@ -28,53 +28,56 @@ else if($w == '')
 else
     alert('잘못된 접근입니다', G5_URL);
 
-if(!$mb_id)
+if(!$mb_id) {
     alert('회원아이디 값이 없습니다. 올바른 방법으로 이용해 주십시오.');
+}
 
-$mb_password    = trim($_POST['mb_password']);
-$mb_password_re = trim($_POST['mb_password_re']);
-$mb_name        = trim($_POST['mb_name']);
-$mb_nick        = trim($_POST['mb_nick']);
-$mb_email       = trim($_POST['mb_email']);
-$mb_sex         = isset($_POST['mb_sex'])           ? trim($_POST['mb_sex'])         : "";
-$mb_birth       = isset($_POST['mb_birth'])         ? trim($_POST['mb_birth'])       : "";
-$mb_homepage    = isset($_POST['mb_homepage'])      ? trim($_POST['mb_homepage'])    : "";
-$mb_tel         = isset($_POST['mb_tel'])           ? trim($_POST['mb_tel'])         : "";
-$mb_hp          = isset($_POST['mb_hp'])            ? trim($_POST['mb_hp'])          : "";
-$mb_zip1        = isset($_POST['mb_zip'])           ? substr(trim($_POST['mb_zip']), 0, 3) : "";
-$mb_zip2        = isset($_POST['mb_zip'])           ? substr(trim($_POST['mb_zip']), 3)    : "";
-$mb_addr1       = isset($_POST['mb_addr1'])         ? trim($_POST['mb_addr1'])       : "";
-$mb_addr2       = isset($_POST['mb_addr2'])         ? trim($_POST['mb_addr2'])       : "";
-$mb_addr3       = isset($_POST['mb_addr3'])         ? trim($_POST['mb_addr3'])       : "";
-$mb_addr3       = isset($_POST['mb_addr4'])         ? trim($_POST['mb_addr4'])       : "";
-$mb_addr3       = isset($_POST['mb_addr_country'])  ? trim($_POST['mb_addr_country']): "";
-$mb_addr_jibeon = isset($_POST['mb_addr_jibeon'])   ? trim($_POST['mb_addr_jibeon']) : "";
-$mb_signature   = isset($_POST['mb_signature'])     ? trim($_POST['mb_signature'])   : "";
-$mb_profile     = isset($_POST['mb_profile'])       ? trim($_POST['mb_profile'])     : "";
-$mb_recommend   = isset($_POST['mb_recommend'])     ? trim($_POST['mb_recommend'])   : "";
-$mb_mailling    = isset($_POST['mb_mailling'])      ? trim($_POST['mb_mailling'])    : "";
-$mb_sms         = isset($_POST['mb_sms'])           ? trim($_POST['mb_sms'])         : "";
-$mb_1           = isset($_POST['mb_1'])             ? trim($_POST['mb_1'])           : "";
-$mb_2           = isset($_POST['mb_2'])             ? trim($_POST['mb_2'])           : "";
-$mb_3           = isset($_POST['mb_3'])             ? trim($_POST['mb_3'])           : "";
-$mb_4           = isset($_POST['mb_4'])             ? trim($_POST['mb_4'])           : "";
-$mb_5           = isset($_POST['mb_5'])             ? trim($_POST['mb_5'])           : "";
-$mb_6           = isset($_POST['mb_6'])             ? trim($_POST['mb_6'])           : "";
-$mb_7           = isset($_POST['mb_7'])             ? trim($_POST['mb_7'])           : "";
-$mb_8           = isset($_POST['mb_8'])             ? trim($_POST['mb_8'])           : "";
-$mb_9           = isset($_POST['mb_9'])             ? trim($_POST['mb_9'])           : "";
-$mb_10          = isset($_POST['mb_10'])            ? trim($_POST['mb_10'])          : "";
+$mb_password     = trim($_POST['mb_password']);
+$mb_password_re  = trim($_POST['mb_password_re']);
+$mb_name         = trim($_POST['mb_name']);
+$mb_nick         = trim($_POST['mb_nick']);
+$mb_email        = trim($_POST['mb_email']);
+$mb_sex          = isset($_POST['mb_sex'])           ? trim($_POST['mb_sex'])         : "";
+$mb_birth        = isset($_POST['mb_birth'])         ? trim($_POST['mb_birth'])       : "";
+$mb_homepage     = isset($_POST['mb_homepage'])      ? trim($_POST['mb_homepage'])    : "";
+$mb_tel          = isset($_POST['mb_tel'])           ? trim($_POST['mb_tel'])         : "";
+$mb_hp           = isset($_POST['mb_hp'])            ? trim($_POST['mb_hp'])          : "";
+$mb_zip1         = isset($_POST['mb_zip'])           ? substr(trim($_POST['mb_zip']), 0, 3) : "";
+$mb_zip2         = isset($_POST['mb_zip'])           ? substr(trim($_POST['mb_zip']), 3)    : "";
+$mb_addr1        = isset($_POST['mb_addr1'])         ? trim($_POST['mb_addr1'])       : "";
+$mb_addr2        = isset($_POST['mb_addr2'])         ? trim($_POST['mb_addr2'])       : "";
+$mb_addr3        = isset($_POST['mb_addr3'])         ? trim($_POST['mb_addr3'])       : "";
+$mb_addr4        = isset($_POST['mb_addr4'])         ? trim($_POST['mb_addr4'])       : "";
+$mb_addr_country = isset($_POST['mb_addr_country'])  ? trim($_POST['mb_addr_country']): "";
+$mb_addr_jibeon  = isset($_POST['mb_addr_jibeon'])   ? trim($_POST['mb_addr_jibeon']) : "";
+$mb_signature    = isset($_POST['mb_signature'])     ? trim($_POST['mb_signature'])   : "";
+$mb_profile      = isset($_POST['mb_profile'])       ? trim($_POST['mb_profile'])     : "";
+$mb_recommend    = isset($_POST['mb_recommend'])     ? trim($_POST['mb_recommend'])   : "";
+$mb_mailling     = isset($_POST['mb_mailling'])      ? trim($_POST['mb_mailling'])    : "";
+$mb_sms          = isset($_POST['mb_sms'])           ? trim($_POST['mb_sms'])         : "";
+$mb_1            = isset($_POST['mb_1'])             ? trim($_POST['mb_1'])           : "";
+$mb_2            = isset($_POST['mb_2'])             ? trim($_POST['mb_2'])           : "";
+$mb_3            = isset($_POST['mb_3'])             ? trim($_POST['mb_3'])           : "";
+$mb_4            = isset($_POST['mb_4'])             ? trim($_POST['mb_4'])           : "";
+$mb_5            = isset($_POST['mb_5'])             ? trim($_POST['mb_5'])           : "";
+$mb_6            = isset($_POST['mb_6'])             ? trim($_POST['mb_6'])           : "";
+$mb_7            = isset($_POST['mb_7'])             ? trim($_POST['mb_7'])           : "";
+$mb_8            = isset($_POST['mb_8'])             ? trim($_POST['mb_8'])           : "";
+$mb_9            = isset($_POST['mb_9'])             ? trim($_POST['mb_9'])           : "";
+$mb_10           = isset($_POST['mb_10'])            ? trim($_POST['mb_10'])          : "";
 
-$mb_name        = clean_xss_tags($mb_name);
-$mb_email       = get_email_address($mb_email);
-$mb_homepage    = clean_xss_tags($mb_homepage);
-$mb_tel         = clean_xss_tags($mb_tel);
-$mb_zip1        = preg_replace('/[^0-9]/', '', $mb_zip1);
-$mb_zip2        = preg_replace('/[^0-9]/', '', $mb_zip2);
-$mb_addr1       = clean_xss_tags($mb_addr1);
-$mb_addr2       = clean_xss_tags($mb_addr2);
-$mb_addr3       = clean_xss_tags($mb_addr3);
-$mb_addr_jibeon = preg_match("/^(N|R)$/", $mb_addr_jibeon) ? $mb_addr_jibeon : '';
+$mb_name         = clean_xss_tags($mb_name);
+$mb_email        = get_email_address($mb_email);
+$mb_homepage     = clean_xss_tags($mb_homepage);
+$mb_tel          = clean_xss_tags($mb_tel);
+$mb_zip1         = preg_replace('/[^0-9]/', '', $mb_zip1);
+$mb_zip2         = preg_replace('/[^0-9]/', '', $mb_zip2);
+$mb_addr1        = clean_xss_tags($mb_addr1);
+$mb_addr2        = clean_xss_tags($mb_addr2);
+$mb_addr3        = clean_xss_tags($mb_addr3);
+$mb_addr4        = clean_xss_tags($mb_addr4);
+$mb_addr_country = clean_xss_tags($mb_addr_country);
+$mb_addr_jibeon  = preg_match("/^(N|R)$/", $mb_addr_jibeon) ? $mb_addr_jibeon : '';
 
 if ($w == '' || $w == 'u') {
 
@@ -215,6 +218,8 @@ if ($w == '') {
                      mb_addr1 = '{$mb_addr1}',
                      mb_addr2 = '{$mb_addr2}',
                      mb_addr3 = '{$mb_addr3}',
+                     mb_addr4 = '{$mb_addr4}',
+                     mb_addr_country = '{$mb_addr_country}',
                      mb_addr_jibeon = '{$mb_addr_jibeon}',
                      mb_signature = '{$mb_signature}',
                      mb_profile = '{$mb_profile}',
@@ -330,6 +335,8 @@ if ($w == '') {
                     mb_addr1 = '{$mb_addr1}',
                     mb_addr2 = '{$mb_addr2}',
                     mb_addr3 = '{$mb_addr3}',
+                    mb_addr4 = '{$mb_addr4}',
+                    mb_addr_country = '{$mb_addr_country}',
                     mb_addr_jibeon = '{$mb_addr_jibeon}',
                     mb_signature = '{$mb_signature}',
                     mb_profile = '{$mb_profile}',
