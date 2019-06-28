@@ -22,7 +22,7 @@ $admin = get_admin("super");
     <div id="ft_logo"><a href="<?php echo G5_SHOP_URL; ?>/"><img src="<?php echo G5_DATA_URL; ?>/common/mobile_logo_img2" alt="<?php echo $config['cf_title']; ?> 메인"></a></div>
     <div class="m-ft-info">
         <div class="pt-5 pb-2">
-            <div class="info-tit">Address name</div>
+            <div class="info-tit">Company name</div>
             <div class="info-con"><?php echo $default['de_admin_company_name']; ?></div>
         </div>
         <div class="py-2">
