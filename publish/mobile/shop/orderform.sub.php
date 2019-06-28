@@ -14,7 +14,82 @@ $tablet_size = "1.0"; // 화면 사이즈 조정 - 기기화면에 맞게 수정
 set_session('ss_personalpay_id', '');
 set_session('ss_personalpay_hash', '');
 ?>
+<link href="<?php echo G5_ASSETS_URL; ?>/plugins/select-country/css/flags.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js"></script>
+<script src="<?php echo G5_JS_URL ?>/jquery.register_form.js"></script>
+<?php if($config['cf_cert_use'] && ($config['cf_cert_ipin'] || $config['cf_cert_hp'])) { ?>
+<script src="<?php echo G5_JS_URL ?>/certify.js?v=<?php echo G5_JS_VER; ?>"></script>
+<?php } ?>
+<style>
+	.container-fluid {
+			padding:0px;
+	}
 
+	.example {
+		border: 1px solid #e5e5e5;
+		background-color: #fcfcfc;
+		padding: 1em;
+	}
+
+	.example .html {
+		margin: 2em 0em 0em 0em;
+	}
+
+	.html {
+		display: block;
+		padding: none;
+		word-break: break-all;
+		word-wrap: break-word;
+	}
+
+	.html .xml {
+		min-height: 6em;
+	}
+
+	.bs-docs-header {
+			margin-bottom: 0;
+			background: #337ab7;
+			color: #fff;
+			padding-top:80px;
+			padding-bottom:80px;
+			border-radius:0px !important;
+			margin-bottom:80px;
+	}
+
+	.bs-docs-header .aff,
+	.bs-docs-header .aff:hover,
+	.bs-docs-header .aff:active {
+			color: white!important;
+			text-decoration: underline;
+	}
+
+	.bs-docs-header .btn {
+			padding: 15px 30px;
+			font-size: 20px;
+			margin-top:30px;
+	}
+
+	.btn-outline-inverse, .btn-outline-inverse:active {
+			color: #fff!important;
+			background-color: transparent;
+			border-color: #fff;
+	}
+	.btn-outline-inverse:hover {
+			background-color:white!important;
+			color:#337ab7!important;
+	}
+	button[id^="flagstrap-drop-down-"] {
+		background-color: #fff;
+		border: 1px solid #ccc;
+		min-height: 40px;
+	}
+</style>
+<script>
+function chr(code)
+{
+	return String.fromCharCode(code);
+}
+</script>
 <div id="sod_approval_frm">
 <?php
 ob_start();
@@ -29,7 +104,7 @@ ob_start();
 		$goods_count = -1;
 
 		// $s_cart_id 로 현재 장바구니 자료 쿼리
-		$sql = " select a.ct_id,
+		$sql = " SELECT a.ct_id,
 						a.it_id,
 						a.it_name,
 						a.ct_price,
@@ -42,11 +117,11 @@ ob_start();
 						b.ca_id2,
 						b.ca_id3,
 						b.it_notax
-				   from {$g5['g5_shop_cart_table']} a left join {$g5['g5_shop_item_table']} b on ( a.it_id = b.it_id )
-				  where a.od_id = '$s_cart_id'
-					and a.ct_select = '1' ";
-		$sql .= " group by a.it_id ";
-		$sql .= " order by a.ct_id ";
+				   FROM {$g5['g5_shop_cart_table']} a LEFT JOIN {$g5['g5_shop_item_table']} b ON ( a.it_id = b.it_id )
+				  WHERE a.od_id = '$s_cart_id'
+					AND a.ct_select = '1' ";
+		$sql .= " GROUP BY a.it_id ";
+		$sql .= " ORDER BY a.ct_id ";
 		$result = sql_query($sql);
 
 		$good_info = '';
@@ -61,12 +136,12 @@ ob_start();
 		for ($i=0; $row=sql_fetch_array($result); $i++)
 		{
 			// 합계금액 계산
-			$sql = " select SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price + io_price) * ct_qty))) as price,
+			$sql = " SELECT SUM(IF(io_type = 1, (io_price * ct_qty), ((ct_price + io_price) * ct_qty))) as price,
 							SUM(ct_point * ct_qty) as point,
 							SUM(ct_qty) as qty
-						from {$g5['g5_shop_cart_table']}
-						where it_id = '{$row['it_id']}'
-						  and od_id = '$s_cart_id' ";
+						FROM {$g5['g5_shop_cart_table']}
+					   WHERE it_id = '{$row['it_id']}'
+						 AND od_id = '$s_cart_id' ";
 			$sum = sql_fetch($sql);
 
 			if (!$goods)
@@ -116,17 +191,17 @@ ob_start();
 				$cp_button = '';
 				$cp_count = 0;
 
-				$sql = " select cp_id
-							from {$g5['g5_shop_coupon_table']}
-							where mb_id IN ( '{$member['mb_id']}', '전체회원' )
-							  and cp_start <= '".G5_TIME_YMD."'
-							  and cp_end >= '".G5_TIME_YMD."'
-							  and cp_minimum <= '$sell_price'
-							  and (
-									( cp_method = '0' and cp_target = '{$row['it_id']}' )
+				$sql = " SELECT cp_id
+						   FROM {$g5['g5_shop_coupon_table']}
+						  WHERE mb_id IN ( '{$member['mb_id']}', '전체회원' )
+							AND cp_start <= '".G5_TIME_YMD."'
+							AND cp_end >= '".G5_TIME_YMD."'
+							AND cp_minimum <= '$sell_price'
+							AND (
+									( cp_method = '0' AND cp_target = '{$row['it_id']}' )
 									OR
-									( cp_method = '1' and ( cp_target IN ( '{$row['ca_id']}', '{$row['ca_id2']}', '{$row['ca_id3']}' ) ) )
-								  ) ";
+									( cp_method = '1' AND ( cp_target IN ( '{$row['ca_id']}', '{$row['ca_id2']}', '{$row['ca_id3']}' ) ) )
+								) ";
 				$res = sql_query($sql);
 
 				for($k=0; $cp=sql_fetch_array($res); $k++) {
@@ -146,13 +221,13 @@ ob_start();
 			switch($row['ct_send_cost'])
 			{
 				case 1:
-					$ct_send_cost = '착불';
+					$ct_send_cost = 'Cash on delivery';
 					break;
 				case 2:
-					$ct_send_cost = '무료';
+					$ct_send_cost = 'Free';
 					break;
 				default:
-					$ct_send_cost = '선불';
+					$ct_send_cost = 'Prepayment';
 					break;
 			}
 
@@ -184,13 +259,20 @@ ob_start();
 			</div>
 
 			<div class="li_prqty">
-				<span class="prqty_price li_prqty_sp"><span>판매가 </span><?php echo number_format($row['ct_price']); ?></span>
-				<span class="prqty_qty li_prqty_sp"><span>수량 </span><?php echo number_format($sum['qty']); ?></span>
-				<span class="prqty_sc li_prqty_sp"><span>배송비 </span><?php echo $ct_send_cost; ?></span>
-				 <span class="total_point li_prqty_sp"><span>적립포인트 </span><strong><?php echo number_format($sum['point']); ?></strong></span>
+				<?php
+					$ex_price = ratePrice() * $row['ct_price'];
+					$ex_sell_price = ratePrice() * $sell_price;
+				?>
+				<span class="prqty_price li_prqty_sp">
+					<span>Price<!-- 판매가 --> </span>
+					$<?php echo number_format($ex_price,2) //number_format($row['ct_price']); ?>
+				</span>
+				<span class="prqty_qty li_prqty_sp"><span>Total volume<!-- 수량 --> </span><?php echo number_format($sum['qty']); ?></span>
+				<span class="prqty_sc li_prqty_sp"><span>Shipping fee<!-- 배송비 --> </span><?php echo $ct_send_cost; ?></span>
+				 <span class="total_point li_prqty_sp"><span>Earning Points<!-- 적립포인트 --> </span><strong><?php echo number_format($sum['point']); ?></strong></span>
 
 			</div>
-			<div class="total_price total_span"><span>주문금액 </span><strong><?php echo number_format($sell_price); ?></strong></div>
+			<div class="total_price total_span"><span>Order amount<!-- 주문금액 --> </span><strong>$<?php echo number_format($ex_sell_price, 2); ?></strong></div>
 
 		</li>
 
@@ -221,21 +303,21 @@ ob_start();
 	<!-- 주문상품 합계 시작 { -->
 	<div class="sod_ta_wr">
 		<dl id="m_sod_bsk_tot">
-			<dt class="sod_bsk_sell">주문</dt>
-			<dd class="sod_bsk_sell"><strong><?php echo number_format($tot_sell_price); ?> 원</strong></dd>
+			<dt class="sod_bsk_sell">Order</dt>
+			<dd class="sod_bsk_sell"><strong>$<?php echo number_format((ratePrice() * $tot_sell_price),4); ?></strong></dd>
 			<?php if($it_cp_count > 0) { ?>
-			<dt class="sod_bsk_coupon">쿠폰</dt>
+			<dt class="sod_bsk_coupon">Coupon</dt>
 			<dd class="sod_bsk_coupon"><strong id="ct_tot_coupon">0 원</strong></dd>
 			<?php } ?>
-			<dt class="sod_bsk_dvr">배송비</dt>
-			<dd class="sod_bsk_dvr"><strong><?php echo number_format($send_cost); ?> 원</strong></dd>
+			<dt class="sod_bsk_dvr">Shipping fee</dt>
+			<dd class="sod_bsk_dvr"><strong>$<?php echo number_format((ratePrice() * $send_cost),4); ?> 원</strong></dd>
 
-			<dt class="sod_bsk_point">포인트</dt>
-			<dd class="sod_bsk_point"><strong><?php echo number_format($tot_point); ?> 점</strong></dd>
-			<dt class="sod_bsk_cnt">총계</dt>
+			<dt class="sod_bsk_point">Point</dt>
+			<dd class="sod_bsk_point"><strong><?php echo number_format($tot_point); ?> point</strong></dd>
+			<dt class="sod_bsk_cnt">Total</dt>
 			<dd class="sod_bsk_cnt">
 				<?php $tot_price = $tot_sell_price + $send_cost; // 총계 = 주문상품금액합계 + 배송비 ?>
-				<strong id="ct_tot_price"><?php echo number_format($tot_price); ?></strong> 원
+				<strong id="ct_tot_price">$<?php echo number_format((ratePrice() * $tot_price),2); ?></strong> 원
 			</dd>
 		</dl>
 	</div>
@@ -274,50 +356,66 @@ if($is_kakaopay_use) {
 	<?php echo $content; ?>
 
 	<section id="sod_frm_orderer" >
-		<h2>주문하시는 분</h2>
+		<h2>Orderer</h2>
 
 		<div class="odf_list">
 			<ul>
 				<li>
-					<label for="od_name">이름<strong class="sound_only"> 필수</strong></label>
+					<label for="od_name">Name<strong class="sound_only"> Necessary</strong></label>
 					<input type="text" name="od_name" value="<?php echo get_text($member['mb_name']); ?>" id="od_name" required class="frm_input required" maxlength="20">
 				</li>
-
 				<?php if (!$is_member) { // 비회원이면 ?>
 				<li>
-					<label for="od_pwd">비밀번호<strong class="sound_only"> 필수</strong></label>
+					<label for="od_pwd">Password<strong class="sound_only"> Necessary</strong></label>
 					
 						<input type="password" name="od_pwd" id="od_pwd" required class="frm_input required" maxlength="20">
 						영,숫자 3~20자 (주문서 조회시 필요)
-					
 				</li>
 				<?php } ?>
-
 				<li>
-					<label for="od_tel">전화번호<strong class="sound_only"> 필수</strong></label>
+					<label for="od_tel">Phone No.<strong class="sound_only"> Necessary</strong></label>
 					<input type="text" name="od_tel" value="<?php echo get_text($member['mb_tel']); ?>" id="od_tel" required class="frm_input required" maxlength="20">
 				</li>
 				<li>
-					<label for="od_hp">핸드폰</label>
+					<label for="od_hp">Cell Phone No.</label>
 					<input type="text" name="od_hp" value="<?php echo get_text($member['mb_hp']); ?>" id="od_hp" class="frm_input" maxlength="20">
 				</li>
 				<li>
-					<strong>주소</strong>
-					
-					<span class="add_num"><label for="od_zip" class="sound_only">우편번호<strong class="sound_only"> 필수</strong></label>
-					<input type="text" name="od_zip" value="<?php echo $member['mb_zip1'].$member['mb_zip2']; ?>" id="od_zip" required class="frm_input required" size="5" maxlength="6">
-					<button type="button" class="btn_frmline btn_addsch" onclick="win_zip('forderform', 'od_zip', 'od_addr1', 'od_addr2', 'od_addr3', 'od_addr_jibeon');">주소검색</button></span>
-					<label for="od_addr1" class="sound_only">기본주소<strong class="sound_only"> 필수</strong></label>
+					<label for="od_addr1">Address 1<strong class="sound_only"> Necessary</strong></label>
 					<input type="text" name="od_addr1" value="<?php echo get_text($member['mb_addr1']) ?>" id="od_addr1" required class="frm_input frm_address required">
-					<label for="od_addr2" class="sound_only">상세주소</label>
-					<input type="text" name="od_addr2" value="<?php echo get_text($member['mb_addr2']) ?>" id="od_addr2" class="frm_input frm_address">
-					<label for="od_addr3" class="sound_only">참고항목</label>
-					<input type="text" name="od_addr3" value="<?php echo get_text($member['mb_addr3']) ?>" id="od_addr3" class="frm_input frm_address" readonly="readonly">
-					<input type="hidden" name="od_addr_jibeon" value="<?php echo get_text($member['mb_addr_jibeon']); ?>"><br>
-					
 				</li>
 				<li>
-					<label for="od_email">E-mail<strong class="sound_only"> 필수</strong></label>
+					<label for="od_addr2">Address 2</label>
+					<input type="text" name="od_addr2" value="<?php echo get_text($member['mb_addr2']) ?>" id="od_addr2" class="frm_input frm_address">
+				</li>
+				<li>
+					<label for="od_addr3">City</label>
+					<input type="text" name="od_addr3" value="<?php echo get_text($member['mb_addr3']) ?>" id="od_addr3" class="frm_input frm_address">
+				</li>
+				<li>
+					<label for="od_addr4">State/Province/Region</label>
+					<input type="text" name="od_addr4" value="<?php echo get_text($member['mb_addr4']) ?>" id="od_addr4" class="frm_input frm_address">
+				</li>
+				<li>
+					<label for="addr_country">Country</label>
+					<div id="addr_country" data-input-name="country"></div>
+					<?php
+					$country_code = '';
+					$country_name = '';
+					if (!empty($member['mb_addr_country'])):
+						$coiuntry_arr = explode(chr(30), $member['mb_addr_country']);
+						$country_code = $coiuntry_arr[0];
+						$country_name = $coiuntry_arr[1];
+					endif
+					?>
+					<input type="hidden" name="od_addr_country" value="<?php echo get_text($member['mb_addr_country']) ?>" id="od_addr_country">
+				</li>
+				<li>
+					<label for="od_zip">ZIP<strong class="sound_only"> Necessary</strong></label>
+					<input type="text" name="od_zip" value="<?php echo $member['mb_zip1'].$member['mb_zip2']; ?>" id="od_zip" required class="frm_input required" size="5" maxlength="6">
+				</li>
+				<li>
+					<label for="od_email">E-mail<strong class="sound_only"> Necessary</strong></label>
 					<input type="email" name="od_email" value="<?php echo $member['mb_email']; ?>" id="od_email" required class="frm_input required" maxlength="100">
 				</li>
 
@@ -327,10 +425,12 @@ if($is_kakaopay_use) {
 						<!-- <select name="od_hope_date" id="od_hope_date">
 						<option value="">선택하십시오.</option>
 						<?php
+						/*
 						for ($i=0; $i<7; $i++) {
 							$sdate = date("Y-m-d", time()+86400*($default['de_hope_date_after']+$i));
 							echo '<option value="'.$sdate.'">'.$sdate.' ('.get_yoil($sdate).')</option>'.PHP_EOL;
 						}
+						*/
 						?>
 						</select> -->
 						<input type="text" name="od_hope_date" value="" id="od_hope_date" required class="frm_input required" size="11" maxlength="10" readonly> 이후로 배송 바랍니다.
@@ -342,7 +442,7 @@ if($is_kakaopay_use) {
 	</section>
 
 	<section id="sod_frm_taker">
-		<h2>받으시는 분</h2>
+		<h2>Person to receive</h2><!-- 받으시는 분 -->
 
 		<div class="odf_list">
 			<ul>
@@ -354,7 +454,7 @@ if($is_kakaopay_use) {
 
 					// 주문자와 동일
 					$addr_list .= '<input type="radio" name="ad_sel_addr" value="same" id="ad_sel_addr_same">'.PHP_EOL;
-					$addr_list .= '<label for="ad_sel_addr_same">주문자와 동일</label>'.PHP_EOL;
+					$addr_list .= '<label for="ad_sel_addr_same">Same as the purchaser</label>'.PHP_EOL;
 
 					// 기본배송지
 					$sql = " select *
@@ -383,77 +483,85 @@ if($is_kakaopay_use) {
 					}
 
 					$addr_list .= '<br><input type="radio" name="ad_sel_addr" value="new" id="od_sel_addr_new">'.PHP_EOL;
-					$addr_list .= '<label for="od_sel_addr_new">신규배송지</label>'.PHP_EOL;
+					$addr_list .= '<label for="od_sel_addr_new">New shipping</label>'.PHP_EOL;
 
-					$addr_list .='<a href="'.G5_SHOP_URL.'/orderaddress.php" id="order_address">배송지목록</a>';
+					$addr_list .='<a href="'.G5_SHOP_URL.'/orderaddress.php" id="order_address">Shipping list</a>';
 				} else {
 					// 주문자와 동일
 					$addr_list .= '<input type="checkbox" name="ad_sel_addr" value="same" id="ad_sel_addr_same">'.PHP_EOL;
-					$addr_list .= '<label for="ad_sel_addr_same">주문자와 동일</label>'.PHP_EOL;
+					$addr_list .= '<label for="ad_sel_addr_same">Same as the purchaser</label>'.PHP_EOL;
 				}
 				?>
 				<li class="dlv_slt">
-					<strong>배송지선택</strong>
+					<strong>Select destination</strong>
 					<div><?php echo $addr_list; ?></div>
 				</li>
 				<?php if($is_member) { ?>
 				<li>
-					<label for="ad_subject">배송지명</label>
+					<label for="ad_subject">Shipping name</label>
 					<input type="text" name="ad_subject" id="ad_subject" class="frm_input" maxlength="20">
 					<input type="checkbox" name="ad_default" id="ad_default" value="1">
-					<label for="ad_default" class="ad_default">기본배송지로 설정</label>
+					<label for="ad_default" class="ad_default">Set as your default shipping address</label>
 					
 				</li>
 				<?php
 				}
 				?>
 				<li>
-					<label for="od_b_name">이름<strong class="sound_only"> 필수</strong></label>
+					<label for="od_b_name">Name<strong class="sound_only"> Necessary</strong></label>
 					<input type="text" name="od_b_name" id="od_b_name" required class="frm_input required" maxlength="20">
 				</li>
 				<li>
-					<label for="od_b_tel">전화번호<strong class="sound_only"> 필수</strong></label>
+					<label for="od_b_tel">Phone No.<strong class="sound_only"> Necessary</strong></label>
 					<input type="text" name="od_b_tel" id="od_b_tel" required class="frm_input required" maxlength="20">
 				</li>
 				<li>
-					<label for="od_b_hp">핸드폰</label>
+					<label for="od_b_hp">Cell Phone No.</label>
 					<input type="text" name="od_b_hp" id="od_b_hp" class="frm_input" maxlength="20">
 				</li>
 				<li>
-					<strong>주소</strong>
-					<label for="od_b_zip" class="sound_only">우편번호<strong class="sound_only"> 필수</strong></label>
-					<span class="add_num"><input type="text" name="od_b_zip" id="od_b_zip" required class="frm_input required" size="5" maxlength="6">
-					<button type="button" class="btn_frmline  btn_addsch" onclick="win_zip('forderform', 'od_b_zip', 'od_b_addr1', 'od_b_addr2', 'od_b_addr3', 'od_b_addr_jibeon');">주소 검색</button></span>
-					<label for="od_b_addr1" class="sound_only">기본주소<strong class="sound_only"> 필수</strong></label>
+					<label for="od_b_addr1">Address 1<strong class="sound_only"> Necessary</strong></label>
 					<input type="text" name="od_b_addr1" id="od_b_addr1" required class="frm_input frm_address required">
-					<label for="od_b_addr2" class="sound_only">상세주소</label>
-					<input type="text" name="od_b_addr2" id="od_b_addr2" class="frm_input frm_address">
-					<label for="od_b_addr3" class="sound_only">참고항목</label>
-					<input type="text" name="od_b_addr3" id="od_b_addr3" class="frm_input frm_address" readonly="readonly">
-					<input type="hidden" name="od_b_addr_jibeon" value="">
 				</li>
 				<li>
-					<label for="od_memo">전하실 말씀</label>
+					<label for="od_b_addr2">Address 2</label>
+					<input type="text" name="od_b_addr2" id="od_b_addr2" class="frm_input frm_address">
+				</li>
+				<li>
+					<label for="od_b_addr3">City</label>
+					<input type="text" name="od_b_addr3" id="od_b_addr3" class="frm_input frm_address">
+				</li>
+				<li>
+					<label for="od_b_addr4">State/Province/Region</label>
+					<input type="text" name="od_b_addr4" id="od_b_addr4" class="frm_input frm_address">
+				</li>
+				<li>
+					<label for="addr_country_b">Country</label>
+					<div id="addr_country_b" data-input-name="country"></div>
+					<input type="hidden" name="od_b_addr_country" id="od_b_addr_country" required class="frm_input frm_address required" size="60" placeholder="Country">
+				</li>
+				<li>
+					<label for="od_b_zip">ZIP<strong class="sound_only"> Necessary</strong></label>
+					<span class="add_num"><input type="text" name="od_b_zip" id="od_b_zip" required class="frm_input required" size="5" maxlength="6">
+				</li>
+				<li>
+					<label for="od_memo">Message</label>
 					<textarea name="od_memo" id="od_memo"></textarea>
 				</li>
 			</ul>
 		</div>
 	</section>
-
-
-		
-
 	<?php
 	$oc_cnt = $sc_cnt = 0;
 	if($is_member) {
 		// 주문쿠폰
-		$sql = " select cp_id
-					from {$g5['g5_shop_coupon_table']}
-					where mb_id IN ( '{$member['mb_id']}', '전체회원' )
-					  and cp_method = '2'
-					  and cp_start <= '".G5_TIME_YMD."'
-					  and cp_end >= '".G5_TIME_YMD."'
-					  and cp_minimum <= '$tot_sell_price' ";
+		$sql = " SELECT cp_id
+				   FROM {$g5['g5_shop_coupon_table']}
+				  WHERE mb_id IN ( '{$member['mb_id']}', '전체회원' )
+					AND cp_method = '2'
+					AND cp_start <= '".G5_TIME_YMD."'
+					AND cp_end >= '".G5_TIME_YMD."'
+					AND cp_minimum <= '$tot_sell_price' ";
 		$res = sql_query($sql);
 
 		for($k=0; $cp=sql_fetch_array($res); $k++) {
@@ -465,13 +573,13 @@ if($is_kakaopay_use) {
 
 		if($send_cost > 0) {
 			// 배송비쿠폰
-			$sql = " select cp_id
-						from {$g5['g5_shop_coupon_table']}
-						where mb_id IN ( '{$member['mb_id']}', '전체회원' )
-						  and cp_method = '3'
-						  and cp_start <= '".G5_TIME_YMD."'
-						  and cp_end >= '".G5_TIME_YMD."'
-						  and cp_minimum <= '$tot_sell_price' ";
+			$sql = " SELECT cp_id
+					   FROM {$g5['g5_shop_coupon_table']}
+					  WHERE mb_id IN ( '{$member['mb_id']}', '전체회원' )
+						AND cp_method = '3'
+						AND cp_start <= '".G5_TIME_YMD."'
+						AND cp_end >= '".G5_TIME_YMD."'
+						AND cp_minimum <= '$tot_sell_price' ";
 			$res = sql_query($sql);
 
 			for($k=0; $cp=sql_fetch_array($res); $k++) {
@@ -485,7 +593,7 @@ if($is_kakaopay_use) {
 	?>
 
 	<section id="sod_frm_pay">
-		<h2>결제정보 입력</h2>
+		<h2>Billing information</h2>
 
 
 		<div class="odf_tbl">
@@ -493,46 +601,48 @@ if($is_kakaopay_use) {
 			<tbody>
 			<?php if($oc_cnt > 0) { ?>
 			<tr>
-				<th scope="row">주문할인쿠폰</th>
+				<th scope="row">Order discount coupon</th>
 				<td>
 					<input type="hidden" name="od_cp_id" value="">
-					<button type="button" id="od_coupon_btn" class="cp_btn1">쿠폰적용</button>
+					<button type="button" id="od_coupon_btn" class="cp_btn1">Apply coupon</button>
 				</td>
 			</tr>
 			<tr>
-				<th scope="row">주문할인금액</th>
-				<td><span id="od_cp_price">0</span>원</td>
+				<th scope="row">Order discounts</th><!-- 주문할인금액 -->
+				<td>$<span id="od_cp_price">0</span></td>
 			</tr>
 			<?php } ?>
 			<?php if($sc_cnt > 0) { ?>
 			<tr>
-				<th scope="row">배송비할인쿠폰</th>
+				<th scope="row">Shipping discount coupon</th>
 				<td>
 					<input type="hidden" name="sc_cp_id" value="">
-					<button type="button" id="sc_coupon_btn" class="cp_btn1">쿠폰적용</button>
+					<button type="button" id="sc_coupon_btn" class="cp_btn1">Apply coupon</button>
 				</td>
 			</tr>
 			<tr>
-				<th scope="row">배송비할인금액</th>
-				<td><span id="sc_cp_price">0</span>원</td>
+				<th scope="row">Shipping discount</th>
+				<td>$<span id="sc_cp_price">0</span></td>
 			</tr>
 			<?php } ?>
 			<tr>
-				<th>총 주문금액</th>
-				<td><span id="od_tot_price"><?php echo number_format($tot_price); ?></span>원</td>
+				<th>Total Order Amount</th><!-- 총 주문금액 -->
+				<td><span id="od_tot_price">$<?php echo number_format((ratePrice() * $tot_price),2); ?></span></td>
 			</tr>
 			 <tr>
-				<th>추가배송비</th>
-				<td><span id="od_send_cost2">0</span>원 (지역에 따라 추가되는 도선료 등의 배송비입니다.)</td>
+				<th>Additional shipping costs</th>
+				<td>$<span id="od_send_cost2">0</span><br>(It is the carriage such as the duties added according to the area.)</td>
+				<!-- <td><span id="od_send_cost2">0</span>원 (지역에 따라 추가되는 도선료 등의 배송비입니다.)</td> -->
 			</tr>
 			</tbody>
 			</table>
 		</div>
 
 		<?php
+		/*
 		if (!$default['de_card_point'])
 			echo '<p id="sod_frm_pt_alert"><strong>무통장입금</strong> 이외의 결제 수단으로 결제하시는 경우 포인트를 적립해드리지 않습니다.</p>';
-
+		*/
 		$multi_settle = 0;
 		$checked = '';
 
@@ -728,7 +838,62 @@ if($is_kakaopay_use) {
 	?>
 
 </div>
+<script src="<?php echo G5_ASSETS_URL; ?>/plugins/select-country/js/jquery.flagstrap.js"></script>
+<script>
+(function($) {
+	$('#addr_country').flagStrap();
+	$('#addr_country_b').flagStrap();
+	var country_code = '<?php echo $country_code; ?>';
+	var country_name = '<?php echo $country_name; ?>';
+	country_code = country_code.toLowerCase();
+	if(country_code != '') {
+		var country_html = '<i class="flagstrap-icon flagstrap-' + country_code + '" style="margin-right: 10px;"></i>';
+		country_html += country_name;
+		var randID = jQuery('#addr_country button[id^="flagstrap-drop-down-"]').attr('id');
+		var randCode = randID.replace('flagstrap-drop-down-', '');
+		var appendSpan = jQuery('#' + randID).find('span[class="flagstrap-selected-' + randCode + '"]');
+		appendSpan.html(country_html);
+	}
 
+	jQuery('#addr_country select').on('change', function() {
+		var CountrySelectVal = jQuery(this).val();
+		var CountrySelectTxt = jQuery('#addr_country select option:selected').text();
+		var concatVal = CountrySelectVal + chr(30) + CountrySelectTxt;
+		jQuery('#od_addr_country').val(concatVal);
+	});
+
+	jQuery('#addr_country_b select').on('change', function() {
+		var CountrySelectVal = jQuery(this).val();
+		var CountrySelectTxt = jQuery('#addr_country_b select option:selected').text();
+		var concatVal = CountrySelectVal + chr(30) + CountrySelectTxt;
+		jQuery('#od_addr_country').val(concatVal);
+	});
+})(jQuery);
+
+function copyCountry(v) {
+	var tmp_country_val = jQuery('#od_addr_country').val();
+	var tmp_country = tmp_country_val.split(chr(30));
+	var country_code_b = tmp_country[0];
+	var country_name_b = tmp_country[1];
+	country_code_b = country_code_b.toLowerCase();
+	if(country_code_b != '' && v == true) {
+		var country_b_html = '<i class="flagstrap-icon flagstrap-' + country_code_b + '" style="margin-right: 10px;"></i>';
+		country_b_html += country_name_b;
+		var rand_b_ID = jQuery('#addr_country_b button[id^="flagstrap-drop-down-"]').attr('id');
+		var rand_b_Code = rand_b_ID.replace('flagstrap-drop-down-', '');
+		var append_b_Span = jQuery('#' + rand_b_ID).find('span[class="flagstrap-selected-' + rand_b_Code + '"]');
+		append_b_Span.html(country_b_html);
+	} else if(country_code_b != '' && v == false) {
+		console.log(1111);
+		var country_b_html = '<i class="flagstrap-icon flagstrap-placeholder"></i>';
+		country_b_html += 'Please select country';
+		var rand_b_ID = jQuery('#addr_country_b button[id^="flagstrap-drop-down-"]').attr('id');
+		var rand_b_Code = rand_b_ID.replace('flagstrap-drop-down-', '');
+		var append_b_Span = jQuery('#' + rand_b_ID).find('span[class="flagstrap-selected-' + rand_b_Code + '"]');
+		append_b_Span.html(country_b_html);
+	}
+}
+</script>
 <?php
 if( is_inicis_simple_pay() ){   //삼성페이 사용시
 	require_once(G5_MSHOP_PATH.'/samsungpay/order.script.php');
@@ -1000,6 +1165,7 @@ $(function() {
 				for(i=0; i<10; i++) {
 					addr[i] = "";
 				}
+				copyCountry(false);
 			}
 
 			var f = document.forderform;
@@ -1623,13 +1789,14 @@ function gumae2baesong() {
 	f.od_b_addr3.value = f.od_addr3.value;
 	f.od_b_addr4.value = f.od_addr4.value;
 	f.od_b_addr_country.value = f.od_addr_country.value;
+	copyCountry(true);
 	//f.od_b_addr_jibeon.value = f.od_addr_jibeon.value;
 
 	calculate_sendcost(String(f.od_b_zip.value));
 }
 
 <?php if ($default['de_hope_date_use']) { ?>
-$(function(){
+$(function() {
 	$("#od_hope_date").datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd", showButtonPanel: true, yearRange: "c-99:c+99", minDate: "+<?php echo (int)$default['de_hope_date_after']; ?>d;", maxDate: "+<?php echo (int)$default['de_hope_date_after'] + 6; ?>d;" });
 });
 <?php } ?>

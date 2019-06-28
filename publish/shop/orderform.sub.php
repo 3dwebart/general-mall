@@ -353,7 +353,7 @@ function chr(code)
 							<td><input type="text" name="od_tel" value="<?php echo get_text($member['mb_tel']); ?>" id="od_tel" required class="frm_input required" maxlength="20"></td>
 						</tr>
 						<tr>
-							<th scope="row"><label for="od_hp">HP No.</label></th>
+							<th scope="row"><label for="od_hp">Cell Phone No.</label></th>
 							<td><input type="text" name="od_hp" value="<?php echo get_text($member['mb_hp']); ?>" id="od_hp" class="frm_input" maxlength="20"></td>
 						</tr>
 						<tr>
@@ -605,7 +605,7 @@ function chr(code)
 						$exchangeDollor = round($exchangeDollor,4);
 					?>
 
-					<strong id="ct_tot_price">$<?php echo number_format($exchangeDollor, 4); ?></strong>
+					<strong id="ct_tot_price">$<?php echo number_format($exchangeDollor, 2); ?></strong>
 				</li>
 			</ul>
 		</div>
@@ -660,7 +660,7 @@ function chr(code)
 				<tbody>
 				<?php if($oc_cnt > 0) { ?>
 				<tr>
-					<th scope="row">Order discount</th>
+					<th scope="row">Order discount coupon</th>
 					<td>
 						$<strong id="od_cp_price">0</strong>
 						<input type="hidden" name="od_cp_id" value="">
@@ -688,7 +688,7 @@ function chr(code)
 			</div>
 			<div id="od_tot_price">
 				<span>Total Order Amount</span><!-- 총 주문금액 -->
-				<strong class="print_price">$<?php echo number_format($exchangeDollor, 4); ?></strong><!-- $tot_price -->
+				<strong class="print_price">$<?php echo number_format($exchangeDollor, 2); ?></strong><!-- $tot_price -->
 			</div>
 			<style>
 			#od_pay_sl .lb_icon {
@@ -901,11 +901,6 @@ function chr(code)
 		appendSpan.html(country_html);
 	}
 
-	// jQuery('#addr_country select option').each(function() {
-	// 	if(jQuery(this).val() == 'US') {
-	// 		jQuery(this).attr('selected', 'selected');
-	// 	}
-	// });
 	jQuery('#addr_country select').on('change', function() {
 		var CountrySelectVal = jQuery(this).val();
 		var CountrySelectTxt = jQuery('#addr_country select option:selected').text();
@@ -913,11 +908,6 @@ function chr(code)
 		jQuery('#od_addr_country').val(concatVal);
 	});
 
-	// jQuery('#addr_country_b select option').each(function() {
-	// 	if(jQuery(this).val() == 'US') {
-	// 		jQuery(this).attr('selected', 'selected');
-	// 	}
-	// });
 	jQuery('#addr_country_b select').on('change', function() {
 		var CountrySelectVal = jQuery(this).val();
 		var CountrySelectTxt = jQuery('#addr_country_b select option:selected').text();
@@ -927,28 +917,28 @@ function chr(code)
 })(jQuery);
 
 function copyCountry(v) {
-		var tmp_country_val = jQuery('#od_addr_country').val();
-		var tmp_country = tmp_country_val.split(chr(30));
-		var country_code_b = tmp_country[0];
-		var country_name_b = tmp_country[1];
-		country_code_b = country_code_b.toLowerCase();
-		if(country_code_b != '' && v == true) {
-			var country_b_html = '<i class="flagstrap-icon flagstrap-' + country_code_b + '" style="margin-right: 10px;"></i>';
-			country_b_html += country_name_b;
-			var rand_b_ID = jQuery('#addr_country_b button[id^="flagstrap-drop-down-"]').attr('id');
-			var rand_b_Code = rand_b_ID.replace('flagstrap-drop-down-', '');
-			var append_b_Span = jQuery('#' + rand_b_ID).find('span[class="flagstrap-selected-' + rand_b_Code + '"]');
-			append_b_Span.html(country_b_html);
-		} else if(country_code_b != '' && v == false) {
-			console.log(1111);
-			var country_b_html = '<i class="flagstrap-icon flagstrap-placeholder"></i>';
-			country_b_html += 'Please select country';
-			var rand_b_ID = jQuery('#addr_country_b button[id^="flagstrap-drop-down-"]').attr('id');
-			var rand_b_Code = rand_b_ID.replace('flagstrap-drop-down-', '');
-			var append_b_Span = jQuery('#' + rand_b_ID).find('span[class="flagstrap-selected-' + rand_b_Code + '"]');
-			append_b_Span.html(country_b_html);
-		}
+	var tmp_country_val = jQuery('#od_addr_country').val();
+	var tmp_country = tmp_country_val.split(chr(30));
+	var country_code_b = tmp_country[0];
+	var country_name_b = tmp_country[1];
+	country_code_b = country_code_b.toLowerCase();
+	if(country_code_b != '' && v == true) {
+		var country_b_html = '<i class="flagstrap-icon flagstrap-' + country_code_b + '" style="margin-right: 10px;"></i>';
+		country_b_html += country_name_b;
+		var rand_b_ID = jQuery('#addr_country_b button[id^="flagstrap-drop-down-"]').attr('id');
+		var rand_b_Code = rand_b_ID.replace('flagstrap-drop-down-', '');
+		var append_b_Span = jQuery('#' + rand_b_ID).find('span[class="flagstrap-selected-' + rand_b_Code + '"]');
+		append_b_Span.html(country_b_html);
+	} else if(country_code_b != '' && v == false) {
+		console.log(1111);
+		var country_b_html = '<i class="flagstrap-icon flagstrap-placeholder"></i>';
+		country_b_html += 'Please select country';
+		var rand_b_ID = jQuery('#addr_country_b button[id^="flagstrap-drop-down-"]').attr('id');
+		var rand_b_Code = rand_b_ID.replace('flagstrap-drop-down-', '');
+		var append_b_Span = jQuery('#' + rand_b_ID).find('span[class="flagstrap-selected-' + rand_b_Code + '"]');
+		append_b_Span.html(country_b_html);
 	}
+}
 </script>
 <?php
 if( $default['de_inicis_lpay_use'] ){   //이니시스 L.pay 사용시
