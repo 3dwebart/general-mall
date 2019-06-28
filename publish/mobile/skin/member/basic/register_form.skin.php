@@ -4,73 +4,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 // add_stylesheet('css 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
 add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 0);
 ?>
-<link href="<?php echo G5_ASSETS_URL; ?>/plugins/select-country/css/flags.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js"></script>
-<style>
-    .container-fluid {
-            padding:0px;
-    }
 
-    .example {
-        border: 1px solid #e5e5e5;
-        background-color: #fcfcfc;
-        padding: 1em;
-    }
-
-    .example .html {
-        margin: 2em 0em 0em 0em;
-    }
-
-    .html {
-        display: block;
-        padding: none;
-        word-break: break-all;
-        word-wrap: break-word;
-    }
-
-    .html .xml {
-        min-height: 6em;
-    }
-
-    .bs-docs-header {
-            margin-bottom: 0;
-            background: #337ab7;
-            color: #fff;
-            padding-top:80px;
-            padding-bottom:80px;
-            border-radius:0px !important;
-            margin-bottom:80px;
-    }
-
-    .bs-docs-header .aff,
-    .bs-docs-header .aff:hover,
-    .bs-docs-header .aff:active {
-            color: white!important;
-            text-decoration: underline;
-    }
-
-    .bs-docs-header .btn {
-            padding: 15px 30px;
-            font-size: 20px;
-            margin-top:30px;
-    }
-
-    .btn-outline-inverse, .btn-outline-inverse:active {
-            color: #fff!important;
-            background-color: transparent;
-            border-color: #fff;
-    }
-    .btn-outline-inverse:hover {
-            background-color:white!important;
-            color:#337ab7!important;
-    }
-</style>
-<script>
-function chr(code)
-{
-    return String.fromCharCode(code);
-}
-</script>
 <div>
     <script src="<?php echo G5_JS_URL ?>/jquery.register_form.js"></script>
     <?php if($config['cf_cert_use'] && ($config['cf_cert_ipin'] || $config['cf_cert_hp'])) { ?>

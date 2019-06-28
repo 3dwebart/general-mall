@@ -19,6 +19,82 @@ if($is_kakaopay_use) {
 	require_once(G5_SHOP_PATH.'/kakaopay/orderform.1.php');
 }
 ?>
+<link href="<?php echo G5_ASSETS_URL; ?>/plugins/select-country/css/flags.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js"></script>
+<script src="<?php echo G5_JS_URL ?>/jquery.register_form.js"></script>
+<?php if($config['cf_cert_use'] && ($config['cf_cert_ipin'] || $config['cf_cert_hp'])) { ?>
+<script src="<?php echo G5_JS_URL ?>/certify.js?v=<?php echo G5_JS_VER; ?>"></script>
+<?php } ?>
+<style>
+	.container-fluid {
+			padding:0px;
+	}
+
+	.example {
+		border: 1px solid #e5e5e5;
+		background-color: #fcfcfc;
+		padding: 1em;
+	}
+
+	.example .html {
+		margin: 2em 0em 0em 0em;
+	}
+
+	.html {
+		display: block;
+		padding: none;
+		word-break: break-all;
+		word-wrap: break-word;
+	}
+
+	.html .xml {
+		min-height: 6em;
+	}
+
+	.bs-docs-header {
+			margin-bottom: 0;
+			background: #337ab7;
+			color: #fff;
+			padding-top:80px;
+			padding-bottom:80px;
+			border-radius:0px !important;
+			margin-bottom:80px;
+	}
+
+	.bs-docs-header .aff,
+	.bs-docs-header .aff:hover,
+	.bs-docs-header .aff:active {
+			color: white!important;
+			text-decoration: underline;
+	}
+
+	.bs-docs-header .btn {
+			padding: 15px 30px;
+			font-size: 20px;
+			margin-top:30px;
+	}
+
+	.btn-outline-inverse, .btn-outline-inverse:active {
+			color: #fff!important;
+			background-color: transparent;
+			border-color: #fff;
+	}
+	.btn-outline-inverse:hover {
+			background-color:white!important;
+			color:#337ab7!important;
+	}
+	button[id^="flagstrap-drop-down-"] {
+		background-color: #fff;
+		border: 1px solid #ccc;
+		min-height: 40px;
+	}
+</style>
+<script>
+function chr(code)
+{
+	return String.fromCharCode(code);
+}
+</script>
 <form name="forderform" id="forderform" method="post" action="<?php echo $order_action_url; ?>" autocomplete="off">
 <div id="sod_frm">
 	<!-- 주문상품 확인 시작 { -->
@@ -305,9 +381,22 @@ if($is_kakaopay_use) {
 							</td>
 						</tr>
 						<tr>
-							<th scope="row"><label for="od_addr_country">Country</label></th>
+							<th scope="row">
+								<label for="addr_country">Country</label>
+							</th>
 							<td>
-								<input type="text" name="od_addr_country" value="<?php echo get_text($member['od_addr_country']) ?>" id="od_addr_country" class="frm_input frm_address" size="60" placeholder="Country">
+								<div id="addr_country" data-input-name="country"></div>
+								
+								<?php
+								$country_code = '';
+								$country_name = '';
+								if (!empty($member['mb_addr_country'])):
+									$coiuntry_arr = explode(chr(30), $member['mb_addr_country']);
+									$country_code = $coiuntry_arr[0];
+									$country_name = $coiuntry_arr[1];
+								endif
+								?>
+								<input type="hidden" name="od_addr_country" value="<?php echo get_text($member['mb_addr_country']) ?>" id="od_addr_country">
 							</td>
 						</tr>
 						<tr>
@@ -450,9 +539,11 @@ if($is_kakaopay_use) {
 							</td>
 						</tr>
 						<tr>
-							<th scope="row"><label for="od_b_addr_country">Country</label></th>
+							<th scope="row"><label for="addr_country_b">Country</label></th>
 							<td id="sod_frm_addr">
-								<input type="text" name="od_b_addr_country" id="od_b_addr_country" required class="frm_input frm_address required" size="60" placeholder="Country">
+								<div id="addr_country_b" data-input-name="country"></div>
+							
+								<input type="hidden" name="od_b_addr_country" id="od_b_addr_country" required class="frm_input frm_address required" size="60" placeholder="Country">
 							</td>
 						</tr>
 						<tr>
@@ -793,7 +884,72 @@ if($is_kakaopay_use) {
 
 </div>
 </form>
+<script src="<?php echo G5_ASSETS_URL; ?>/plugins/select-country/js/jquery.flagstrap.js"></script>
+<script>
+(function($) {
+	$('#addr_country').flagStrap();
+	$('#addr_country_b').flagStrap();
+	var country_code = '<?php echo $country_code; ?>';
+	var country_name = '<?php echo $country_name; ?>';
+	country_code = country_code.toLowerCase();
+	if(country_code != '') {
+		var country_html = '<i class="flagstrap-icon flagstrap-' + country_code + '" style="margin-right: 10px;"></i>';
+		country_html += country_name;
+		var randID = jQuery('#addr_country button[id^="flagstrap-drop-down-"]').attr('id');
+		var randCode = randID.replace('flagstrap-drop-down-', '');
+		var appendSpan = jQuery('#' + randID).find('span[class="flagstrap-selected-' + randCode + '"]');
+		appendSpan.html(country_html);
+	}
 
+	// jQuery('#addr_country select option').each(function() {
+	// 	if(jQuery(this).val() == 'US') {
+	// 		jQuery(this).attr('selected', 'selected');
+	// 	}
+	// });
+	jQuery('#addr_country select').on('change', function() {
+		var CountrySelectVal = jQuery(this).val();
+		var CountrySelectTxt = jQuery('#addr_country select option:selected').text();
+		var concatVal = CountrySelectVal + chr(30) + CountrySelectTxt;
+		jQuery('#od_addr_country').val(concatVal);
+	});
+
+	// jQuery('#addr_country_b select option').each(function() {
+	// 	if(jQuery(this).val() == 'US') {
+	// 		jQuery(this).attr('selected', 'selected');
+	// 	}
+	// });
+	jQuery('#addr_country_b select').on('change', function() {
+		var CountrySelectVal = jQuery(this).val();
+		var CountrySelectTxt = jQuery('#addr_country_b select option:selected').text();
+		var concatVal = CountrySelectVal + chr(30) + CountrySelectTxt;
+		jQuery('#od_addr_country').val(concatVal);
+	});
+})(jQuery);
+
+function copyCountry(v) {
+		var tmp_country_val = jQuery('#od_addr_country').val();
+		var tmp_country = tmp_country_val.split(chr(30));
+		var country_code_b = tmp_country[0];
+		var country_name_b = tmp_country[1];
+		country_code_b = country_code_b.toLowerCase();
+		if(country_code_b != '' && v == true) {
+			var country_b_html = '<i class="flagstrap-icon flagstrap-' + country_code_b + '" style="margin-right: 10px;"></i>';
+			country_b_html += country_name_b;
+			var rand_b_ID = jQuery('#addr_country_b button[id^="flagstrap-drop-down-"]').attr('id');
+			var rand_b_Code = rand_b_ID.replace('flagstrap-drop-down-', '');
+			var append_b_Span = jQuery('#' + rand_b_ID).find('span[class="flagstrap-selected-' + rand_b_Code + '"]');
+			append_b_Span.html(country_b_html);
+		} else if(country_code_b != '' && v == false) {
+			console.log(1111);
+			var country_b_html = '<i class="flagstrap-icon flagstrap-placeholder"></i>';
+			country_b_html += 'Please select country';
+			var rand_b_ID = jQuery('#addr_country_b button[id^="flagstrap-drop-down-"]').attr('id');
+			var rand_b_Code = rand_b_ID.replace('flagstrap-drop-down-', '');
+			var append_b_Span = jQuery('#' + rand_b_ID).find('span[class="flagstrap-selected-' + rand_b_Code + '"]');
+			append_b_Span.html(country_b_html);
+		}
+	}
+</script>
 <?php
 if( $default['de_inicis_lpay_use'] ){   //이니시스 L.pay 사용시
 	require_once(G5_SHOP_PATH.'/inicis/lpay_order.script.php');
@@ -1060,6 +1216,7 @@ $(function() {
 				for(i=0; i<10; i++) {
 					addr[i] = "";
 				}
+				copyCountry(false);
 			}
 
 			var f = document.forderform;
@@ -1689,6 +1846,7 @@ function gumae2baesong() {
 	f.od_b_addr3.value = f.od_addr3.value;
 	f.od_b_addr4.value = f.od_addr4.value;
 	f.od_b_addr_country.value = f.od_addr_country.value;
+	copyCountry(true);
 	//f.od_b_addr_jibeon.value = f.od_addr_jibeon.value;
 
 	calculate_sendcost(String(f.od_b_zip.value));

@@ -71,18 +71,20 @@ if ($config['cf_analytics']) {
 
 <script src="<?php echo G5_JS_URL; ?>/sns.js"></script>
 <script>
-var App = new Swiper('.swiper-container.main-slide', {
-    speed: 400,
-    spaceBetween: 0,
-    navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-    },
-    autoplay: {
-        delay: 4000,
-    },
-    loop: true,
-});
+if($('.swiper-container.main-slide').length > 0) {
+    var App = new Swiper('.swiper-container.main-slide', {
+        speed: 400,
+        spaceBetween: 0,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        autoplay: {
+            delay: 4000,
+        },
+        loop: true,
+    });
+}  
 </script>
 <?php
 include_once(G5_THEME_PATH.'/tail.sub.php');

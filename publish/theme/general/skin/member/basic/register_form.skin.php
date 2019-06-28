@@ -219,6 +219,15 @@ if (isset($member['mb_nick_date']) && $member['mb_nick_date'] > date("Y-m-d", G5
 				<br>
 				<label for="addr_country" class="sound_only">Country</label>
 				<div id="addr_country" data-input-name="country"></div>
+				<?php
+				$country_code = '';
+				$country_name = '';
+				if (!empty($member['mb_addr_country'])):
+					$coiuntry_arr = explode(chr(30), $member['mb_addr_country']);
+					$country_code = $coiuntry_arr[0];
+					$country_name = $coiuntry_arr[1];
+				endif
+				?>
 				<input type="hidden" name="mb_addr_country" value="<?php echo get_text($member['mb_addr_country']) ?>" id="mb_addr_country">
 				<!-- <input type="text"  value="<?php echo get_text($member['mb_addr_country']) ?>" id="mb_addr_country" class="frm_input frm_address full_input" size="50" placeholder="Country"> -->
 				<br>
@@ -353,6 +362,18 @@ if (isset($member['mb_nick_date']) && $member['mb_nick_date'] > date("Y-m-d", G5
 <script>
 (function($) {
 	$('#addr_country').flagStrap();
+	var country_code = '<?php echo $country_code; ?>';
+	var country_name = '<?php echo $country_name; ?>';
+	country_code = country_code.toLowerCase();
+	if(country_code != '') {
+		var country_html = '<i class="flagstrap-icon flagstrap-' + country_code + '" style="margin-right: 10px;"></i>';
+		country_html += country_name;
+		var randID = jQuery('button[id^="flagstrap-drop-down-"]').attr('id');
+		var randCode = randID.replace('flagstrap-drop-down-', '');
+		var appendSpan = jQuery('#' + randID).find('span[class="flagstrap-selected-' + randCode + '"]');
+		appendSpan.html(country_html);
+	}
+
 	jQuery('#addr_country select option').each(function() {
 		if(jQuery(this).val() == 'US') {
 			jQuery(this).attr('selected', 'selected');

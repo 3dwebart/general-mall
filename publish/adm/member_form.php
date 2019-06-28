@@ -39,6 +39,8 @@ else if ($w == 'u')
     $mb['mb_addr1'] = get_text($mb['mb_addr1']);
     $mb['mb_addr2'] = get_text($mb['mb_addr2']);
     $mb['mb_addr3'] = get_text($mb['mb_addr3']);
+    $mb['mb_addr4'] = get_text($mb['mb_addr4']);
+    $mb['mb_addr_country'] = get_text($mb['mb_addr_country']);
     $mb['mb_signature'] = get_text($mb['mb_signature']);
     $mb['mb_recommend'] = get_text($mb['mb_recommend']);
     $mb['mb_profile'] = get_text($mb['mb_profile']);
@@ -116,9 +118,19 @@ if(!isset($mb['mb_addr_jibeon'])) {
     sql_query(" ALTER TABLE {$g5['member_table']} ADD `mb_addr_jibeon` varchar(255) NOT NULL DEFAULT '' AFTER `mb_addr2` ", false);
 }
 
-// 건물명필드추가
+// CITY
 if(!isset($mb['mb_addr3'])) {
     sql_query(" ALTER TABLE {$g5['member_table']} ADD `mb_addr3` varchar(255) NOT NULL DEFAULT '' AFTER `mb_addr2` ", false);
+}
+
+// CITY
+if(!isset($mb['mb_addr4'])) {
+    sql_query(" ALTER TABLE {$g5['member_table']} ADD `mb_addr4` varchar(255) NOT NULL DEFAULT '' AFTER `mb_addr3` ", false);
+}
+
+// COUNTRY
+if(!isset($mb['mb_addr_country'])) {
+    sql_query(" ALTER TABLE {$g5['member_table']} ADD `mb_addr_country` varchar(255) NOT NULL DEFAULT '' AFTER `mb_addr4` ", false);
 }
 
 // 중복가입 확인필드 추가
@@ -218,19 +230,39 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
         </td>
     </tr>
     <tr>
-        <th scope="row">주소</th>
+        <th scope="row"><label for="mb_addr1">주소 1</label></th>
         <td colspan="3" class="td_addr_line">
-            <label for="mb_zip" class="sound_only">우편번호</label>
-            <input type="text" name="mb_zip" value="<?php echo $mb['mb_zip1'].$mb['mb_zip2']; ?>" id="mb_zip" class="frm_input readonly" size="5" maxlength="6">
-            <button type="button" class="btn_frmline" onclick="win_zip('fmember', 'mb_zip', 'mb_addr1', 'mb_addr2', 'mb_addr3', 'mb_addr_jibeon');">주소 검색</button><br>
             <input type="text" name="mb_addr1" value="<?php echo $mb['mb_addr1'] ?>" id="mb_addr1" class="frm_input readonly" size="60">
-            <label for="mb_addr1">기본주소</label><br>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><label for="mb_addr2">주소 2</label></th>
+        <td colspan="3" class="td_addr_line">
             <input type="text" name="mb_addr2" value="<?php echo $mb['mb_addr2'] ?>" id="mb_addr2" class="frm_input" size="60">
-            <label for="mb_addr2">상세주소</label>
-            <br>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><label for="mb_addr3">도시(City)</label></th>
+        <td>
             <input type="text" name="mb_addr3" value="<?php echo $mb['mb_addr3'] ?>" id="mb_addr3" class="frm_input" size="60">
-            <label for="mb_addr3">참고항목</label>
-            <input type="hidden" name="mb_addr_jibeon" value="<?php echo $mb['mb_addr_jibeon']; ?>"><br>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><label for="mb_addr4">State/Province/Region</label></th>
+        <td colspan="3" class="td_addr_line">
+            <input type="text" name="mb_addr4" value="<?php echo $mb['mb_addr4'] ?>" id="mb_addr4" class="frm_input" size="60">
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><label for="mb_addr_country">국가</label></th>
+        <td colspan="3" class="td_addr_line">
+            <input type="text" name="mb_addr_country" value="<?php echo $mb['mb_addr_country'] ?>" id="mb_addr_country" class="frm_input" size="60">
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><label for="mb_zip">우편번호</label></th>
+        <td colspan="3" class="td_addr_line">
+            <input type="text" name="mb_zip" value="<?php echo $mb['mb_zip1'].$mb['mb_zip2']; ?>" id="mb_zip" class="frm_input" size="5" maxlength="6">
         </td>
     </tr>
     <tr>
