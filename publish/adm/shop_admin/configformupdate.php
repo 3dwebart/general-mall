@@ -269,6 +269,7 @@ $sql = " update {$g5['g5_shop_default_table']}
                 de_paypal_use       = '{$_POST['de_paypal_use']}',
                 de_paypal_exrate    = '{$_POST['de_paypal_exrate']}',
                 de_paypal_krw       = '{$_POST['de_paypal_krw']}',
+                de_auto_payment_krw = '{$_POST['de_auto_payment_krw']}',
                 de_paypal_test      = '{$_POST['de_paypal_test']}'
                 ";
 sql_query($sql);

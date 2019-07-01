@@ -36,8 +36,14 @@ function ratePrice() {
         */
     }
 
-    $exchange_sql = "UPDATE `g5_shop_default` SET `de_paypal_krw` = '{$priceRateKRW}'";
-    sql_query($exchange_sql);
+    $auto_chk_sql = "SELECT `de_auto_payment_krw` FROM `g5_shop_default`";
+    $auto_chk_row = sql_fetch($auto_chk_sql);
+    $auto_chk = $auto_chk_row['de_auto_payment_krw'];
+
+    if($auto_chk == 'on') {
+        $exchange_sql = "UPDATE `g5_shop_default` SET `de_paypal_krw` = '{$priceRateKRW}'";
+        sql_query($exchange_sql);
+    }
     /***** END :: 실시간 환율 변동 : 1달러당 원화 *****/
     /*
         위의 실시간 환율 변동 무시하고 쇼핑몰 환경설정에 있는 페이팔 기본환율 적용함

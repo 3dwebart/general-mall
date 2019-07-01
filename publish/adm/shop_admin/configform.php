@@ -938,7 +938,8 @@ if(!isset($default['de_listtype_list_skin'])) {
                             ADD `de_paypal_mid` VARCHAR( 255 ) NOT NULL ,
                             ADD `de_paypal_use` TINYINT( 4 ) NOT NULL DEFAULT 1 ,
                             ADD `de_paypal_exrate` TINYINT( 4 ) NOT NULL DEFAULT 1 ,
-                            ADD `de_paypal_krw` FLOAT NOT NULL DEFAULT '1104.80' ; ", true);
+                            ADD `de_paypal_krw` FLOAT NOT NULL DEFAULT '1104.80',
+                            ADD `de_auto_payment_krw` TINYINT( 4 ) NOT NULL DEFAULT '1' ; ", true);
         }
 
         // 주문정보에 결제금액 유효성 검사용 필드 추가
@@ -999,6 +1000,16 @@ if(!isset($default['de_listtype_list_skin'])) {
                 1달러당 원화 환율가 ( 1 USD -> <input type="text" name="de_paypal_krw" id="de_paypal_krw" value='<?php echo $default['de_paypal_krw']?>' class="frm_input" size="10"> 원) 
             </td>
         </tr>
+        <tr>
+            <th scope="row">
+                <label for="de_auto_payment_krw">싱시간 환율 자동 적용</label>
+            </th>
+            <td>
+                <input type="checkbox" name="de_auto_payment_krw" id="de_auto_payment_krw" value="on"<?php echo ($default['de_auto_payment_krw'] == 'on') ? 'checked' : ''; ?>> 
+                <label for="de_auto_payment_krw">적용</label>
+            </td>
+        </tr>
+        
 
         <script type="text/javascript">
         <!--
