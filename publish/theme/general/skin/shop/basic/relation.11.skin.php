@@ -20,6 +20,10 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
         $sct_last = 'sct_clear';
     }
 
+    $dateTime = date("Y-m-d H:i:s");
+    $hotdeal_on    = $row['it_1_subj'];
+    $hotdeal_time  = $row['it_1'];
+
     if ($i == 1) {
         //echo "<div class=\"row-5\">\n";
     }
@@ -28,8 +32,25 @@ for ($i=1; $row=sql_fetch_array($result); $i++) {
 
     echo "<div class=\"item-img\">\n";
 
+    if ($hotdeal_on == 'on') {
+        echo '<div id="d-day'.$i.'" class="d-day"></div>';
+?>
+    <script>
+    var hotdealTime = '<?php echo $row["it_1"]; ?>';
+    var hotdealID = '<?php echo $i; ?>';
+    hotdeal_timer(hotdealTime, hotdealID);
+    </script>
+<?php
+    }
+
+    $end_d_day = '';
+
+    if($row['it_1'] <= $dateTime) {
+        $end_d_day = ' class="end-d-day"';
+    }
+
     if ($this->href) {
-        echo "<a href=\"{$this->href}{$row['it_id']}\">\n";
+        echo "<a href=\"{$this->href}{$row['it_id']}\"{$end_d_day}>\n";
     }
 
     if ($this->view_it_img) {
@@ -137,4 +158,11 @@ var latestApp = new Swiper('.swiper-container.relative-list', {
         prevEl: '.swiper-button-prev',
     },
 });
+
+(function($) {
+    jQuery('.end-d-day').on('click', function() {
+        alert('The event has ended.');
+        return false;
+    });
+})(jQuery);
 </script>
