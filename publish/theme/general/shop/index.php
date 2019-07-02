@@ -136,7 +136,7 @@ include_once(G5_THEME_SHOP_PATH.'/shop.head.php');
 		</div>
 	</div>
 </div>
-<div class="container icon-box px-lg-0 text-center">
+<div class="container icon-box px-lg-0 mb-5 text-center">
 	<div class="row">
 		<div class="col-lg-20 icon-wrap">
 			<div class="icon">
@@ -175,8 +175,6 @@ include_once(G5_THEME_SHOP_PATH.'/shop.head.php');
 		</div>
 	</div>
 </div>
-<div>Awsome : <i class="fa fa-home"></i></div>
-<div>LNR : <i class="lnr lnr-home"></i></div>
 <?php
 include_once(G5_THEME_SHOP_PATH.'/shop.tail.php');
 ?>

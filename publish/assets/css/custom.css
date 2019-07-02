@@ -33,6 +33,13 @@
 .swiper-button-next {
 	background-image: url('../img/index/slide/btn_next.png');
 }
+
+.relative-list .swiper-button-prev {
+	background-image: url('../img/index/slide/btn_prev2.png');
+}
+.relative-list .swiper-button-next {
+	background-image: url('../img/index/slide/btn_next2.png');
+}
 /* END :: main swiper slide */
 /* BIGIN :: main product swiper slide */
 /* END :: main product swiper slide */
@@ -44,6 +51,16 @@
 div[id^="slide"] .swiper-button-next, div[id^="slide"] .swiper-button-prev {
 	top: 32px;
 }
+div[id^="slide"].relative-list .swiper-button-next, div[id^="slide"].relative-list .swiper-button-prev {
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+div[id^="slide"].relative-list .swiper-button-prev {
+	left: 30px;
+	right: auto;
+}
+
 div[id^="slide"] .swiper-button-prev {
 	left: auto;
 	right: 50px;

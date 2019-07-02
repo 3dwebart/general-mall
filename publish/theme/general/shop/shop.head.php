@@ -14,7 +14,6 @@ include_once(G5_LIB_PATH.'/popular.lib.php');
 include_once(G5_LIB_PATH.'/latest.lib.php');
 include_once(G5_LIB_PATH.'/custom.lib.php');
 ?>
-<script src="<?php echo G5_ASSETS_URL ?>/js/swiper.min.js"></script>
 <section class="tab-bar-wrap">
 	<header class="top-bar container">
 		<!--

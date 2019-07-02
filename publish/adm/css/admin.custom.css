@@ -14,3 +14,17 @@
     transform: translateY(-50%);
     right: -10px;
 }
+.btn_fixed_top .btn_submit,
+.btn_confirm .btn_submit {
+    color: rgba(255,255,255,1);
+    background-color: rgba(47,64,159,1);
+}
+.btn_fixed_top .btn_submit {
+    padding: 0 10px;
+    line-height: 30px;
+}
+.btn_fixed_top .btn_submit:hover,
+.btn_confirm .btn_submit:hover {
+    color: rgba(255,255,255,1);
+    background-color: rgba(30,45,129,1);
+}

@@ -92,6 +92,7 @@ if (defined('_SHOP_')) {
 <script src="<?php echo G5_JS_URL ?>/common.js?ver=<?php echo G5_JS_VER; ?>"></script>
 <script src="<?php echo G5_JS_URL ?>/wrest.js?ver=<?php echo G5_JS_VER; ?>"></script>
 <script src="<?php echo G5_JS_URL ?>/placeholders.min.js"></script>
+<script src="<?php echo G5_ASSETS_URL ?>/js/swiper.min.js"></script>
 <script>
 function hotdeal_timer(time, id) {
 	//디데이 종료 일자 설정
