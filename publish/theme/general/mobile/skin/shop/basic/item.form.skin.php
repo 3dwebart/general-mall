@@ -357,7 +357,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 				<?php if(!$is_orderable && $it['it_soldout'] && $it['it_stock_sms']) { ?>
 				<a href="javascript:popup_stocksms('<?php echo $it['it_id']; ?>');" id="sit_btn_buy">재입고알림</a>
 				<?php } ?>
-				<a href="javascript:item_wish(document.fitem, '<?php echo $it['it_id']; ?>');" id="sit_btn_wish"><span class="sound_only">위시리스트</span><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+				<a href="javascript:item_wish(document.fitem, '<?php echo $it['it_id']; ?>');" id="sit_btn_wish"<?php echo ($timer_use == 0) ? ' disabled' : ''; ?>><span class="sound_only">위시리스트</span><i class="fa fa-heart-o" aria-hidden="true"></i></a>
 				<?php if ($naverpay_button_js) { ?>
 				<div class="naverpay-item"><?php echo $naverpay_request_js.$naverpay_button_js; ?></div>
 				<?php } ?>
@@ -559,9 +559,14 @@ $(function(){
 // 상품보관
 function item_wish(f, it_id)
 {
-	f.url.value = "<?php echo G5_SHOP_URL; ?>/wishupdate.php?it_id="+it_id;
-	f.action = "<?php echo G5_SHOP_URL; ?>/wishupdate.php";
-	f.submit();
+	var disAttr = $(this).is('disabled');
+	if(disAttr == true) {
+		f.url.value = "<?php echo G5_SHOP_URL; ?>/wishupdate.php?it_id="+it_id;
+		f.action = "<?php echo G5_SHOP_URL; ?>/wishupdate.php";
+		f.submit();
+	} else {
+		return false;
+	}
 }
 
 // 추천메일

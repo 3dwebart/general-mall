@@ -362,7 +362,7 @@ $wish_cnt = $onWishRow['wish_cnt'];
 					$wish_class = ' class="included-in-wishlist"';
 				}
 				?>
-				<a href="javascript:item_wish(document.fitem, '<?php echo $it['it_id']; ?>', <?php echo $wish_cnt; ?>);" id="sit_btn_wish"<?php echo $wish_class; ?>><i class="fa fa-heart-o" aria-hidden="true"></i><span class="sound_only">Wish list</span></a><!-- 위시리스트 -->
+				<a href="javascript:item_wish(document.fitem, '<?php echo $it['it_id']; ?>', <?php echo $wish_cnt; ?>);" id="sit_btn_wish"<?php echo $wish_class; ?><?php echo ($timer_use == 0) ? ' disabled' : ''; ?>><i class="fa fa-heart-o" aria-hidden="true"></i><span class="sound_only">Wish list</span></a><!-- 위시리스트 -->
 				<!-- BIGIN :: included in wishlist item on add class -->
 				<?php if ($naverpay_button_js) { ?>
 				<div class="itemform-naverpay"><?php echo $naverpay_request_js.$naverpay_button_js; ?></div>
@@ -373,9 +373,14 @@ $wish_cnt = $onWishRow['wish_cnt'];
 			// 상품보관
 			function item_wish(f, it_id, wish_chk)
 			{
-				f.url.value = "<?php echo G5_SHOP_URL; ?>/wishupdate.php?it_id="+it_id+"&wish_chk="+wish_chk;
-				f.action = "<?php echo G5_SHOP_URL; ?>/wishupdate.php";
-				f.submit();
+				var disAttr = $(this).is('disabled');
+				if(disAttr == true) {
+					f.url.value = "<?php echo G5_SHOP_URL; ?>/wishupdate.php?it_id="+it_id+"&wish_chk="+wish_chk;
+					f.action = "<?php echo G5_SHOP_URL; ?>/wishupdate.php";
+					f.submit();
+				} else {
+					return false;
+				}
 			}
 
 			// 추천메일
