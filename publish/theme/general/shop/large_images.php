@@ -35,13 +35,32 @@ for ($i = 0; $i < 10; $i++) {
 	height: 100%;
 	justify-content: center;
 }
-.pop-wrap .thumbnail,
 .pop-wrap .large-image {
-	max-width: 600px;
-}
-.pop-wrap .large-image {
-	min-height: 600px;
 	position: relative;
+}
+@media(min-width: 992px) {
+	.pop-wrap .thumbnail,
+	.pop-wrap .large-image {
+		max-width: 600px;
+	}
+	.pop-wrap .large-image {
+		min-height: 600px;
+	}
+}
+@media(max-width: 991px) {
+	.pop-wrap .thumbnail,
+	.pop-wrap .large-image {
+		width: 100%;
+	}
+	.pop-wrap .large-image:after {
+		content: "";
+		position: absolute;
+		padding-top: 100%;
+	}
+	.pop-wrap .large-image > div {
+		width: 100%;
+		height: 100%;
+	}
 }
 .pop-wrap .large-image img {
 	display: none;
@@ -65,19 +84,21 @@ for ($i = 0; $i < 10; $i++) {
 <div class="pop-bg"></div>
 <div class="pop-wrap">
 	<div class="large-image">
-		<?php
-			for ($i=0; $i < count($imgs); $i++) {
-				$onClass = '';
-				if ($imgField == $imgs[$i]['imgField']) {
-					$onClass = ' on';
+		<div>
+			<?php
+				for ($i=0; $i < count($imgs); $i++) {
+					$onClass = '';
+					if ($imgField == $imgs[$i]['imgField']) {
+						$onClass = ' on';
+					}
+			?>
+			<img src="<?php echo G5_DATA_URL.'/item/'.$imgs[$i]['imgSrc']; ?>" alt="" class="img-fluid<?php echo $onClass; ?>" data-img-field="<?php echo $imgs[$i]['imgField']; ?>" />
+			<?php
 				}
-		?>
-		<img src="<?php echo G5_DATA_URL.'/item/'.$imgs[$i]['imgSrc']; ?>" alt="" class="img-fluid<?php echo $onClass; ?>" data-img-field="<?php echo $imgs[$i]['imgField']; ?>" />
-		<?php
-			}
-		?>
+			?>
+		</div>
 	</div>
-	<div class="thumbnail">
+	<div class="thumbnail mt-2">
 		<div class="row-2">
 			<?php
 				for ($i = 0; $i < count($imgs); $i++) {
@@ -86,8 +107,8 @@ for ($i = 0; $i < 10; $i++) {
 						$onClass = ' on';
 					}
 			?>
-			<div class="col-3">
-				<img src="<?php echo G5_DATA_URL.'/item/'.$imgs[$i]['imgSrc']; ?>" alt="" class="img-fluid<?php echo $onClass; ?>" data-img-field="<?php echo $imgs[$i]['imgField']; ?>" />
+			<div class="col-lg-20 col-3">
+				<img src="<?php echo G5_DATA_URL.'/item/'.$imgs[$i]['imgSrc']; ?>" alt="" class="img-fluid img-thumbnail<?php echo $onClass; ?>" data-img-field="<?php echo $imgs[$i]['imgField']; ?>" />
 			</div>
 			<?php
 				}
@@ -100,7 +121,7 @@ for ($i = 0; $i < 10; $i++) {
 	jQuery(document).on('click', '.thumbnail img', function() {
 		jQuery(this).parent().siblings().find('img').removeClass('on');
 		jQuery(this).addClass('on');
-				
+
 		var img_field = jQuery(this).data('img-field');
 		jQuery('.large-image img').each(function() {
 			if(jQuery(this).data('img-field') == img_field) {
@@ -110,8 +131,10 @@ for ($i = 0; $i < 10; $i++) {
 		});
 
 		jQuery(document).on('click', '.pop-bg', function() {
-			var magnificPopup = $.magnificPopup.instance; // save instance in magnificPopup variable
-			magnificPopup.close(); // Close popup that is currently opened
+			// save instance in magnificPopup variable
+			var magnificPopup = $.magnificPopup.instance;
+			// Close popup that is currently opened
+			magnificPopup.close();
 		});
 	});
 })(jQuery);

@@ -20,7 +20,8 @@
       margin: 0;
       padding: 0;
     }
-    .swiper-container {
+    .swiper-container.gallery-thumbs,
+    .swiper-container.gallery-top {
       width: 100%;
       height: 100%;
       max-width: 768px;
@@ -28,15 +29,15 @@
       margin-left: auto;
       margin-right: auto;
     }
+    .swiper-container.gallery-top {
+      height: 80%;
+      width: 100%;
+    }
     .swiper-slide {
       background-size: cover;
       background-position: center;
     }
-    .gallery-top {
-      height: 80%;
-      width: 100%;
-    }
-    .gallery-thumbs {
+    .swiper-container.gallery-thumbs {
       height: 20%;
       box-sizing: border-box;
       padding: 10px 0;

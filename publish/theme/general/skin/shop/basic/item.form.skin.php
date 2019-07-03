@@ -7,7 +7,39 @@ $onWishSql = " SELECT count(it_id) AS wish_cnt FROM {$g5['g5_shop_wish_table']} 
 $onWishRow = sql_fetch($onWishSql);
 $wish_cnt = $onWishRow['wish_cnt'];
 ?>
-
+<style>
+.mfp-close {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 60px;
+	height: 60px;
+	right: 50px;
+	top: 30px !important;
+	opacity: 1;
+}
+.mfp-close .cross-1,
+.mfp-close .cross-2 {
+	position: relative;
+}
+.mfp-close .cross-1:after,
+.mfp-close .cross-2:after {
+	content: "";
+	position: absolute;
+	width: 120%;
+	height: 2px;
+	background-color: #ffffff;
+	left: 0;
+	opacity: 1;
+}
+.mfp-close .cross-1:after {
+	transform: rotate(45deg);
+}
+.mfp-close .cross-2:after {
+	transform: rotate(-45deg);
+}
+</style>
 <form name="fitem" method="post" action="<?php echo $action_url; ?>" onsubmit="return fitem_submit(this);">
 	<input type="hidden" name="krw" value="<?php echo ratePrice(); ?>" />
 	<input type="hidden" name="it_id[]" value="<?php echo $it_id; ?>" />
@@ -464,6 +496,7 @@ $(function(){
           	enableEscapeKey: true,
 	        showCloseBtn: true,
 	        mainClass: 'mfp-fade',
+	        closeMarkup: '<button title="%title%" class="mfp-close" style="position: absolute;"><div class="cross-1"></div><div class="cross-2"></div></button>',
 			ajax: {
 				settings: {
 					url: '<?php echo G5_THEME_SHOP_URL; ?>/large_images.php',
