@@ -69,6 +69,7 @@ var g5_cookie_domain = "<?php echo G5_COOKIE_DOMAIN ?>";
 <link rel="stylesheet" href="<?php echo G5_ASSETS_URL ?>/css/swiper.min.css">
 <link rel="stylesheet" href="<?php echo G5_ASSETS_URL ?>/css/lnr.css">
 <link rel="stylesheet" href="<?php echo G5_ASSETS_URL ?>/css/bootstrap.min.css">
+<link rel="stylesheet" href="<?php echo G5_ASSETS_URL ?>/css/magnific-popup.css">
 <link rel="stylesheet" href="<?php echo G5_ASSETS_URL ?>/css/common.css">
 <link rel="stylesheet" href="<?php echo G5_ASSETS_URL ?>/css/custom.css">
 <?php
@@ -93,6 +94,7 @@ if (defined('_SHOP_')) {
 <script src="<?php echo G5_JS_URL ?>/wrest.js?ver=<?php echo G5_JS_VER; ?>"></script>
 <script src="<?php echo G5_JS_URL ?>/placeholders.min.js"></script>
 <script src="<?php echo G5_ASSETS_URL ?>/js/swiper.min.js"></script>
+<script src="<?php echo G5_ASSETS_URL ?>/js/jquery.magnific-popup.min.js"></script>
 <script>
 function hotdeal_timer(time, id) {
 	//디데이 종료 일자 설정

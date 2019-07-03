@@ -12,6 +12,20 @@ header.slide-product-header h2.list-type-title {
 	background-color: transparent;
 	margin-top: 0;
 }
+/***** BIGIN :: Title bar *****/
+.container_title {
+	display: flex;
+	align-items: center;
+}
+.title-cate-name {
+	font-size: 1.4rem;
+	font-weight: bold;
+}
+.title-item-name {
+	font-size: 1.2rem;
+	font-weight: 400;
+}
+/***** END :: Title bar *****/
 /********** END :: HEADER **********/
 /********** BIGIN :: Side Mobile menu **********/
 /***** BIGIN :: Mobile main menus *****/

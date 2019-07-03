@@ -158,11 +158,4 @@ var latestApp = new Swiper('.swiper-container.relative-list', {
         prevEl: '.swiper-button-prev',
     },
 });
-
-(function($) {
-    jQuery('.end-d-day').on('click', function() {
-        alert('The event has ended.');
-        return false;
-    });
-})(jQuery);
 </script>

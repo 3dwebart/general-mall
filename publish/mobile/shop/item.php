@@ -5,13 +5,13 @@ include_once(G5_LIB_PATH.'/iteminfo.lib.php');
 $it_id = get_search_string(trim($_GET['it_id']));
 
 // 분류사용, 상품사용하는 상품의 정보를 얻음
-$sql = " select a.*,
+$sql = " SELECT a.*,
                 b.ca_name,
                 b.ca_use
-           from {$g5['g5_shop_item_table']} a,
+           FROM {$g5['g5_shop_item_table']} a,
                 {$g5['g5_shop_category_table']} b
-          where a.it_id = '$it_id'
-            and a.ca_id = b.ca_id ";
+          WHERE a.it_id = '$it_id'
+            AND a.ca_id = b.ca_id ";
 $it = sql_fetch($sql);
 if (!$it['it_id'])
     alert('자료가 없습니다.');
@@ -21,9 +21,9 @@ if (!($it['ca_use'] && $it['it_use'])) {
 }
 
 // 분류 테이블에서 분류 상단, 하단 코드를 얻음
-$sql = " select ca_mobile_skin_dir, ca_include_head, ca_include_tail, ca_cert_use, ca_adult_use
-           from {$g5['g5_shop_category_table']}
-          where ca_id = '{$it['ca_id']}' ";
+$sql = " SELECT ca_mobile_skin_dir, ca_include_head, ca_include_tail, ca_cert_use, ca_adult_use
+           FROM {$g5['g5_shop_category_table']}
+          WHERE ca_id = '{$it['ca_id']}' ";
 $ca = sql_fetch($sql);
 
 // 본인인증, 성인인증체크
@@ -55,17 +55,18 @@ if (!$saved) {
 
 // 조회수 증가
 if (get_cookie('ck_it_id') != $it_id) {
-    sql_query(" update {$g5['g5_shop_item_table']} set it_hit = it_hit + 1 where it_id = '$it_id' "); // 1증가
+    sql_query(" UPDATE {$g5['g5_shop_item_table']} 
+                SET it_hit = it_hit + 1 where it_id = '$it_id' "); // 1증가
     set_cookie("ck_it_id", $it_id, 3600); // 1시간동안 저장
 }
 
 // 이전 상품보기
-$sql = " select it_id, it_name from {$g5['g5_shop_item_table']}
-          where it_id > '$it_id'
-            and SUBSTRING(ca_id,1,4) = '".substr($it['ca_id'],0,4)."'
-            and it_use = '1'
-          order by it_id asc
-          limit 1 ";
+$sql = " SELECT it_id, it_name from {$g5['g5_shop_item_table']}
+          WHERE it_id > '$it_id'
+            AND SUBSTRING(ca_id,1,4) = '".substr($it['ca_id'],0,4)."'
+            AND it_use = '1'
+          ORDER BY it_id ASC
+          LIMIT 1 ";
 $row = sql_fetch($sql);
 if ($row['it_id']) {
     $prev_title = '이전상품 <span>'.$row['it_name'].'</span>';
@@ -78,12 +79,12 @@ if ($row['it_id']) {
 }
 
 // 다음 상품보기
-$sql = " select it_id, it_name from {$g5['g5_shop_item_table']}
-          where it_id < '$it_id'
-            and SUBSTRING(ca_id,1,4) = '".substr($it['ca_id'],0,4)."'
-            and it_use = '1'
-          order by it_id desc
-          limit 1 ";
+$sql = " SELECT it_id, it_name from {$g5['g5_shop_item_table']}
+          WHERE it_id < '$it_id'
+            AND SUBSTRING(ca_id,1,4) = '".substr($it['ca_id'],0,4)."'
+            AND it_use = '1'
+          ORDER BY it_id DESC
+          LIMIT 1 ";
 $row = sql_fetch($sql);
 if ($row['it_id']) {
     $next_title = '다음 상품 <span>'.$row['it_name'].'</span>';
@@ -96,21 +97,21 @@ if ($row['it_id']) {
 }
 
 // 관리자가 확인한 사용후기의 개수를 얻음
-$sql = " select count(*) as cnt from `{$g5['g5_shop_item_use_table']}` where it_id = '{$it_id}' and is_confirm = '1' ";
+$sql = " SELECT count(*) AS cnt FROM `{$g5['g5_shop_item_use_table']}` WHERE it_id = '{$it_id}' AND is_confirm = '1' ";
 $row = sql_fetch($sql);
 $item_use_count = $row['cnt'];
 
 // 상품문의의 개수를 얻음
-$sql = " select count(*) as cnt from `{$g5['g5_shop_item_qa_table']}` where it_id = '{$it_id}' ";
+$sql = " SELECT count(*) AS cnt FROM `{$g5['g5_shop_item_qa_table']}` WHERE it_id = '{$it_id}' ";
 $row = sql_fetch($sql);
 $item_qa_count = $row['cnt'];
 
 if ($default['de_mobile_rel_list_use']) {
     // 관련상품의 개수를 얻음
-    $sql = " select count(*) as cnt
-               from {$g5['g5_shop_item_relation_table']} a
-               left join {$g5['g5_shop_item_table']} b on (a.it_id2=b.it_id)
-              where a.it_id = '{$it['it_id']}' and b.it_use='1' ";
+    $sql = " SELECT count(*) AS cnt
+               FROM {$g5['g5_shop_item_relation_table']} a
+               LEFT JOIN {$g5['g5_shop_item_table']} b ON (a.it_id2=b.it_id)
+              WHERE a.it_id = '{$it['it_id']}' AND b.it_use='1' ";
     $row = sql_fetch($sql);
     $item_relation_count = $row['cnt'];
 }
@@ -189,7 +190,7 @@ if($ca_dir_check) {
 
 define('G5_SHOP_CSS_URL', str_replace(G5_PATH, G5_URL, $skin_dir));
 
-$g5['title'] = $it['it_name'].' &gt; '.$it['ca_name'];
+$g5['title'] = '<span class="pr-3 title-cate-name">'.$it['ca_name'].'</span><i class="fa fa-caret-right"></i><span class="pl-3 title-item-name">'.$it['it_name'].'</span>';
 
 include_once(G5_MSHOP_PATH.'/_head.php');
 include_once(G5_SHOP_PATH.'/settle_naverpay.inc.php');
