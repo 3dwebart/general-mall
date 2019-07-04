@@ -187,11 +187,11 @@ var id = '<?php echo $this->type; ?>';
 var no = '<?php echo $this->list_mod; ?>';
 var count = Number(no);
 var latestApp = new Swiper('.swiper-container.slide-' + id, {
-	pagination:'.slide-' + id + ' .swiper-pagination',
-	spaceBetween: 10, // margin-right value
-	slidesPerView: count, // Number of items(1row)
-	speed: 400,
-	navigation: {
+    pagination:'.slide-' + id + ' .swiper-pagination',
+    spaceBetween: 10, // margin-right value
+    slidesPerView: count, // Number of items(1row)
+    speed: 400,
+    navigation: {
 		nextEl: '.swiper-button-next',
 		prevEl: '.swiper-button-prev',
 	},

@@ -13,39 +13,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 	Kakao.init("<?php echo $config['cf_kakao_js_apikey']; ?>");
 </script>
 <?php } ?>
-<style>
-.mfp-close {
-	position: absolute;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 60px;
-	height: 60px;
-	right: 50px;
-	top: 30px !important;
-	opacity: 1;
-}
-.mfp-close .cross-1,
-.mfp-close .cross-2 {
-	position: relative;
-}
-.mfp-close .cross-1:after,
-.mfp-close .cross-2:after {
-	content: "";
-	position: absolute;
-	width: 120%;
-	height: 2px;
-	background-color: #ffffff;
-	left: 0;
-	opacity: 1;
-}
-.mfp-close .cross-1:after {
-	transform: rotate(45deg);
-}
-.mfp-close .cross-2:after {
-	transform: rotate(-45deg);
-}
-</style>
+
 <form name="fitem" action="<?php echo $action_url; ?>" method="post" onsubmit="return fitem_submit(this);">
 	<input type="hidden" name="it_id[]" value="<?php echo $it['it_id']; ?>">
 	<input type="hidden" name="sw_direct">
@@ -57,35 +25,20 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 		$thumb_img = '';
 		$thumb_img_w = 768; // 넓이
 		$thumb_img_h = 768; // 높이
-		$images = array();
-		$thumbnail = array();
 		for ($i=1; $i<=10; $i++)
 		{
-			if(!$it['it_img'.$i]) {
+			if(!$it['it_img'.$i])
 				continue;
-			} else {
-				$images[] = array(
-					'imgField' => 'it_img'.$i,
-					'imgSrc' => $it['it_img'.$i]
-				);
-				$thumb = get_it_thumbnail_responsive($it['it_img'.$i], $thumb_img_w, $thumb_img_h);
-				$thumbnail[] = $thumb;
-			}
 
-			
+			$thumb = get_it_thumbnail_responsive($it['it_img'.$i], $thumb_img_w, $thumb_img_h);
 
-			if(!$thumb) {
+			if(!$thumb)
 				continue;
-			}
 
-			//$thumb_img .= '<li>';
-			//$thumb_img .= '<a href="'.G5_SHOP_URL.'/largeimage.php?it_id='.$it['it_id'].'&amp;no='.$i.'" class="popup_item_image slide_img" target="_blank">'.$thumb.'</a>';
-			//$thumb_img .= '<a href="'.G5_THEME_SHOP_URL.'/large_image.php" class="pop-img" data-id="it_img'.$i.'" data-it-id="'.$it['it_id'].'">'.$thumb.'</a>';
-			//$thumb_img .= '</li>'.PHP_EOL;
+			$thumb_img .= '<li>';
+			$thumb_img .= '<a href="'.G5_SHOP_URL.'/largeimage.php?it_id='.$it['it_id'].'&amp;no='.$i.'" class="popup_item_image slide_img" target="_blank">'.$thumb.'</a>';
+			$thumb_img .= '</li>'.PHP_EOL;
 		}
-
-		$thumb_img .= '<a href="'.G5_THEME_SHOP_URL.'/large_image.php" class="pop-img" data-id="'.$images[0]['imgField'].'" data-it-id="'.$it['it_id'].'">'.$thumbnail[0].'</a>';
-			
 		if ($thumb_img)
 		{
 			echo '<div id="sit_pvi" class="px-2 py-0">'.PHP_EOL;
@@ -95,19 +48,6 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 			echo $thumb_img;
 			echo '</ul>'.PHP_EOL;
 			echo '</div>';
-		}
-
-		if (count($thumbnail) > 0) {
-			$thumb_html = '';
-			$thumb_html .= '<div class="row-2 mt-2">';
-			for ($i=0; $i < count($images); $i++) { 
-				$thumb_html .= '<div class="col-20">';
-				$thumb_html .= '<a href="'.G5_THEME_SHOP_URL.'/large_image.php" class="pop-img" data-id="'.$images[$i]['imgField'].'" data-it-id="'.$it['it_id'].'">'.$thumbnail[$i].'</a>';
-				$thumb_html .= '</div>';
-			}
-			$thumb_html .= '</div>';
-
-			echo $thumb_html;
 		}
 		?>
 		<?php
@@ -144,8 +84,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 				echo '<span class="sound_only">이 분류에 등록된 다른 상품이 없습니다.</span>';
 			}
 			?>
-			<!-- <a href="<?php // echo ; ?>/largeimage.php?it_id=<?php // echo $it['it_id']; ?>&amp;no=1" target="_blank" class="popup_item_image "> -->
-			<a href="<?php echo G5_THEME_SHOP_URL.'/large_image.php'; ?>" class="pop-img" data-id="<?php echo $images[0]['imgField']; ?>" data-it-id="<?php echo $it['it_id']; ?>"><i class="fa fa-search-plus" aria-hidden="true"></i><span class="sound_only">확대보기</span></a>
+			<a href="<?php echo G5_SHOP_URL; ?>/largeimage.php?it_id=<?php echo $it['it_id']; ?>&amp;no=1" target="_blank" class="popup_item_image "><i class="fa fa-search-plus" aria-hidden="true"></i><span class="sound_only">확대보기</span></a>
 		</div>
 		<!-- } 다른 상품 보기 끝 -->
 
@@ -418,7 +357,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 				<?php if(!$is_orderable && $it['it_soldout'] && $it['it_stock_sms']) { ?>
 				<a href="javascript:popup_stocksms('<?php echo $it['it_id']; ?>');" id="sit_btn_buy">재입고알림</a>
 				<?php } ?>
-				<a href="javascript:item_wish(document.fitem, '<?php echo $it['it_id']; ?>');" id="sit_btn_wish"<?php echo ($timer_use == 0) ? ' disabled' : ''; ?>><span class="sound_only">위시리스트</span><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+				<a href="javascript:item_wish(document.fitem, '<?php echo $it['it_id']; ?>');" id="sit_btn_wish"><span class="sound_only">위시리스트</span><i class="fa fa-heart-o" aria-hidden="true"></i></a>
 				<?php if ($naverpay_button_js) { ?>
 				<div class="naverpay-item"><?php echo $naverpay_request_js.$naverpay_button_js; ?></div>
 				<?php } ?>
@@ -615,49 +554,14 @@ $(function(){
 
 		return false;
 	});
-
-	$('[data-toggle="tooltip"]').tooltip();
-
-	jQuery('.pop-img').each(function() {
-		jQuery(this).magnificPopup({
-	        type: 'ajax',
-	        alignTop: true,
-	        overflowY: 'scroll',
-	        midClick: false,
-	        closeOnContentClick: false,
-	        closeOnBgClick: false,
-	        closeBtnInside: false,
-          	overflowY: 'scroll', // as we know that popup content is tall we set scroll overflow by default to avoid jump
-          	enableEscapeKey: true,
-	        showCloseBtn: true,
-	        mainClass: 'mfp-fade',
-	        closeMarkup: '<button title="%title%" class="mfp-close" style="position: absolute;"><div class="cross-1"></div><div class="cross-2"></div></button>',
-			ajax: {
-				settings: {
-					url: '<?php echo G5_THEME_SHOP_URL; ?>/large_images.php',
-					type: 'POST',
-					data: {
-						to_data: jQuery(this).data('id'),
-						it_id: jQuery(this).data('it-id'),
-						// to_data: idNo
-					}
-				}
-			}
-	    });
-	});
 });
 
 // 상품보관
 function item_wish(f, it_id)
 {
-	var disAttr = $(this).is('disabled');
-	if(disAttr == true) {
-		f.url.value = "<?php echo G5_SHOP_URL; ?>/wishupdate.php?it_id="+it_id;
-		f.action = "<?php echo G5_SHOP_URL; ?>/wishupdate.php";
-		f.submit();
-	} else {
-		return false;
-	}
+	f.url.value = "<?php echo G5_SHOP_URL; ?>/wishupdate.php?it_id="+it_id;
+	f.action = "<?php echo G5_SHOP_URL; ?>/wishupdate.php";
+	f.submit();
 }
 
 // 추천메일

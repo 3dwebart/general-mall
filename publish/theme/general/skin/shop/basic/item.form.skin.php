@@ -7,39 +7,7 @@ $onWishSql = " SELECT count(it_id) AS wish_cnt FROM {$g5['g5_shop_wish_table']} 
 $onWishRow = sql_fetch($onWishSql);
 $wish_cnt = $onWishRow['wish_cnt'];
 ?>
-<style>
-.mfp-close {
-	position: absolute;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 60px;
-	height: 60px;
-	right: 50px;
-	top: 30px !important;
-	opacity: 1;
-}
-.mfp-close .cross-1,
-.mfp-close .cross-2 {
-	position: relative;
-}
-.mfp-close .cross-1:after,
-.mfp-close .cross-2:after {
-	content: "";
-	position: absolute;
-	width: 120%;
-	height: 2px;
-	background-color: #ffffff;
-	left: 0;
-	opacity: 1;
-}
-.mfp-close .cross-1:after {
-	transform: rotate(45deg);
-}
-.mfp-close .cross-2:after {
-	transform: rotate(-45deg);
-}
-</style>
+
 <form name="fitem" method="post" action="<?php echo $action_url; ?>" onsubmit="return fitem_submit(this);">
 	<input type="hidden" name="krw" value="<?php echo ratePrice(); ?>" />
 	<input type="hidden" name="it_id[]" value="<?php echo $it_id; ?>" />
@@ -53,16 +21,9 @@ $wish_cnt = $onWishRow['wish_cnt'];
 			<?php
 			$big_img_count = 0;
 			$thumbnails = array();
-			$images = array();
 			for($i=1; $i<=10; $i++) {
-				if(!$it['it_img'.$i]) {
+				if(!$it['it_img'.$i])
 					continue;
-				} else {
-					$images[] = array(
-						'imgField' => 'it_img'.$i,
-						'imgSrc' => $it['it_img'.$i]
-					);
-				}
 
 				$img = get_it_thumbnail_responsive($it['it_img'.$i], $default['de_mimg_width'], $default['de_mimg_height']);
 
@@ -72,11 +33,7 @@ $wish_cnt = $onWishRow['wish_cnt'];
 					$thumbnails[] = $thumb;
 					$big_img_count++;
 
-					//echo '<h3>'.G5_SKIN_URL.'</h3>';
-					//echo '<h3>'.G5_THEME_SHOP_URL.'</h3>';
-
-					//echo '<a href="'.G5_SHOP_URL.'/largeimage.php?it_id='.$it['it_id'].'&amp;no='.$i.'" target="_blank" class="popup_item_image">'.$img.'</a>';
-					echo '<a href="'.G5_THEME_SHOP_URL.'/large_image.php" class="pop-img" data-id="it_img'.$i.'" data-it-id="'.$it['it_id'].'">'.$img.'</a>';
+					echo '<a href="'.G5_SHOP_URL.'/largeimage.php?it_id='.$it['it_id'].'&amp;no='.$i.'" target="_blank" class="popup_item_image">'.$img.'</a>';
 				}
 			}
 
@@ -92,16 +49,13 @@ $wish_cnt = $onWishRow['wish_cnt'];
 			$total_count = count($thumbnails);
 			if($total_count > 0) {
 				echo '<ul id="sit_pvi_thumb">';
-				$x = 0;
 				foreach($thumbnails as $val) {
 					$thumb_count++;
 					$sit_pvi_last ='';
 					if ($thumb_count % 5 == 0) $sit_pvi_last = 'class="li_last"';
-					echo '<li '.$sit_pvi_last.'>';
-					//echo '<a href="'.G5_SHOP_URL.'/largeimage.php?it_id='.$it['it_id'].'&amp;no='.$thumb_count.'" target="_blank" class="popup_item_image img_thumb">'.$val.'<span class="sound_only"> '.$thumb_count.'번째 이미지 새창</span></a>';
-					echo '<a href="'.G5_THEME_SHOP_URL.'/large_images.php" class="pop-img img_thumb" data-id="'.$images[$x]['imgField'].'" data-it-id="'.$it['it_id'].'">'.$val.'</a>';
-					echo '</li>';
-					$x++;
+						echo '<li '.$sit_pvi_last.'>';
+						echo '<a href="'.G5_SHOP_URL.'/largeimage.php?it_id='.$it['it_id'].'&amp;no='.$thumb_count.'" target="_blank" class="popup_item_image img_thumb">'.$val.'<span class="sound_only"> '.$thumb_count.'번째 이미지 새창</span></a>';
+						echo '</li>';
 				}
 				echo '</ul>';
 			}
@@ -408,7 +362,7 @@ $wish_cnt = $onWishRow['wish_cnt'];
 					$wish_class = ' class="included-in-wishlist"';
 				}
 				?>
-				<a href="javascript:item_wish(document.fitem, '<?php echo $it['it_id']; ?>', <?php echo $wish_cnt; ?>);" id="sit_btn_wish"<?php echo $wish_class; ?><?php echo ($timer_use == 0) ? ' disabled' : ''; ?>><i class="fa fa-heart-o" aria-hidden="true"></i><span class="sound_only">Wish list</span></a><!-- 위시리스트 -->
+				<a href="javascript:item_wish(document.fitem, '<?php echo $it['it_id']; ?>', <?php echo $wish_cnt; ?>);" id="sit_btn_wish"<?php echo $wish_class; ?>><i class="fa fa-heart-o" aria-hidden="true"></i><span class="sound_only">Wish list</span></a><!-- 위시리스트 -->
 				<!-- BIGIN :: included in wishlist item on add class -->
 				<?php if ($naverpay_button_js) { ?>
 				<div class="itemform-naverpay"><?php echo $naverpay_request_js.$naverpay_button_js; ?></div>
@@ -419,14 +373,9 @@ $wish_cnt = $onWishRow['wish_cnt'];
 			// 상품보관
 			function item_wish(f, it_id, wish_chk)
 			{
-				var disAttr = $(this).is('disabled');
-				if(disAttr == true) {
-					f.url.value = "<?php echo G5_SHOP_URL; ?>/wishupdate.php?it_id="+it_id+"&wish_chk="+wish_chk;
-					f.action = "<?php echo G5_SHOP_URL; ?>/wishupdate.php";
-					f.submit();
-				} else {
-					return false;
-				}
+				f.url.value = "<?php echo G5_SHOP_URL; ?>/wishupdate.php?it_id="+it_id+"&wish_chk="+wish_chk;
+				f.action = "<?php echo G5_SHOP_URL; ?>/wishupdate.php";
+				f.submit();
 			}
 
 			// 추천메일
@@ -479,36 +428,6 @@ $(function(){
 		popup_window(url, "largeimage", opt);
 
 		return false;
-	});
-
-	$('[data-toggle="tooltip"]').tooltip();
-
-	jQuery('.pop-img').each(function() {
-		jQuery(this).magnificPopup({
-	        type: 'ajax',
-	        alignTop: true,
-	        overflowY: 'scroll',
-	        midClick: false,
-	        closeOnContentClick: false,
-	        closeOnBgClick: false,
-	        closeBtnInside: false,
-          	overflowY: 'scroll', // as we know that popup content is tall we set scroll overflow by default to avoid jump
-          	enableEscapeKey: true,
-	        showCloseBtn: true,
-	        mainClass: 'mfp-fade',
-	        closeMarkup: '<button title="%title%" class="mfp-close" style="position: absolute;"><div class="cross-1"></div><div class="cross-2"></div></button>',
-			ajax: {
-				settings: {
-					url: '<?php echo G5_THEME_SHOP_URL; ?>/large_images.php',
-					type: 'POST',
-					data: {
-						to_data: jQuery(this).data('id'),
-						it_id: jQuery(this).data('it-id'),
-						// to_data: idNo
-					}
-				}
-			}
-	    });
 	});
 });
 
