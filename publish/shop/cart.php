@@ -150,10 +150,10 @@ include_once('./_head.php');
 				</div>
 			</td>
 			<td class="td_num"><?php echo number_format($sum['qty']); ?></td>
-			<td class="td_numbig text_right"><?php echo number_format($row['ct_price']); ?></td>
+			<td class="td_numbig text_right">$<?php echo number_format((ratePrice() * $row['ct_price']),2); ?></td>
 			<td class="td_numbig text_right"><?php echo number_format($point); ?></td>
 			<td class="td_dvr"><?php echo $ct_send_cost; ?></td>
-			<td class="td_numbig text_right"><span id="sell_price_<?php echo $i; ?>" class="total_prc">$<?php echo number_format(($sell_price * ratePrice()),4); ?></span></td>
+			<td class="td_numbig text_right"><span id="sell_price_<?php echo $i; ?>" class="total_prc">$<?php echo number_format(($sell_price * ratePrice()),2); ?></span></td>
 
 		</tr>
 
@@ -185,7 +185,7 @@ include_once('./_head.php');
 		<ul>
 			<li class="sod_bsk_dvr">
 				<span>Shipping fee</span>
-				<strong>$<?php echo number_format(($send_cost*ratePrice()),4); ?></strong>
+				<strong>$<?php echo number_format(($send_cost*ratePrice()),2); ?></strong>
 			</li>
 
 			<li class="sod_bsk_pt">
@@ -195,7 +195,7 @@ include_once('./_head.php');
 
 			<li class="sod_bsk_cnt">
 				<span>Total price</span>
-				<strong><?php echo number_format(($tot_price*ratePrice()),4); ?></strong> 원 
+				<strong><?php echo number_format(($tot_price*ratePrice()),2); ?></strong> 원 
 			</li>
 		 
 		</ul>

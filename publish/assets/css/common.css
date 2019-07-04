@@ -166,6 +166,7 @@ legend {
 #container {
 	width: auto;
 	float: none;
+	min-height: 300px;
 }
 .shop-cart-list,
 .shop-wish-list {
