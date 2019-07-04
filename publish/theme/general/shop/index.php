@@ -38,6 +38,63 @@ include_once(G5_THEME_SHOP_PATH.'/shop.head.php');
 	</section>
 </div>
 
+<!-- BIGIN :: Banner -->
+<div class="container banners px-lg-0 py-lg-5">
+	<div class="row-5">
+		<div class="col-lg-20">
+			<div class="col-img">
+				<a href="#">
+					<img src="<?php echo G5_ASSETS_URL; ?>/img/index/banner/banner3-1.jpg" alt="banner3-1" class="img-fluid" />
+				</a>
+			</div>
+			<div class="col-img">
+				<a href="#">
+					<img src="<?php echo G5_ASSETS_URL; ?>/img/index/banner/banner3-2.jpg" alt="banner3-1" class="img-fluid" />
+				</a>
+			</div>
+		</div>
+		<div class="col-lg-20">
+			<div class="col-img">
+				<a href="#">
+					<img src="<?php echo G5_ASSETS_URL; ?>/img/index/banner/banner3-3.jpg" alt="banner3-1" class="img-fluid" />
+				</a>
+			</div>
+		</div>
+		<div class="col-lg-20">
+			<div class="col-img">
+				<a href="#">
+					<img src="<?php echo G5_ASSETS_URL; ?>/img/index/banner/banner3-4.jpg" alt="banner3-1" class="img-fluid" />
+				</a>
+			</div>
+			<div class="col-img">
+				<a href="#">
+					<img src="<?php echo G5_ASSETS_URL; ?>/img/index/banner/banner3-5.jpg" alt="banner3-1" class="img-fluid" />
+				</a>
+			</div>
+		</div>
+		<div class="col-lg-20">
+			<div class="col-img">
+				<a href="#">
+					<img src="<?php echo G5_ASSETS_URL; ?>/img/index/banner/banner3-6.jpg" alt="banner3-1" class="img-fluid" />
+				</a>
+			</div>
+		</div>
+		<div class="col-lg-20">
+			<div class="col-img">
+				<a href="#">
+					<img src="<?php echo G5_ASSETS_URL; ?>/img/index/banner/banner3-7.jpg" alt="banner3-1" class="img-fluid" />
+				</a>
+			</div>
+			<div class="col-img">
+				<a href="#">
+					<img src="<?php echo G5_ASSETS_URL; ?>/img/index/banner/banner3-8.jpg" alt="banner3-1" class="img-fluid" />
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END :: Banner -->
+
 <?php if($default['de_type1_list_use']) { ?>
 <!-- 히트상품 시작 { -->
 <div class="container px-lg-0">

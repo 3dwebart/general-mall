@@ -294,6 +294,23 @@ header.slide-product-header .more-div a {
 .icon-box p {
 	font-size: .8rem;
 }
+.banners a {
+	display: inline-block;
+	overflow: hidden;
+}
+.banners .col-img a img {
+	min-width: 100%;
+	transform: scale(1);
+	transition: all .5s ease;
+}
+.banners .col-img a:hover img {
+	transform: scale(1.2);
+	transition: all .5s ease;
+}
+.col-img + .col-img {
+	margin-top: 10px;
+}
+
 /* END :: Index custom */
 /* BIGIN :: Item Order form */
 #sod_frm #sod_bsk_tot li {
