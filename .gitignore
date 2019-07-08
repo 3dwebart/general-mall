@@ -1,0 +1,4 @@
+#.gitignore
+DATA_FILES/
+DS_Store*
+test*
