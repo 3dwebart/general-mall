@@ -394,6 +394,7 @@ CREATE TABLE IF NOT EXISTS `g5_shop_default` (
 DROP TABLE IF EXISTS `g5_shop_event`;
 CREATE TABLE IF NOT EXISTS `g5_shop_event` (
   `ev_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ev_kind` TINYINT(2) NOT NULL DEFAULT '0' COMMENT '0: 상품리스트형 / 1: 페이지형';
   `ev_skin` varchar(255) NOT NULL DEFAULT '',
   `ev_mobile_skin` varchar(255) NOT NULL DEFAULT '',
   `ev_img_width` int(11) NOT NULL DEFAULT '0',

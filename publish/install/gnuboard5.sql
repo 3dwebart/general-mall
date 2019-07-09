@@ -797,6 +797,7 @@ CREATE TABLE IF NOT EXISTS `g5_qa_content` (
 DROP TABLE IF EXISTS `g5_content`;
 CREATE TABLE IF NOT EXISTS `g5_content` (
   `co_id` varchar(20) NOT NULL DEFAULT '',
+  `co_kind` tinyint(2) NOT NULL DEFAULT '0',
   `co_html` tinyint(4) NOT NULL DEFAULT '0',
   `co_subject` varchar(255) NOT NULL DEFAULT '',
   `co_content` longtext NOT NULL,

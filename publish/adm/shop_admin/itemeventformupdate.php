@@ -26,8 +26,12 @@ $skin_regex_patten = "^list.[0-9]+\.skin\.php";
 
 $ev_skin = (preg_match("/$skin_regex_patten/", $ev_skin) && file_exists(G5_SHOP_SKIN_PATH.'/'.$ev_skin)) ? $ev_skin : ''; 
 $ev_mobile_skin = (preg_match("/$skin_regex_patten/", $ev_mobile_skin) && file_exists(G5_MSHOP_SKIN_PATH.'/'.$ev_mobile_skin)) ? $ev_mobile_skin : ''; 
+$ev_kind = $_POST['ev_kind'];
+$co_id   = $_POST['co_id'];
 
-$sql_common = " set ev_skin             = '$ev_skin',
+$sql_common = " set ev_kind             = '$ev_kind',
+                    co_id               = '$co_id',
+                    ev_skin             = '$ev_skin',
                     ev_mobile_skin      = '$ev_mobile_skin',
                     ev_img_width        = '$ev_img_width',
                     ev_img_height       = '$ev_img_height',
@@ -44,24 +48,19 @@ $sql_common = " set ev_skin             = '$ev_skin',
                     ev_subject_strong   = '$ev_subject_strong'
                     ";
 
-if ($w == "")
-{
+if ($w == "") {
     $ev_id = G5_SERVER_TIME;
 
     $sql = " insert {$g5['g5_shop_event_table']}
                     $sql_common
                   , ev_id = '$ev_id' ";
     sql_query($sql);
-}
-else if ($w == "u")
-{
+} else if ($w == "u") {
     $sql = " update {$g5['g5_shop_event_table']}
                 $sql_common
               where ev_id = '$ev_id' ";
     sql_query($sql);
-}
-else if ($w == "d")
-{
+} else if ($w == "d") {
     @unlink(G5_DATA_PATH."/event/{$ev_id}_m");
     @unlink(G5_DATA_PATH."/event/{$ev_id}_h");
     @unlink(G5_DATA_PATH."/event/{$ev_id}_t");
@@ -73,9 +72,15 @@ else if ($w == "d")
     $sql = " delete from {$g5['g5_shop_event_table']} where ev_id = '$ev_id' ";
     sql_query($sql);
 }
+if($ev_kind == 1) {
+    $co_sql = "UPDATE {$g5['content_table']} SET ev_id = '$ev_id' WHERE co_id = '$co_id'";
+    sql_query($co_sql);
+} else {
+    $co_sql = "UPDATE {$g5['content_table']} SET ev_id = '' WHERE ev_id = '$ev_id'";
+    sql_query($co_sql);
+}
 
-if ($w == "" || $w == "u")
-{
+if ($w == "" || $w == "u") {
     if ($_FILES['ev_mimg']['name']) upload_file($_FILES['ev_mimg']['tmp_name'], $ev_id."_m", G5_DATA_PATH."/event");
     if ($_FILES['ev_himg']['name']) upload_file($_FILES['ev_himg']['tmp_name'], $ev_id."_h", G5_DATA_PATH."/event");
     if ($_FILES['ev_timg']['name']) upload_file($_FILES['ev_timg']['tmp_name'], $ev_id."_t", G5_DATA_PATH."/event");
@@ -99,9 +104,7 @@ if ($w == "" || $w == "u")
     }
 
     goto_url("./itemeventform.php?w=u&amp;ev_id=$ev_id");
-}
-else
-{
+} else {
     goto_url("./itemevent.php");
 }
 ?>

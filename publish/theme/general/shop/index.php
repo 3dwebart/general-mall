@@ -10,12 +10,9 @@ define("_INDEX_", TRUE);
 
 include_once(G5_THEME_SHOP_PATH.'/shop.head.php');
 ?>
-
 <!-- 메인이미지 시작 { -->
-<div class="container px-lg-0 py-lg-5">
 <?php echo display_banner('메인', 'mainbanner.11.skin.php'); ?>
 <!-- } 메인이미지 끝 -->
-</div>
 <div class="container px-lg-0">
 	<section class="sct_wrap pb-4">
 	    <?php

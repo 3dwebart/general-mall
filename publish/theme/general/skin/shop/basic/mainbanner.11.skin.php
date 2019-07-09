@@ -13,13 +13,15 @@ $bn_slide_btn = '';
 $bn_sl = ' class="bn_sl"';
 
 $main_banners = array();
-
 for ($i=0; $row=sql_fetch_array($result); $i++)
 {
     $main_banners[] = $row;
 
-    if ($i==0) echo '<div id="main_bn">'.PHP_EOL.'<ul class="slide-wrap">'.PHP_EOL;
-    //print_r2($row);
+    if ($i==0) {
+        echo '<div class="container px-lg-0 py-lg-5">'.PHP_EOL;
+        echo '<div id="main_bn">'.PHP_EOL;
+        echo '<ul class="slide-wrap">'.PHP_EOL;
+    }
     // 테두리 있는지
     $bn_border  = ($row['bn_border']) ? ' class="sbn_border"' : '';;
     // 새창 띄우기인지
@@ -53,23 +55,12 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 
        
     }
-}
+} // ENd for
 
 if ($i > 0) {
-    echo '</ul>'.PHP_EOL;
-
-    /*
-    echo '<div id="bx_pager" class="bx_pager">
-    <ul>';
-		$k = 0;
-		foreach( $main_banners as $row ){
-			echo '<li> <a data-slide-index="'.$k.'" href="">'.get_text($row['bn_alt']).'</a></li>'.PHP_EOL;
-			$k++;
-		}
-    echo '</ul>
-    </div>'.PHP_EOL;
-    */
-    echo '</div>'.PHP_EOL;
+    echo '</ul>'.PHP_EOL; // Close of .slide-wrap UL
+    echo '</div>'.PHP_EOL; // Close of #main_bn DIV
+    echo '</div>'.PHP_EOL; // Close of .container DIV
 ?>
 
 <script>
@@ -87,5 +78,5 @@ jQuery(function($){
 </script>
 
 <?php
-}
+} // END if
 ?>

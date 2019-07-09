@@ -1272,6 +1272,7 @@ function display_banner($position, $skin='')
 		// 배너 출력
 		$sql = " select * from {$g5['g5_shop_banner_table']} where '".G5_TIME_YMDHIS."' between bn_begin_time and bn_end_time $sql_device and bn_position = '$position' order by bn_order, bn_id desc ";
 		$result = sql_query($sql);
+		$bannerCnt = sql_num_rows($result);
 
 		include $skin_path;
 	} else {
