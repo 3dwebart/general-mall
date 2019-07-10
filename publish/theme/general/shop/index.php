@@ -136,7 +136,7 @@ include_once(G5_THEME_SHOP_PATH.'/shop.head.php');
 <!-- } 추천상품 끝 -->
 <?php } ?>
 
-<?php include_once(G5_SHOP_SKIN_PATH.'/boxevent.skin.php'); // 이벤트 ?>
+<?php // include_once(G5_SHOP_SKIN_PATH.'/boxevent.skin.php'); // 이벤트 ?>
 
 <?php if($default['de_type3_list_use']) { ?>
 <!-- 최신상품 시작 { -->
@@ -179,16 +179,11 @@ include_once(G5_THEME_SHOP_PATH.'/shop.head.php');
 </div>
 <!-- } 할인상품 끝 -->
 <?php } ?>
-
 <div class="container px-lg-0 py-lg-5">
-	<div class="row-5">
-		<div class="col-6">
-			<img src="<?php echo G5_ASSETS_URL; ?>/img/index/banner/banner1.jpg" alt="" class="img-fluid" />
-		</div>
-		<div class="col-6">
-			<img src="<?php echo G5_ASSETS_URL; ?>/img/index/banner/banner2.jpg" alt="" class="img-fluid" />
-		</div>
-	</div>
+	<?php
+		// event id, 타입, 라인당 수, 최대 개수, row 클래스 종류
+		eventBanner(1562576439,1,2,2,'row-5');
+	?>
 </div>
 <div class="container icon-box px-lg-0 mb-5 text-center">
 	<div class="row">

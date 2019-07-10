@@ -5,7 +5,14 @@ define("_INDEX_", TRUE);
 
 include_once(G5_THEME_MSHOP_PATH.'/shop.head.php');
 ?>
-
+<style>
+@media(max-width: 991px) {
+	.event [class^="row"] [class^="col"] {
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+</style>
 <script src="<?php echo G5_JS_URL; ?>/swipe.js"></script>
 <script src="<?php echo G5_JS_URL; ?>/shop.mobile.main.js"></script>
 
@@ -152,8 +159,14 @@ include_once(G5_THEME_MSHOP_PATH.'/shop.head.php');
 	</div>
 	<?php } ?>
 
-	<?php include_once(G5_MSHOP_SKIN_PATH.'/main.event.skin.php'); // 이벤트 ?>
+	<?php // include_once(G5_MSHOP_SKIN_PATH.'/main.event.skin.php'); // 이벤트 ?>
 
+	<div class="container event px-0 py-0">
+		<?php
+			// event id, 타입, 라인당 수, 최대 개수, row 클래스 종류
+			eventBanner(1562576439,1,2,2,'row-5');
+		?>
+	</div>
 	<!-- 커뮤니티 최신글 시작 { -->
 	<section id="sidx_lat">
 		<?php echo latest('theme/shop_basic', 'notice', 3, 30); ?>

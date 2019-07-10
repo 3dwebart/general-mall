@@ -69,7 +69,11 @@ if(!sql_query(" select ev_mobile_list_row from {$g5['g5_shop_event_table']} limi
 
 include_once (G5_ADMIN_PATH.'/admin.head.php');
 ?>
-
+<style>
+.hidden {
+	display: none;
+}
+</style>
 <form name="feventform" action="./itemeventformupdate.php" onsubmit="return feventform_check(this);" method="post" enctype="MULTIPART/FORM-DATA">
 <input type="hidden" name="w" value="<?php echo $w; ?>">
 <input type="hidden" name="ev_id" value="<?php echo $ev_id; ?>">
@@ -134,7 +138,7 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
 				<?php
 					while ($co_row = sql_fetch_array($co_res)) {
 				?>
-				<option value="<?php echo $co_row['co_id']; ?>"><?php echo $co_row['co_subject']; ?></option>
+				<option value="<?php echo $co_row['co_id']; ?>"<?php echo ($co_row['co_id'] == $ev['co_id']) ? ' selected' : ''; ?>><?php echo $co_row['co_subject']; ?></option>
 				<?php
 					}
 				?>
@@ -371,6 +375,25 @@ include_once (G5_ADMIN_PATH.'/admin.head.php');
 
 <script>
 $(function() {
+	var selVal = $('#ev_kind option:selected').val();
+	if(selVal == 0) {
+		$('.ev-list').removeClass('hidden');
+		$('.ev-page').addClass('hidden');
+	} else if(selVal == 1) {
+		$('.ev-list').addClass('hidden');
+		$('.ev-page').removeClass('hidden');
+	}
+
+	$('#ev_kind').on('change', function() {
+		var selVal = $(this).val();
+		if(selVal == 0) {
+			$('.ev-list').removeClass('hidden');
+			$('.ev-page').addClass('hidden');
+		} else if(selVal == 1) {
+			$('.ev-list').addClass('hidden');
+			$('.ev-page').removeClass('hidden');
+		}
+	});
 	$(".shop_event").on("click", function() {
 		if(!confirm("현재 테마의 스킨, 이미지 사이즈 등의 설정을 적용하시겠습니까?"))
 			return false;
