@@ -21,21 +21,21 @@ include_once(G5_THEME_MSHOP_PATH.'/shop.head.php');
 <div class="container px-lg-0">
 	<section class="sct_wrap mx-0 pb-4">
 	    <?php
-	    $list = new item_list();
-	    $list->set_category('c0', 1);
-	    $list->set_list_mod(2);
-	    $list->set_list_row(3);
-	    $list->set_img_size(400, 500);
-	    $list->set_list_skin(G5_MSHOP_SKIN_PATH.'/main.16.skin.php');
-	    $list->set_view('it_img', true);
-	    $list->set_view('it_id', false);
-	    $list->set_view('it_name', true);
-	    $list->set_view('it_basic', true);
-	    $list->set_view('it_cust_price', true);
-	    $list->set_view('it_price', true);
-	    $list->set_view('it_icon', true);
-	    $list->set_view('sns', false);
-	    echo $list->run();
+		    $list = new item_list();
+		    $list->set_category('c0', 1);
+		    $list->set_list_mod(2);
+		    $list->set_list_row(3);
+		    $list->set_img_size(400, 500);
+		    $list->set_list_skin(G5_MSHOP_SKIN_PATH.'/main.16.skin.php');
+		    $list->set_view('it_img', true);
+		    $list->set_view('it_id', false);
+		    $list->set_view('it_name', true);
+		    $list->set_view('it_basic', true);
+		    $list->set_view('it_cust_price', true);
+		    $list->set_view('it_price', true);
+		    $list->set_view('it_icon', true);
+		    $list->set_view('sns', false);
+		    echo $list->run();
 	    ?>
 	</section>
 </div>
@@ -45,16 +45,16 @@ include_once(G5_THEME_MSHOP_PATH.'/shop.head.php');
 	<?php if($default['de_mobile_type1_list_use']) { ?>
 	<div class="sct_wrap mx-0">
 		<?php
-		$list = new item_list();
-		$list->set_mobile(true);
-		$list->set_type(1);
-		//$list->set_view('it_id', false);
-		$list->set_view('it_name', true);
-		$list->set_view('it_cust_price', true);
-		$list->set_view('it_price', true);
-		//$list->set_view('it_icon', true);
-		//$list->set_view('sns', true);
-		echo $list->run();
+			$list = new item_list();
+			$list->set_mobile(true);
+			$list->set_type(1);
+			//$list->set_view('it_id', false);
+			$list->set_view('it_name', true);
+			$list->set_view('it_cust_price', true);
+			$list->set_view('it_price', true);
+			//$list->set_view('it_icon', true);
+			//$list->set_view('sns', true);
+			echo $list->run();
 		?>
 	</div>
 	<?php } ?>
@@ -70,16 +70,16 @@ include_once(G5_THEME_MSHOP_PATH.'/shop.head.php');
 			</header>
 		</div>
 		<?php
-		$list = new item_list();
-		$list->set_mobile(true);
-		$list->set_type(2);
-		$list->set_view('it_id', false);
-		$list->set_view('it_name', true);
-		$list->set_view('it_cust_price', true);
-		$list->set_view('it_price', true);
-		$list->set_view('it_icon', true);
-		$list->set_view('sns', true);
-		echo $list->run();
+			$list = new item_list();
+			$list->set_mobile(true);
+			$list->set_type(2);
+			$list->set_view('it_id', false);
+			$list->set_view('it_name', true);
+			$list->set_view('it_cust_price', true);
+			$list->set_view('it_price', true);
+			// $list->set_view('it_icon', true);
+			// $list->set_view('sns', true);
+			echo $list->run();
 		?>
 	</div>
 	<?php } ?>
@@ -95,16 +95,16 @@ include_once(G5_THEME_MSHOP_PATH.'/shop.head.php');
 			</header>
 		</div>
 		<?php
-		$list = new item_list();
-		$list->set_mobile(true);
-		$list->set_type(3);
-		$list->set_view('it_id', false);
-		$list->set_view('it_name', true);
-		$list->set_view('it_cust_price', true);
-		$list->set_view('it_price', true);
-		$list->set_view('it_icon', true);
-		$list->set_view('sns', true);
-		echo $list->run();
+			$list = new item_list();
+			$list->set_mobile(true);
+			$list->set_type(3);
+			$list->set_view('it_id', false);
+			$list->set_view('it_name', true);
+			$list->set_view('it_cust_price', true);
+			$list->set_view('it_price', true);
+			// $list->set_view('it_icon', true);
+			// $list->set_view('sns', true);
+			echo $list->run();
 		?>
 	</div>
 	<?php } ?>
@@ -120,16 +120,16 @@ include_once(G5_THEME_MSHOP_PATH.'/shop.head.php');
 			</header>
 		</div>
 		<?php
-		$list = new item_list();
-		$list->set_mobile(true);
-		$list->set_type(4);
-		$list->set_view('it_id', false);
-		$list->set_view('it_name', true);
-		$list->set_view('it_cust_price', false);
-		$list->set_view('it_price', true);
-		$list->set_view('it_icon', false);
-		$list->set_view('sns', false);
-		echo $list->run();
+			$list = new item_list();
+			$list->set_mobile(true);
+			$list->set_type(4);
+			$list->set_view('it_id', false);
+			$list->set_view('it_name', true);
+			$list->set_view('it_cust_price', false);
+			$list->set_view('it_price', true);
+			// $list->set_view('it_icon', false);
+			// $list->set_view('sns', false);
+			echo $list->run();
 		?>
 	</div>
 	<?php } ?>
@@ -145,16 +145,16 @@ include_once(G5_THEME_MSHOP_PATH.'/shop.head.php');
 			</header>
 		</div>
 		<?php
-		$list = new item_list();
-		$list->set_mobile(true);
-		$list->set_type(5);
-		$list->set_view('it_id', false);
-		$list->set_view('it_name', true);
-		$list->set_view('it_cust_price', false);
-		$list->set_view('it_price', true);
-		$list->set_view('it_icon', false);
-		$list->set_view('sns', false);
-		echo $list->run();
+			$list = new item_list();
+			$list->set_mobile(true);
+			$list->set_type(5);
+			$list->set_view('it_id', false);
+			$list->set_view('it_name', true);
+			$list->set_view('it_cust_price', false);
+			$list->set_view('it_price', true);
+			// $list->set_view('it_icon', false);
+			// $list->set_view('sns', false);
+			echo $list->run();
 		?>
 	</div>
 	<?php } ?>
@@ -164,7 +164,8 @@ include_once(G5_THEME_MSHOP_PATH.'/shop.head.php');
 	<div class="container event px-0 py-0">
 		<?php
 			// event id, 타입, 라인당 수, 최대 개수, row 클래스 종류
-			eventBanner(1562576439,1,2,2,'row-5');
+			// event id는 single로 사용할 경우 기입 / 멀티 사용 : false
+			eventBanner(false,1,2,2,'row-5');
 		?>
 	</div>
 	<!-- 커뮤니티 최신글 시작 { -->

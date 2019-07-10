@@ -182,7 +182,7 @@ include_once(G5_THEME_SHOP_PATH.'/shop.head.php');
 <div class="container px-lg-0 py-lg-5">
 	<?php
 		// event id, 타입, 라인당 수, 최대 개수, row 클래스 종류
-		eventBanner(1562576439,1,2,2,'row-5');
+		eventBanner(false,1,2,2,'row-5');
 	?>
 </div>
 <div class="container icon-box px-lg-0 mb-5 text-center">

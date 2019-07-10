@@ -101,7 +101,12 @@ function eventBanner($ev_id,$type,$listMod,$limit,$rowClass = 'row') {
 	}
 
 	$html = '';
-	$sql = "SELECT * FROM g5_shop_event WHERE ev_kind = '$type' LIMIT 0,$limit";
+	if($ev_id == false) {
+		$whereAdd = '';
+	} else {
+		$whereAdd = " AND ev_id = '$ev_id'";
+	}
+	$sql = "SELECT * FROM g5_shop_event WHERE ev_kind = '$type'$whereAdd LIMIT 0,$limit";
 	$result = sql_query($sql);
 	$cnt = sql_num_rows($result);
 
