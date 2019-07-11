@@ -425,9 +425,10 @@ else {
 			echo '<input type="hidden" name="icon_img" value="'.$is_icon_file.'">';
 		}
 		?>
-		<label for="ca_1_subj">아이콘 타입</label>
+		<label for="ca_1_subj">메뉴 아이콘 삽입</label>
 		<select name="ca_1_subj" id="ca_1_subj">
-			<option value="awsome-icon"<?php echo ($ca['ca_1_subj'] == '' || $ca['ca_1_subj'] == 'awsome-icon') ? ' selected' : ''; ?>>Awsome font</option>
+			<option value=""<?php echo ($ca['ca_1_subj'] == '') ? ' selected' : ''; ?>>No icons</option>
+			<option value="awsome-icon"<?php echo ($ca['ca_1_subj'] == 'awsome-icon') ? ' selected' : ''; ?>>Awsome font</option>
 			<option value="lnr-icon"<?php echo ($ca['ca_1_subj'] == 'lnr-icon') ? ' selected' : ''; ?>>lnr font</option>
 			<option value="img-icon"<?php echo ($ca['ca_1_subj'] == 'img-icon') ? ' selected' : ''; ?>>image icon</option>
 		</select>
@@ -544,33 +545,46 @@ $(function() {
 		var $button = $("#ca_"+id+"_view");
 		$button.text($button.text().replace("닫기", "확인"));
 	});
+});
+<?php } ?>
+(function($) {
 	var caFirst = jQuery('#ca_1_subj option:selected').val();
 	var iconMessage = '현재 등록된 아이콘이 없습니다.';
 	if(caFirst == 'awsome-icon') {
 		var iconName = "<?php echo $ca['ca_1']; ?>";
 		if(iconName.substring(0,2) == 'fa') {
 			$('#iconName').val(iconName);
+			$('#iconName').show();
 		}
 		iconMessage = '현재 등록된 아이콘은 <span class="red-text">Awsome font 아이콘</span> 입니다.';
 	}
 	if(caFirst == 'lnr-icon') {
 		var iconName = "<?php echo $ca['ca_1']; ?>";
-		if(iconName.substring(0,3) == 'ln') {
+		if(iconName.substring(0,3) == 'lnr') {
 			$('#iconName').val(iconName);
+			$('#iconName').show();
 		}
 		iconMessage = '현재 등록된 아이콘은 <span class="red-text">lnr font 아이콘</span> 입니다.';
 	}
 	if(caFirst == 'img-icon') {
 		var iconName = "<?php echo $ca['ca_1']; ?>";
+		$('#iconName').show();
 		$('#iconName').val(iconName);
 		$('#iconName').attr('name','ca_1');
 		$('#iconName').prop('type','file');
 		$('#iconName').removeClass('frm_input');
 		iconMessage = '현재 등록된 아이콘은 <span class="red-text">이미지 아이콘</span> 입니다.';
 	}
+	if(caFirst == '') {
+		var iconName = "<?php echo $ca['ca_1']; ?>";
+		$('#iconName').attr('name','ca_1');
+		$('#iconName').hide();
+		iconMessage = '현재 등록된 아이콘은 없습니다.';
+	}
 	$('.icon-message').html(iconMessage);
 	$(document).on('change', '#ca_1_subj', function() {
 		if($(this).val() == 'img-icon') {
+			$('#iconName').show();
 			$('#iconName').attr('name', 'ca_1');
 			$('#iconName').prop('type', 'file');
 			//$('#iconName').val("<?php echo $ca['ca_1']; ?>");
@@ -579,6 +593,7 @@ $(function() {
 			$('#iconName').addClass('frm_input');
 			var iconName = "<?php echo $ca['ca_1']; ?>";
 			if($(this).val() == 'awsome-icon') {
+				$('#iconName').show();
 				$('#iconName').attr('name', 'ca_1');
 				$('#iconName').prop('type','text');
 				if(iconName.substring(0,2) == 'fa') {
@@ -588,6 +603,7 @@ $(function() {
 				}
 			}
 			if($(this).val() == 'lnr-icon') {
+				$('#iconName').show();
 				$('#iconName').attr('name', 'ca_1');
 				$('#iconName').prop('type','text');
 				if(iconName.substring(0,3) == 'lnr') {
@@ -596,10 +612,12 @@ $(function() {
 					$('#iconName').val("");
 				}
 			}
+			if($(this).val() == '') {
+				$('#iconName').hide();
+			}
 		}
 	});
-});
-<?php } ?>
+})(jQuery);
 
 function fcategoryformcheck(f)
 {

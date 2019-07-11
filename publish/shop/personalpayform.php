@@ -13,7 +13,7 @@ if(!$pp['pp_id'])
 if($pp['pp_tno'])
     alert('이미 결제하신 개인결제 내역입니다.');
 
-$g5['title'] = $pp['pp_name'].'님 개인결제';
+$g5['title'] = $pp['pp_name'].' personal payment';
 
 if(G5_IS_MOBILE)
     include_once(G5_MSHOP_PATH.'/_head.php');
@@ -37,7 +37,7 @@ if($default['de_escrow_use']) {
 // 주문폼과 공통 사용을 위해 추가
 $od_id = $pp_id;
 $tot_price = $pp['pp_price'];
-$goods = $pp['pp_name'].'님 개인결제';
+$goods = $pp['pp_name'].' personal payment';
 
 if($default['de_pg_service'] == 'inicis')
     set_session('ss_order_inicis_id', $od_id);

@@ -16,42 +16,44 @@ require_once(G5_SHOP_PATH.'/'.$default['de_pg_service'].'/orderform.1.php');
     ?>
 
     <section id="sod_frm_pay" class="pesonal sod_left ">
-        <h2>개인결제정보</h2>
+        <h2>Personal payment info</h2>
 
         <div class="tbl_frm01 tbl_wrap ">
             <table>
-            <tbody>
-            <?php if(trim($pp['pp_content'])) { ?>
-            <tr>
-                <th>상세내용</th>
-                <td><?php echo conv_content($pp['pp_content'], 0); ?></td>
-            </tr>
-            <?php } ?>
-            <tr>
-                <th>결제금액</th>
-                <td><?php echo display_price($pp['pp_price']); ?></td>
-            </tr>
-            <tr>
-                <th scope="row"><label for="pp_name">이름<strong class="sound_only"> 필수</strong></label></th>
-                <td><input type="text" name="pp_name" value="<?php echo get_text($pp['pp_name']); ?>" id="pp_name" required class="required frm_input"></td>
-            </tr>
-            <tr>
-                <th scope="row"><label for="pp_email">이메일<strong class="sound_only"> 필수</strong></label></th>
-                <td><input type="text" name="pp_email" value="<?php echo $member['mb_email']; ?>" id="pp_email" required class="required frm_input" size="30"></td>
-            </tr>
-            <tr>
-                <th scope="row"><label for="pp_hp">휴대폰</label></th>
-                <td><input type="text" name="pp_hp" value="<?php echo get_text($member['mb_hp']); ?>" id="pp_hp" required class="required frm_input"></td>
-            </tr>
-            </tbody>
+                <colgroup>
+                    <col width="30%">
+                    <col width="*">
+                </colgroup>
+                <tbody>
+                    <?php if(trim($pp['pp_content'])) { ?>
+                    <tr>
+                        <th>Detail</th>
+                        <td><?php echo conv_content($pp['pp_content'], 0); ?></td>
+                    </tr>
+                    <?php } ?>
+                    <tr>
+                        <th>Amount of payment</th>
+                        <td><?php echo display_price($pp['pp_price']); ?></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="pp_name">Name<strong class="sound_only"> 필수</strong></label></th>
+                        <td><input type="text" name="pp_name" value="<?php echo get_text($pp['pp_name']); ?>" id="pp_name" required class="required frm_input"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="pp_email">Email<strong class="sound_only"> 필수</strong></label></th>
+                        <td><input type="text" name="pp_email" value="<?php echo $member['mb_email']; ?>" id="pp_email" required class="required frm_input" size="30"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="pp_hp">Cell phone</label></th>
+                        <td><input type="text" name="pp_hp" value="<?php echo get_text($member['mb_hp']); ?>" id="pp_hp" required class="required frm_input"></td>
+                    </tr>
+                </tbody>
             </table>
         </div>
-
-        
     </section>
 
     <div class="sod_right" id="personal_pay">
-        <h2>결제수단</h2>
+        <h2>Method of payment</h2>
         <?php
         $multi_settle = 0;
         $checked = '';
@@ -115,8 +117,6 @@ require_once(G5_SHOP_PATH.'/'.$default['de_pg_service'].'/orderform.1.php');
     </div>
 
 </form>
-
-
 
 <script>
 function forderform_check(f)
