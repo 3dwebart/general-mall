@@ -7,7 +7,7 @@ if (G5_IS_MOBILE) {
 }
 
 if(G5_COMMUNITY_USE === false) {
-    include_once(G5_THEME_SHOP_PATH.'/shop.head.php');
+    include_once(G5_THEME_MSHOP_PATH.'/shop.head.php');
     return;
 }
 include_once(G5_THEME_PATH.'/head.sub.php');
