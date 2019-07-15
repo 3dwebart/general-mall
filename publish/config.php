@@ -1,7 +1,7 @@
 <?php
 
 /********************
-    상수 선언
+	상수 선언
 ********************/
 
 define('G5_VERSION', '그누보드5');
@@ -12,12 +12,12 @@ define('G5_YOUNGCART_VER', '5.3.3');
 define('_GNUBOARD_', true);
 
 if (PHP_VERSION >= '5.1.0') {
-    //if (function_exists("date_default_timezone_set")) date_default_timezone_set("Asia/Seoul");
-    date_default_timezone_set("Asia/Seoul");
+	//if (function_exists("date_default_timezone_set")) date_default_timezone_set("Asia/Seoul");
+	date_default_timezone_set("Asia/Seoul");
 }
 
 /********************
-    경로 상수
+	경로 상수
 ********************/
 
 /*
@@ -65,18 +65,18 @@ define('G5_THEME_DIR',      'theme');
 
 // URL 은 브라우저상에서의 경로 (도메인으로 부터의)
 if (G5_DOMAIN) {
-    define('G5_URL', G5_DOMAIN);
+	define('G5_URL', G5_DOMAIN);
 } else {
-    if (isset($g5_path['url']))
-        define('G5_URL', $g5_path['url']);
-    else
-        define('G5_URL', '');
+	if (isset($g5_path['url']))
+		define('G5_URL', $g5_path['url']);
+	else
+		define('G5_URL', '');
 }
 
 if (isset($g5_path['path'])) {
-    define('G5_PATH', $g5_path['path']);
+	define('G5_PATH', $g5_path['path']);
 } else {
-    define('G5_PATH', '');
+	define('G5_PATH', '');
 }
 
 define('G5_ADMIN_URL',      G5_URL.'/'.G5_ADMIN_DIR);
@@ -133,7 +133,7 @@ define('G5_USE_CACHE',  true); // 최신글등에 cache 기능 사용 여부
 
 
 /********************
-    시간 상수
+	시간 상수
 ********************/
 // 서버의 시간과 실제 사용하는 시간이 틀린 경우 수정하세요.
 // 하루는 86400 초입니다. 1시간은 3600초
@@ -167,7 +167,7 @@ define('G5_SMTP_PORT', '25');
 
 
 /********************
-    기타 상수
+	기타 상수
 ********************/
 
 // 암호화 함수 지정
@@ -217,8 +217,8 @@ define('G5_VISIT_BROWSCAP_USE', false);
 define('G5_IP_DISPLAY', '\\1.♡.\\3.\\4');
 
 if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']=='on') {   //https 통신일때 daum 주소 js
-    define('G5_POSTCODE_JS', '<script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>');
+	define('G5_POSTCODE_JS', '<script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>');
 } else {  //http 통신일때 daum 주소 js
-    define('G5_POSTCODE_JS', '<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>');
+	define('G5_POSTCODE_JS', '<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>');
 }
 ?>
