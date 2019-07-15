@@ -479,7 +479,7 @@ if(!sql_query(" select it_skin from {$g5['g5_shop_item_table']} limit 1", false)
 					</tr>
 					<tr>
 						<th scope="row"><label for="it_shop_memo">상점메모</label></th>
-						<td><textarea name="it_shop_memo" id="it_shop_memo"><?php echo $it['it_shop_memo']; ?></textarea></td>
+						<td><textarea name="it_shop_memo" id="it_shop_memo"><?php echo html_purifier($it['it_shop_memo']); ?></textarea></td>
 						<td class="td_grpset">
 							<input type="checkbox" name="chk_ca_it_shop_memo" value="1" id="chk_ca_it_shop_memo">
 							<label for="chk_ca_it_shop_memo">분류적용</label>
