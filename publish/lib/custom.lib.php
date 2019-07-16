@@ -99,7 +99,7 @@ function eventBanner($ev_id,$type,$listMod,$limit,$rowClass = 'row') {
 		break;
 		
 		default:
-			$col_class = 'col';
+			$col_class = 'col-lg';
 		break;
 	}
 

@@ -1,10 +1,6 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "root";
-$db = "3dwebart";
-// Create connection
-$conn = new mysqli($servername, $username, $password, $db);
+
+include_once('./_common.php');
 
 // Check connection
 if ($conn->connect_error) {
@@ -13,9 +9,14 @@ if ($conn->connect_error) {
 echo "Connected successfully";
 $sql = "SHOW VARIABLES LIKE 'version'";
 //$sql = "SELECT count(id) AS cnt FROM bo_table_poetry1 ";
-$res = mysqli_query($conn, $sql);
-$row = mysqli_fetch_array($res);
+//$res = sql_query($sql);
+$row = sql_fetch($sql);
 $v = $row['Value'];
+if(PHP_VERSION >= 5.1) {
+	$vChk = 'l v';
+} else {
+	$vChk = 's v';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,8 +26,11 @@ $v = $row['Value'];
 </head>
 <body>
 <h1>PHP to JS Array</h1>
+<h1>php version chk : <?php echo $vChk; ?></h1>
 <h1>php version : <?php echo PHP_VERSION; ?></h1>
 <h1>mysql version : <?php echo $v; ?></h1>
+<h4>SESSION : <?php print_r($_SESSION); ?></h4>
+<h5>Shop default test : <?php echo $default['de_settle_max_point']; ?></h5>
 <?php
 $arr = array();
 $arr = [
@@ -55,6 +59,3 @@ $arr = [
 </script>
 </body>
 </html>
-<?php
-mysql_close($conn);
-?>
