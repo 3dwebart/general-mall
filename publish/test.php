@@ -1,3 +1,22 @@
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "root";
+$db = "3dwebart";
+// Create connection
+$conn = new mysqli($servername, $username, $password, $db);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+echo "Connected successfully";
+$sql = "SHOW VARIABLES LIKE 'version'";
+//$sql = "SELECT count(id) AS cnt FROM bo_table_poetry1 ";
+$res = mysqli_query($conn, $sql);
+$row = mysqli_fetch_array($res);
+$v = $row['Value'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +25,8 @@
 </head>
 <body>
 <h1>PHP to JS Array</h1>
+<h1>php version : <?php echo PHP_VERSION; ?></h1>
+<h1>mysql version : <?php echo $v; ?></h1>
 <?php
 $arr = array();
 $arr = [
@@ -34,3 +55,6 @@ $arr = [
 </script>
 </body>
 </html>
+<?php
+mysql_close($conn);
+?>

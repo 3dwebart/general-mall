@@ -2902,7 +2902,7 @@ function get_search_string($stx)
 }
 
 // XSS 관련 태그 제거
-ffunction clean_xss_tags($str, $check_entities=0)
+function clean_xss_tags($str, $check_entities=0)
 {
     $str_len = strlen($str);
     
