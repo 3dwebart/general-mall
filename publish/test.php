@@ -2,11 +2,12 @@
 
 include_once('./_common.php');
 
+$_SESSION['language'] = 'kor';
+
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
-echo "Connected successfully";
 $sql = "SHOW VARIABLES LIKE 'version'";
 //$sql = "SELECT count(id) AS cnt FROM bo_table_poetry1 ";
 //$res = sql_query($sql);
@@ -21,15 +22,29 @@ if(PHP_VERSION >= 5.1) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Document</title>
+<meta charset="UTF-8">
+<title>Document</title>
+<style>
+.session {
+	display: flex;
+	flex-direction: row;
+}
+.session > strong {
+	flex: 0 0 25%;
+	max-width: 25%;
+	text-align: right;
+}
+.session > span {
+	flex: 0 0 75%;
+	max-width: 75%;
+}
+</style>
 </head>
 <body>
 <h1>PHP to JS Array</h1>
 <h1>php version chk : <?php echo $vChk; ?></h1>
 <h1>php version : <?php echo PHP_VERSION; ?></h1>
 <h1>mysql version : <?php echo $v; ?></h1>
-<h4>SESSION : <?php print_r($_SESSION); ?></h4>
 <h5>Shop default test : <?php echo $default['de_settle_max_point']; ?></h5>
 <?php
 $arr = array();
@@ -57,5 +72,18 @@ $arr = [
 	console.log(jArr);
 })(jQuery);
 </script>
+<h1>G5 SESSION</h1>
+<?php
+foreach ($_SESSION as $key => $value) {
+	echo "<div class=\"session\">";
+	echo "<strong>";
+	echo $key;
+	echo " &nbsp;&nbsp;</strong>";
+	echo " : &nbsp;&nbsp;<span>";
+	echo $value;
+	echo "</span>";
+	echo "</div>";
+}
+?>
 </body>
 </html>
