@@ -59,12 +59,15 @@ function ratePrice() {
 
 function eventBanner($ev_id,$type,$listMod,$limit,$rowClass = 'row') {
 	/*
+		$ev_id : 값이 false 가 아니면 멀티 있으면 싱글 작동
 		$type : 이벤트 종류(클릭시 변경) 
 		        0 : 리스트형
 		        1 : 페이지형
 		$listMod : 라인당 이벤트 배너 개수
 		$limit : 전체 이벤트 배너 수
-		$rowClass : 전체 이벤트 배너 수
+		$rowClass : 이벤트 배너간 좌우 간격
+		- 기본 row : 좌+우 15px = 30px
+		- row-5 를 넣으면 좌+우 5px = 10px
 	*/
 	switch ($listMod) {
 		case 1:
