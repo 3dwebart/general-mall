@@ -85,5 +85,35 @@ foreach ($_SESSION as $key => $value) {
 	echo "</div>";
 }
 ?>
+<?php
+	$base = 5000;
+	$plus = 3000;
+	echo "<h4>초기 금액 : ".$base." / 증가액 : ".$plus."</h4>";
+	$calc = 0;
+	$total = 0;
+	for ($i=1; $i <= 26; $i++) {
+		if ($i == 1) {
+			$calc = $base;
+			$total = $total + $calc;
+		} else {
+			$calc = $calc + $plus;
+			$total = $total + $calc;
+		}
+		echo "<div>";
+		echo "<span>";
+		echo "기본금";
+		echo "</span> / ";
+		echo "<span>";
+		echo $i."주차";
+		echo "</span> / ";
+		echo "<span>";
+		echo "금액 : ".number_format($calc);
+		echo "</span> / ";
+		echo "<span>";
+		echo "Total : ".number_format($total);
+		echo "</span>";
+		echo "</div>";
+	}
+?>
 </body>
 </html>

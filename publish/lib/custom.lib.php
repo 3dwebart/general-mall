@@ -57,7 +57,7 @@ function ratePrice() {
 	return $priceRate;
 }
 
-function eventBanner($ev_id,$type,$listMod,$limit,$rowClass = 'row') {
+function eventBanner($type,$listMod,$limit,$rowClass = 'row',$ev_id = false) {
 	/*
 		$ev_id : 값이 false 가 아니면 멀티 있으면 싱글 작동
 		$type : 이벤트 종류(클릭시 변경) 
@@ -118,7 +118,7 @@ function eventBanner($ev_id,$type,$listMod,$limit,$rowClass = 'row') {
 	}
 
 	for ($i = 0; $row = sql_fetch_array($result); $i++) {
-		if($i == 0) {
+		if($i == 0 && $ev_id == false) {
 			$html .= '<div class="'.$rowClass.'">';
 		}
 		if($type == 0) {
@@ -127,14 +127,17 @@ function eventBanner($ev_id,$type,$listMod,$limit,$rowClass = 'row') {
 		if($type == 1) {
 			$link = G5_BBS_URL.'/content.php?co_id='.$row['co_id'];
 		}
-		
-		$html .= '<div class="'.$col_class.'">';
+		if ($ev_id == false) {
+			$html .= '<div class="'.$col_class.'">';
+		}
 		$html .= '<a href="'.$link.'">';
 		$html .= '<img src="'.G5_DATA_URL.'/event/'.$row['ev_id'].'_m" alt="'.$row['ev_id'].'" class="img-fluid" />';
 		$html .= '</a>';
-		$html .= '</div>';
+		if ($ev_id == false) {
+			$html .= '</div>';
+		}
 	}
-	if($i > 0) {
+	if($i > 0 && $ev_id == false) {
 		$html .= '</div>';
 	}
 

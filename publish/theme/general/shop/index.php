@@ -182,8 +182,12 @@ include_once(G5_THEME_SHOP_PATH.'/shop.head.php');
 <?php } ?>
 <div class="container px-lg-0 py-lg-5">
 	<?php
-		// event id, 타입, 라인당 수, 최대 개수, row 클래스 종류
-		eventBanner(false,1,2,2,'row-5');
+		/*
+			타입, 라인당 수, 최대 개수, row 클래스 종류, event id
+			event id는 single로 사용할 경우 기입 / 멀티 사용 : false
+			타입  0 : 리스트형 / 1 : 페이지형, 1 라인당 보여질 이벤트 수, 최대 개수, row 클래스 종류, event id
+		*/
+		eventBanner(1,2,2,'row-5');
 	?>
 </div>
 <div class="container icon-box px-lg-0 mb-5 text-center">
