@@ -73,6 +73,7 @@ if( $co_include_tail && ! is_include_path_check($co_include_tail, 1) ){
 
 $co_kind = $_POST['co_kind'];
 //$ev_id   = $_POST['ev_id'];
+// ev_id 는 이벤트 페이지에서 페이지 선택 후 자동으로 입력됨
 
 $sql_common = " co_include_head     = '$co_include_head',
                 co_include_tail     = '$co_include_tail',
