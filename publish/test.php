@@ -73,16 +73,37 @@ $arr = [
 })(jQuery);
 </script>
 <h1>G5 SESSION</h1>
+
 <?php
+echo "<div style='width: 100%; background-color: #333; padding: 3px 0; text-align: center;'><span style='background-color: #fff; padding: 15px 20px;display: inline-block;'>print_r</span></div>";
+echo "<div style='padding: 10px 15px;border-left: 3px solid #333; border-right: 3px solid #333;'>";
+print_r($_SESSION);
+echo "</div>";
+echo "<div style='width: 100%; height: 3px; background-color: #333;margin-bottom: 20px;'></div>";
+
 foreach ($_SESSION as $key => $value) {
-	echo "<div class=\"session\">";
-	echo "<strong>";
-	echo $key;
-	echo " &nbsp;&nbsp;</strong>";
-	echo " : &nbsp;&nbsp;<span>";
-	echo $value;
-	echo "</span>";
-	echo "</div>";
+	if ($key == 'HA::STORE' || $key == 'HA::CONFIG') {
+		for ($i=0; $i < count($value); $i++) { 
+			echo "<div class=\"session\">";
+			echo "<strong>";
+			echo $key;
+			echo " &nbsp;&nbsp;</strong>";
+			echo " : &nbsp;&nbsp;<span>";
+			echo $value[$i];
+			echo "</span>";
+			echo "</div>";
+		}
+	} else {
+		echo "<div class=\"session\">";
+		echo "<strong>";
+		echo $key;
+		echo " &nbsp;&nbsp;</strong>";
+		echo " : &nbsp;&nbsp;<span>";
+		echo $value;
+		echo "</span>";
+		echo "</div>";
+	}
+	
 }
 ?>
 <?php
