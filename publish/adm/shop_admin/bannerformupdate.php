@@ -56,7 +56,6 @@ if ($w=="")
                     bn_hit        = '0',
                     bn_order      = '$bn_order' ";
     sql_query($sql);
-
     $bn_id = sql_insert_id();
 }
 else if ($w=="u")
@@ -81,7 +80,6 @@ else if ($w=="d")
     $sql = " delete from {$g5['g5_shop_banner_table']} where bn_id = $bn_id ";
     $result = sql_query($sql);
 }
-
 
 if ($w == "" || $w == "u")
 {

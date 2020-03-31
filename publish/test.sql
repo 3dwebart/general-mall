@@ -1,0 +1,1 @@
+SELECT * FROM g5_shop_default
